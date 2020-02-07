@@ -1,0 +1,30 @@
+{
+  "name": "queens-brothel-mod",
+  "version": "1.0.0",
+  "description": "Helps create mods for Queen's Brothel",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js & start http://localhost:3000",
+    "build": "gulp"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DPMakerQB/queens-brothel-mod.git"
+  },
+  "author": "DPMaker",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/DPMakerQB/queens-brothel-mod/issues"
+  },
+  "homepage": "https://github.com/DPMakerQB/queens-brothel-mod#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "cors": "^2.8.5",
+    "del": "^5.1.0",
+    "gulp": "^4.0.2",
+    "gulp-zip": "^5.0.1"
+  }
+}

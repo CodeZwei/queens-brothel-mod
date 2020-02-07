@@ -1,0 +1,8 @@
+{
+  "id": "MyMod",
+  "name": "My Mod",
+  "description": "This is my mod.",
+  "version": "1.0",
+  "compatible": "0.8.2",
+  "script": "mod.js"
+}
