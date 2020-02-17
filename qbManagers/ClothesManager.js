@@ -3,12 +3,12 @@ class Clothes {
      * @constructor
      * @param {string} id
      * @param {string} girl
-     * @param {boolean} unlockedByDefault
+     * @param {boolean} [unlockedByDefault=false]
      * @property {string} id
      * @property {string} face
      * @property {string} body
      * @property {boolean} visible
-     * @property {string} girl
+     * @property {Girl} Girl
      * @property {string} name
      * @property {string} description
      * @property {number} level
@@ -42,8 +42,8 @@ class Clothes {
 
         this.face = "Default";
         this.body = "Default";
-        this.visible = false;
-        this.girl = girl;
+        this.visible = this.unlockedByDefault || false;
+        this.Girl = GAME.girl.getGirl(girl);
         this.name = "";
         this.description = "";
         this.level = 0;
@@ -293,7 +293,7 @@ class Clothes {
      * @returns {Clothes}
      */
     setGirl(girl) {
-        this.girl = girl;
+        this.Girl = GAME.girl.getGirl(girl);
         return this;
     }
 
@@ -301,10 +301,10 @@ class Clothes {
      * @method getGirl
      * @memberOf Clothes
      * @instance
-     * @returns {string}
+     * @returns {Girl}
      */
     getGirl() {
-        return this.girl;
+        return this.Girl;
     }
 
     /**
@@ -456,25 +456,22 @@ class ClothesManager {
 
     _initClothes() {
         // Queen
-        this.add(new Clothes('PrincessQueen', GAME.girl.Queen, false))
+        this.add(new Clothes('PrincessQueen', 'Queen', false))
             .setName("Princess")
             .setDescription("A dress a princess would wear.")
             .setLevel(25)
             .setStat({Tits: 3, Pussy: 2});
-
-        this.add(new Clothes('MudQueen', GAME.girl.Queen, false))
+        this.add(new Clothes('MudQueen', 'Queen', false))
             .setName('Mud')
             .setDescription('Not really clothes, just mud slathered onto her body.')
             .setLevel(20)
             .setStat({Throat: 1, Tits: 1, Pussy: 1});
-
-        this.add(new Clothes('ForestQueen', GAME.girl.Queen, false))
+        this.add(new Clothes('ForestQueen', 'Queen', false))
             .setName('Greenhaven')
             .setDescription("The women of Greenhaven don't seem to wear much clothing.")
             .setLevel(12)
             .setStat({Throat: 1, Pussy: 1});
-
-        this.add(new Clothes('SchoolgirlQueen', GAME.girl.Queen, false))
+        this.add(new Clothes('SchoolgirlQueen', 'Queen', false))
             .setName('School Uniform')
             .setDescription("A uniform for school.")
             .setLevel(5)
@@ -482,14 +479,17 @@ class ClothesManager {
             .setShop(true)
             .setCost(200)
             .setVisible(true);
-
-        this.add(new Clothes('DefaultQueen', GAME.girl.Queen, true))
+        this.add(new Clothes('DefaultQueen', 'Queen', true))
             .setLevel(0)
             .addStyle(new ClothesStyle('AlphaBlack', "Transparent Black", function () {
                 return GAME.quest.isComplete('alphaBlack', 'Start');
             }));
-
-        this.add(new Clothes('Halloween2019Queen', GAME.girl.Queen, false))
+        this.add(new Clothes('Valentines2020Queen', 'Queen', false)
+            .setName('Lingerie')
+            .setDescription('Valentines 2020 Event')
+            .setLevel(0)
+            .setStat({Throat: 1, Tits: 1, Pussy: 1, Anal: 1}));
+        this.add(new Clothes('Halloween2019Queen', 'Queen', false))
             .setName('Succubus')
             .setDescription("Halloween 2019 Event")
             .setLevel(20)
@@ -501,25 +501,23 @@ class ClothesManager {
             });
 
         // Suki
-        this.add(new Clothes('PrincessSuki', GAME.girl.Suki, false))
+        this.add(new Clothes('PrincessSuki', 'Suki', false))
             .setName("Princess")
             .setDescription("A dress a princess would wear.")
             .setLevel(25)
             .setStat({Tits: 3, Pussy: 2});
-
-        this.add(new Clothes('MudSuki', GAME.girl.Suki, false))
+        this.add(new Clothes('MudSuki', 'Suki', false))
             .setName('Mud')
             .setDescription('Not really clothes, just mud slathered onto her body.')
             .setLevel(20)
             .setStat({Throat: 1, Tits: 1, Pussy: 1});
-
-        this.add(new Clothes('ForestSuki', GAME.girl.Suki, false))
+        this.add(new Clothes('ForestSuki', 'Suki', false))
             .setName('Greenhaven')
             .setDescription("The women of Greenhaven don't seem to wear much clothing.")
             .setLevel(12)
             .setStat({Throat: 1, Pussy: 1});
 
-        // this.add(new Clothes('LeotardSuki', GAME.girl.Suki, false))
+        // this.add(new Clothes('LeotardSuki', 'Suki', false))
         //     .setName('Leotard')
         //     .setDescription("Silky smooth leotard. Careful, tears easily.")
         //     .setLevel(30)
@@ -530,11 +528,15 @@ class ClothesManager {
         //         return GAME.quest.isComplete('principalFeetQuest', 'Started');
         //     });
 
-        this.add(new Clothes('DefaultSuki', GAME.girl.Suki, true))
+        this.add(new Clothes('DefaultSuki', 'Suki', true))
             .setLevel(0)
             .setStat({Pussy: 3});
-
-        this.add(new Clothes('Halloween2019Suki', GAME.girl.Suki, false))
+        this.add(new Clothes('Valentines2020Suki', 'Suki', false)
+            .setName('Lingerie')
+            .setDescription('Valentines 2020 Event')
+            .setLevel(0)
+            .setStat({Throat: 1, Tits: 1, Pussy: 1, Anal: 1}));
+        this.add(new Clothes('Halloween2019Suki', 'Suki', false))
             .setName('Nurse')
             .setDescription("Halloween 2019 Event")
             .setLevel(20)
@@ -548,29 +550,31 @@ class ClothesManager {
 
 
         // Esxea
-        this.add(new Clothes('PrincessEsxea', GAME.girl.Esxea, false))
+        this.add(new Clothes('PrincessEsxea', 'Esxea', false))
             .setName("Princess")
             .setDescription("A dress a princess would wear.")
             .setLevel(25)
             .setStat({Tits: 3, Pussy: 2});
 
-        this.add(new Clothes('MudEsxea', GAME.girl.Esxea, false))
+        this.add(new Clothes('MudEsxea', 'Esxea', false))
             .setName('Mud')
             .setDescription('Not really clothes, just mud slathered onto her body.')
             .setLevel(20)
             .setStat({Throat: 1, Tits: 1, Pussy: 1});
-
-        this.add(new Clothes('ForestEsxea', GAME.girl.Esxea, false))
+        this.add(new Clothes('ForestEsxea', 'Esxea', false))
             .setName('Greenhaven')
             .setDescription("The women of Greenhaven don't seem to wear much clothing.")
             .setLevel(12)
             .setStat({Throat: 1, Pussy: 1});
-
-        this.add(new Clothes('DefaultEsxea', GAME.girl.Esxea, true))
+        this.add(new Clothes('DefaultEsxea', 'Esxea', true))
             .setLevel(0)
             .setStat({Tits: 1, Pussy: 1});
-
-        this.add(new Clothes('Halloween2019Esxea', GAME.girl.Esxea, false))
+        this.add(new Clothes('Valentines2020Esxea', 'Esxea', false)
+            .setName('Lingerie')
+            .setDescription('Valentines 2020 Event')
+            .setLevel(0)
+            .setStat({Throat: 1, Tits: 1, Pussy: 1, Anal: 1}));
+        this.add(new Clothes('Halloween2019Esxea', 'Esxea', false))
             .setName('Super Hero')
             .setDescription("Halloween 2019 Event")
             .setLevel(20)
@@ -582,29 +586,32 @@ class ClothesManager {
             });
 
         // Scarlett
-        this.add(new Clothes('PrincessScarlett', GAME.girl.Scarlett, false))
+        this.add(new Clothes('PrincessScarlett', 'Scarlett', false))
             .setName("Princess")
             .setDescription("A dress a princess would wear.")
             .setLevel(25)
             .setStat({Tits: 3, Pussy: 2});
 
-        this.add(new Clothes('MudScarlett', GAME.girl.Scarlett, false))
+        this.add(new Clothes('MudScarlett', 'Scarlett', false))
             .setName('Mud')
             .setDescription('Not really clothes, just mud slathered onto her body.')
             .setLevel(20)
             .setStat({Throat: 1, Tits: 1, Pussy: 1});
 
-        this.add(new Clothes('ForestScarlett', GAME.girl.Scarlett, false))
+        this.add(new Clothes('ForestScarlett', 'Scarlett', false))
             .setName('Greenhaven')
             .setDescription("The women of Greenhaven don't seem to wear much clothing.")
             .setLevel(12)
             .setStat({Throat: 1, Pussy: 1});
-
-        this.add(new Clothes('DefaultScarlett', GAME.girl.Scarlett, true))
+        this.add(new Clothes('DefaultScarlett', 'Scarlett', true))
             .setLevel(0)
             .setStat({Tits: 3});
-
-        this.add(new Clothes('Halloween2019Scarlett', GAME.girl.Scarlett, false))
+        this.add(new Clothes('Valentines2020Scarlett', 'Scarlett', false)
+            .setName('Lingerie')
+            .setDescription('Valentines 2020 Event')
+            .setLevel(0)
+            .setStat({Throat: 1, Tits: 1, Pussy: 1, Anal: 1}));
+        this.add(new Clothes('Halloween2019Scarlett', 'Scarlett', false))
             .setName('Mummy')
             .setDescription("Halloween 2019 Event")
             .setLevel(20)
@@ -616,9 +623,25 @@ class ClothesManager {
             });
 
         // Ardura
-        this.add(new Clothes('DefaultArdura', GAME.girl.Ardura, true))
+        this.add(new Clothes('PrincessArdura', 'Ardura', false))
+            .setName("Princess")
+            .setDescription("A dress a princess would wear.")
+            .setLevel(25)
+            .setStat({Anal: 2, Pussy: 3});
+        this.add(new Clothes('MudArdura', 'Ardura', false))
+            .setName('Mud')
+            .setDescription('Not really clothes, just mud slathered onto her body.')
+            .setLevel(20)
+            .setStat({Throat: 1, Tits: 1, Pussy: 1});
+        this.add(new Clothes('DefaultArdura', 'Ardura', true))
             .setLevel(0)
             .setStat({Anal: 2});
+        this.add(new Clothes('Valentines2020Ardura', 'Ardura', true)
+            .setName('Lingerie')
+            .setDescription('Valentines 2020 Event')
+            .setLevel(0)
+            .setStat({Throat: 1, Tits: 1, Pussy: 1, Anal: 1}));
+
     }
 
     /**

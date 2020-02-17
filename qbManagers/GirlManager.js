@@ -436,6 +436,7 @@ class Girl {
      */
     setRecovery(amount) {
         this._girlRecovery = amount;
+        globalEvents.emit('recoveryStamina');
         return this;
     }
 
@@ -450,6 +451,7 @@ class Girl {
             this.gainStamina(0.2, false);
             this._girlRecovery -= 0.2;
         }
+        globalEvents.emit('recoveryStamina');
         return this;
     }
 
@@ -462,7 +464,7 @@ class Girl {
      */
     gainRecoveryStamina(amount) {
         this._girlRecovery += amount;
-
+        globalEvents.emit('recoveryStamina');
         return this;
     }
 

@@ -216,14 +216,14 @@ class BossManager {
             .addClothesReward('Easy', 'MudScarlett');
 
         // King Boss
-        // this.add(new Boss('King', 'King of Avia', function () {
-        //     return GAME.quest.isComplete('kingsQuest', 'Completed')
-        // }))
-        //     .setDialogue('Easy', "kingsQuestBossEasy")
-        //     .addClothesReward('Easy', 'PrincessQueen')
-        //     .addClothesReward('Easy', 'PrincessSuki')
-        //     .addClothesReward('Easy', 'PrincessEsxea')
-        //     .addClothesReward('Easy', 'PrincessScarlett');
+        this.add(new Boss('KingOfAvia', 'King of Avia', function () {
+            return GAME.quest.isComplete('kingsQuest')
+        }))
+            .setDialogue('Easy', "kingsQuestBossEasy")
+            .addClothesReward('Easy', 'PrincessQueen')
+            .addClothesReward('Easy', 'PrincessSuki')
+            .addClothesReward('Easy', 'PrincessEsxea')
+            .addClothesReward('Easy', 'PrincessScarlett');
     }
 
     /**

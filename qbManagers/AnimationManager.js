@@ -225,21 +225,21 @@ class AnimationManager {
             frameRate: 24,
             frames: this.createFrames('goblinBossPussy', 0, 13, 5)
         });
-        // this.createAnimation({
-        //     ID: 'kingsQuestBossFuck',
-        //     frameRate: 24,
-        //     frames: this.createFrames('kingsQuestBossFuck', 0, 18, 5)
-        // });
-        // this.createAnimation({
-        //     ID: 'kingsQuestBossFuckMilk',
-        //     frameRate: 24,
-        //     frames: this.createFrames('kingsQuestBossFuckMilk', 0, 18, 5)
-        // });
-        // this.createAnimation({
-        //     ID: 'kingsQuestBossSuck',
-        //     frameRate: 24,
-        //     frames: this.createFrames('kingsQuestBossSuck', 0, 16, 5)
-        // });
+        this.createAnimation({
+            ID: 'kingsQuestBossFuck',
+            frameRate: 24,
+            frames: this.createFrames('kingsQuestBossFuck', 0, 18, 5)
+        });
+        this.createAnimation({
+            ID: 'kingsQuestBossFuckMilk',
+            frameRate: 24,
+            frames: this.createFrames('kingsQuestBossFuckMilk', 0, 18, 5)
+        });
+        this.createAnimation({
+            ID: 'kingsQuestBossSuck',
+            frameRate: 24,
+            frames: this.createFrames('kingsQuestBossSuck', 0, 16, 5)
+        });
         // this.createAnimation({
         //     ID: 'aviaGuard2Fuck',
         //     frameRate: 24,
@@ -312,20 +312,6 @@ class AnimationManager {
                 }]
             }
         });
-        // this.addToGallery(function () {
-        //     // Principal Feet Quest
-        //     if (GAME.quest.isComplete('principalFeetQuest', 'Completed') === true) {
-        //         return [{
-        //             thumbnail: 'principalFeetQuest1',
-        //             type: 'Image',
-        //             animationID: 'principalFeetQuest1'
-        //         }, {
-        //             thumbnail: 'principalFeetQuest2',
-        //             type: 'Animation',
-        //             animationID: 'principalFeetQuest2'
-        //         }];
-        //     }
-        // });
         this.addToGallery(function () {
             // Mushroom Quest
             if (GAME.quest.isComplete('mushroomQuest') === true) {
@@ -340,24 +326,24 @@ class AnimationManager {
                 }];
             }
         });
-        // this.addToGallery(function () {
-        //     // Kings Quest
-        //     if (GAME.quest.isComplete('kingsQuest', 'Completed') === true) {
-        //         return [{
-        //             thumbnail: 'kingsQuestBossFuck00000',
-        //             type: 'Animation',
-        //             animationID: 'kingsQuestBossFuck'
-        //         }, {
-        //             thumbnail: 'kingsQuestBossFuckMilk00000',
-        //             type: 'Animation',
-        //             animationID: 'kingsQuestBossFuckMilk'
-        //         }, {
-        //             thumbnail: 'kingsQuestBossSuck00000',
-        //             type: 'Animation',
-        //             animationID: 'kingsQuestBossSuck'
-        //         }];
-        //     }
-        // });
+        this.addToGallery(function () {
+            // Kings Quest
+            if (GAME.quest.isComplete('kingsQuest') === true) {
+                return [{
+                    thumbnail: 'kingsQuestBossFuck00000',
+                    type: 'Animation',
+                    animationID: 'kingsQuestBossFuck'
+                }, {
+                    thumbnail: 'kingsQuestBossFuckMilk00000',
+                    type: 'Animation',
+                    animationID: 'kingsQuestBossFuckMilk'
+                }, {
+                    thumbnail: 'kingsQuestBossSuck00000',
+                    type: 'Animation',
+                    animationID: 'kingsQuestBossSuck'
+                }];
+            }
+        });
         // this.addToGallery(function () {
         //     // Battle Orcs
         //     if (GAME.quest.isComplete('battleOrcs', 'Complete') === true) {

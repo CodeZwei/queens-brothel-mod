@@ -42,6 +42,14 @@ class QuestManager {
                 .setProgress(true)
                 .setDialogueTree("onSleep")
                 .setDialogueBranch("naknuAfterHornyBoris");
+            worldQuests
+                .addSubQuest('naknuAfterRecruitScarlett')
+                .setCondition(() => {
+                    return GAME.quest.isComplete('kingsQuest');
+                })
+                .setProgress(true)
+                .setDialogueTree("onSleep")
+                .setDialogueBranch("naknuAfterHornyBoris");
         })();
 
         (() => {
@@ -314,7 +322,15 @@ class QuestManager {
                 .setMapKey('VillageHangout')
                 .setDialogueTree('VillageHangout')
                 .setDialogueBranch('mushroomQuestBuildBoat')
-                .setLogDescription("Help build a boat to cross the morass.");
+                .setLogDescription("Help build a boat to cross the morass.")
+                .setOnComplete((parameter) => {
+                    if (parameter === true) {
+                        GAME.girl.Suki.increaseMorals(1);
+                        GAME.addGold(100);
+                    } else {
+                        GAME.girl.Suki.decreaseMorals(1);
+                    }
+                });
             mushroomQuest
                 .addSubQuest('Introduce')
                 .setCondition(() => {
@@ -375,8 +391,8 @@ class QuestManager {
                 .setProgress(() => {
                     return GAME.checkMax() === false;
                 })
-                .setMapKey('House1')
-                .setDialogueTree('MorassHouse1')
+                .setMapKey('EsxeaHouse')
+                .setDialogueTree('EsxeaHouse')
                 .setDialogueBranch('mushroomQuestEnd')
                 .setLogDescription("Recruit Esxea into your brothel.")
                 .setLogProgress(() => {
@@ -389,6 +405,206 @@ class QuestManager {
                 .setOnComplete(() => {
                     GAME.girl.Esxea.unlock();
                 });
+        })();
+
+        // Kings quest
+        (() => {
+            let kingsQuest = GAME.quest.addQuest('kingsQuest', "The King of Avia", true)
+                .setStart('Start')
+                .setEnd('End');
+            kingsQuest
+                .addSubQuest('Start')
+                .setCondition(() => {
+                    return GAME.quest.isComplete('mushroomQuest');
+                })
+                .setProgress(true)
+                .setDialogueTree('onSleep')
+                .setDialogueBranch('kingsQuestStart');
+            kingsQuest
+                .addSubQuest('GoToCrossroads')
+                .setCondition(() => {
+                    return GAME.quest.isComplete('kingsQuest', 'Start')
+                })
+                .setProgress(true)
+                .setDialogueTree('crossroadFirstVisit')
+                .setDialogueBranch('root')
+                .setLogDescription("Visit Avia, south of the morass.");
+            kingsQuest
+                .addSubQuest('GoToAvia')
+                .setCondition(() => {
+                    return GAME.quest.isComplete('kingsQuest', 'GoToCrossroads')
+                })
+                .setProgress(true)
+                .setMapKey('AviaCastleKeep')
+                .setDialogueTree('AviaCastleKeep')
+                .setDialogueBranch('kingsQuestGoToAvia')
+                .setLogDescription("Visit Avia, southeast of the morass.");
+            kingsQuest
+                .addSubQuest('FindScarlett')
+                .setCondition(() => {
+                    return GAME.quest.isComplete('kingsQuest', 'GoToAvia')
+                })
+                .setProgress(true)
+                .setMapKey('AviaSlums')
+                .setDialogueTree('AviaSlums')
+                .setDialogueBranch('kingsQuestFindScarlett')
+                .setLogDescription("Explore Avia.");
+            kingsQuest
+                .addSubQuest('NaknuCurseKing')
+                .setCondition(() => {
+                    return GAME.quest.isComplete('kingsQuest', 'FindScarlett')
+                })
+                .setProgress(true)
+                .setDialogueTree('onSleep')
+                .setDialogueBranch('kingsQuestNaknuCurseKing')
+                .setLogDescription("Come back to the slums tomorrow to hang out with Princess Scarlett!");
+            kingsQuest
+                .addSubQuest('FuckPeasants')
+                .setCondition(() => {
+                    return GAME.quest.isComplete('kingsQuest', 'NaknuCurseKing')
+                })
+                .setProgress(true)
+                .setMapKey('AviaSlums')
+                .setDialogueTree('AviaSlums')
+                .setDialogueBranch('kingsQuestFuckPeasants')
+                .setLogDescription("Go to the slums to hang out with Princess Scarlett!");
+            kingsQuest
+                .addSubQuest('NaknuClimbCastle')
+                .setCondition(() => {
+                    return GAME.quest.isComplete('kingsQuest', 'FuckPeasants')
+                })
+                .setProgress(true)
+                .setDialogueTree('onSleep')
+                .setDialogueBranch('kingsQuestNaknuClimbCastle')
+                .setLogDescription("Get some rest and try to help Scarlett tomorrow!");
+            kingsQuest
+                .addSubQuest('TalkToGuard')
+                .setCondition(() => {
+                    return GAME.quest.isComplete('kingsQuest', 'NaknuClimbCastle')
+                })
+                .setProgress(true)
+                .setMapKey('AviaCastleKeep')
+                .setDialogueTree('AviaCastleKeep')
+                .setDialogueBranch('kingsQuestTalkToGuard')
+                .setLogDescription("Check to see if Scarlett is okay.");
+            kingsQuest
+                .addSubQuest('ConvinceDathea')
+                .setCondition(() => {
+                    return GAME.quest.isComplete('kingsQuest', 'TalkToGuard')
+                })
+                .setProgress(true)
+                .setMapKey('Inn')
+                .setDialogueTree('MorassInn')
+                .setDialogueBranch('kingsQuestConvinceDathea')
+                .setLogDescription("Find a goblin girl to have sex with the guard.");
+            kingsQuest
+                .addSubQuest('ConvinceThisa')
+                .setCondition(() => {
+                    return GAME.quest.isComplete('kingsQuest', 'ConvinceDathea')
+                })
+                .setProgress(true)
+                .setMapKey('NirvokkHut')
+                .setDialogueTree('Nirvokk')
+                .setDialogueBranch('kingsQuestConvinceThisa')
+                .setLogDescription("Find a replacement wife for Brior.");
+            kingsQuest
+                .addSubQuest('DropOffThisa')
+                .setCondition(() => {
+                    return GAME.quest.isComplete('kingsQuest', 'ConvinceThisa')
+                })
+                .setProgress(true)
+                .setMapKey('Inn')
+                .setDialogueTree('MorassInn')
+                .setDialogueBranch('kingsQuestDropOffThisa')
+                .setLogDescription("Drop Thisa off at the Inn.");
+            kingsQuest
+                .addSubQuest('DropOffDathea')
+                .setCondition(() => {
+                    return GAME.quest.isComplete('kingsQuest', 'DropOffThisa')
+                })
+                .setProgress(true)
+                .setMapKey('AviaCastleKeep')
+                .setDialogueTree('AviaCastleKeep')
+                .setDialogueBranch('kingsQuestDropOffDathea')
+                .setLogDescription("Drop Dathea off at the guard's location.");
+            kingsQuest
+                .addSubQuest('Boss')
+                .setCondition(() => {
+                    return GAME.quest.isComplete('kingsQuest', 'DropOffDathea')
+                })
+                .setProgress(true)
+                .setMapKey('AviaCastleKeep')
+                .setDialogueTree('AviaCastleKeep')
+                .setDialogueBranch('kingsQuestBoss')
+                .setLogDescription("Go find Scarlett inside the castle.");
+            kingsQuest
+                .addSubQuest('End')
+                .setCondition(() => {
+                    return GAME.quest.isComplete('kingsQuest', 'Boss');
+                })
+                .setProgress(() => {
+                    return GAME.checkMax() === false;
+                })
+                .setMapKey('AviaCastleKeep')
+                .setDialogueTree('AviaCastleKeep')
+                .setDialogueBranch('kingsQuestEnd')
+                .setLogDescription("Recruit Scarlett into your brothel.")
+                .setLogProgress(() => {
+                    if (GAME.checkMax() === true) {
+                        return "Talk to Geoff to upgrade your house!"
+                    } else {
+                        return "";
+                    }
+                })
+                .setOnComplete(() => {
+                    GAME.girl.Scarlett.unlock();
+                });
+
+        })();
+
+        // Return Dathea
+        (() => {
+            let returnDathea = GAME.quest.addQuest('returnDathea', "Return Dathea", true)
+                .setStart('Start')
+                .setEnd('End');
+            returnDathea
+                .addSubQuest('Start')
+                .setCondition(() => {
+                    return GAME.quest.isComplete('kingsQuest');
+                })
+                .setProgress(true)
+                .setDialogueTree('onSleep')
+                .setDialogueBranch('returnDatheaStart');
+            returnDathea
+                .addSubQuest('GetDathea')
+                .setCondition(() => {
+                    return GAME.quest.isComplete('returnDathea', 'Start');
+                })
+                .setProgress(true)
+                .setMapKey('AviaCastleKeep')
+                .setDialogueTree('AviaCastleKeep')
+                .setDialogueBranch('returnDatheaGetDathea')
+                .setLogDescription("Get Dathea back from the guard.");
+            returnDathea
+                .addSubQuest('DatheaToMorass')
+                .setCondition(() => {
+                    return GAME.quest.isComplete('returnDathea', 'GetDathea')
+                })
+                .setProgress(true)
+                .setMapKey('Inn')
+                .setDialogueTree('MorassInn')
+                .setDialogueBranch('returnDatheaToMorass')
+                .setLogDescription("Return Dathea to the Inn.");
+            returnDathea
+                .addSubQuest('End')
+                .setCondition(() => {
+                    return GAME.quest.isComplete('returnDathea', 'DatheaToMorass')
+                })
+                .setProgress(true)
+                .setMapKey('NirvokkHut')
+                .setDialogueTree('Nirvokk')
+                .setDialogueBranch('returnDatheaEnd')
+                .setLogDescription("Give Nirvokk a new wife.");
         })();
     }
 

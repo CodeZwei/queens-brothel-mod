@@ -162,7 +162,66 @@ class BattleManager {
 
                 resolve();
             });
-        })
+        });
+        this.setBattleCondition('defaultAvia', function (BATTLE) {
+            return new Promise((resolve) => {
+                if (this.hasOwnProperty('Edged') === false) {
+                    this.Edged = 0;
+                }
+                if (this.wants.GirlLength > 0) {
+                    this.wants.GirlLength -= 1;
+                } else {
+                    this.wants.GirlLength = 0;
+                }
+
+                if (this.wants.BodyPartLength > 0) {
+                    this.wants.BodyPartLength -= 1;
+                    this.currently.BodyPart = this.wants.BodyPart;
+                    this.Animation = this.currently.Girl + this.currently.BodyPart + "default";
+                } else {
+                    this.wants.BodyPartLength = 10;
+                    this.wants.BodyPart = chance.weighted(skills, [2, 4, 2, 1]);
+                    this.Animation = this.currently.Girl + this.wants.BodyPart + "default";
+                }
+
+                if (this.Edged < 3 && this.getCum() >= 85) {
+                    this.setGirl(chance.pickone(BATTLE.getActiveGirls()));
+                    this.setGirlLength(5);
+                    this.setTickMS(this.getTickMS() - 200);
+                    this.Edged += 1;
+                    this.setCum(60);
+                }
+
+                resolve();
+            });
+        });
+        this.setBattleCondition('lactate', function (BATTLE) {
+            return new Promise((resolve) => {
+                if (this.wants.GirlLength > 0) {
+                    this.wants.GirlLength -= 1;
+                } else {
+                    this.wants.GirlLength = 15;
+                }
+
+                if (this.wants.BodyPartLength > 0) {
+                    this.wants.BodyPartLength -= 1;
+                    this.currently.BodyPart = this.wants.BodyPart;
+                    this.Animation = "kingsQuestBossSuck";
+                    if (this.wants.BodyPartLength > 5) {
+                        this.Animation = "kingsQuestBossFuckMilk";
+                    }
+                    if (this.wants.BodyPartLength > 10) {
+                        this.Animation = "kingsQuestBossFuck"
+                    }
+                } else {
+                    this.wants.BodyPartLength = 15;
+                    this.wants.BodyPart = 'Tits';
+                    this.Animation = "kingsQuestBossFuck";
+                }
+
+                resolve();
+            });
+        });
     }
 
     /**
@@ -211,19 +270,16 @@ class BattleManager {
         }
 
         // Morass
-        // if (GAME.quest.isComplete('swampBeastQuest', 'Completed')) {
-        //     available.push('Goblin');
-        // }
+        if (GAME.quest.isComplete('mushroomQuest')) {
+            available.push('Goblin');
+        }
 
         // Avia
-        // if (GAME.quest.isComplete('kingsQuest', 'Completed')) {
-        //     available.push('AviaResident');
-        // }
-
-        let clientLength = 2;
-        if (GAME.girl.getUnlocked() >= 6) {
-            clientLength = 6;
+        if (GAME.quest.isComplete('kingsQuest')) {
+            available.push('AviaResident');
         }
+
+        let clientLength = 1 + GAME.girl.getUnlocked().length;
 
         for (let i = 1; i <= clientLength; i++) {
             if (i > 6) {
@@ -236,7 +292,7 @@ class BattleManager {
             if (rnd === "EasthollowResident") {
                 client
                     .setLevel(chance.integer({min: 2, max: 8}))
-                    .setGold(8)
+                    .setGold(14)
                     .setTicksToFuck(10)
                     .setTickMS(1000)
                     .addBattleCondition('default', true);
@@ -249,21 +305,27 @@ class BattleManager {
             } else if (rnd === "GreenhavenResident") {
                 client
                     .setLevel(chance.integer({min: 8, max: 20}))
-                    .setGold(14)
+                    .setGold(22)
                     .setTicksToFuck(20)
                     .setTickMS(1000)
                     .addBattleCondition('charge5', true)
                     .setBodyPartLength(10);
             } else if (rnd === "Goblin") {
                 client
-                    .setLevel(4)
-                    .setGold(8)
-                    .setTicksToFuck(10)
+                    .setLevel(chance.integer({min: 12, max: 26}))
+                    .setGold(30)
+                    .setTickMS(600)
+                    .setTicksToFuck(20)
+                    .setGirlLength(10)
+                    .setBodyPartLength(5)
+                    .addBattleCondition('defaultGoblin', true);
             } else if (rnd === "AviaResident") {
                 client
-                    .setLevel(4)
-                    .setGold(8)
-                    .setTicksToFuck(10)
+                    .setLevel(chance.integer({min: 15, max: 30}))
+                    .setGold(52)
+                    .setTickMS(800)
+                    .setTicksToFuck(30)
+                    .addBattleCondition('defaultAvia', true);
             }
 
             clients.push(client);

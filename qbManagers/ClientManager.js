@@ -154,6 +154,9 @@ class BattleClient {
      */
     setTickMS(number) {
         this.tickMS = number;
+        if (this.tickMS <= 100) {
+            this.tickMS = 100;
+        }
         return this;
     }
 

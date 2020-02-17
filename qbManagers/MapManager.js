@@ -239,26 +239,26 @@ class MapManager {
             "MoaningMorass": {
                 "Inn": {
                     key: "Inn",
-                    x: 1500,
-                    y: 620,
+                    x: 1154,
+                    y: 39,
                     callback: () => {
                         GAME.dialogue.playDialogue('MorassInn');
                     }
                 },
                 "Pond": {
                     key: "Pond",
-                    x: 1450,
-                    y: 400,
+                    x: 309,
+                    y: 555,
                     callback: () => {
                         GAME.dialogue.playDialogue('MorassPond');
                     }
                 },
-                "House1": {
-                    key: "House1",
-                    x: 345,
-                    y: 350,
+                "EsxeaHouse": {
+                    key: "EsxeaHouse",
+                    x: 717,
+                    y: 147,
                     callback: () => {
-                        GAME.dialogue.playDialogue('MorassHouse1');
+                        GAME.dialogue.playDialogue('EsxeaHouse');
                     }
                 }
             },
@@ -316,13 +316,10 @@ class MapManager {
                 }
             }],
             "MoaningMorass": [function () {
-                GAME.map.disableArrow('south');
+                if (GAME.quest.isComplete('kingsQuest', 'Start') === false) {
+                    GAME.map.disableArrow('south');
+                }
             }]
-            // "MoaningMorass2": [function () {
-            //     if (GAME.quest.isComplete('worldQuests', 'naknuAfterMorassDoor') === false) {
-            //         GAME.map.disableArrow('south');
-            //     }
-            // }]
         };
 
         this._mapGroup = null;
@@ -376,42 +373,26 @@ class MapManager {
             }
         });
 
-        // GAME.map.addMapCondition('MoaningMorass', function () {
-        //     if (GAME.quest.isComplete('enterMorassQuest', 'Completed') === false) {
-        //         return new Promise((resolve) => {
-        //             let sprite = GAME.add.image(0, 0, 'MoaningMorassBackground').setOrigin(0);
-        //             GAME.dialogue.playDialogue('enterMoaningMorass').then(() => {
-        //                 sprite.destroy();
-        //                 resolve();
-        //             })
-        //         });
-        //     }
-        // });
-        //
-        // GAME.map.addMapCondition('MoaningMorass', function () {
-        //     if (GAME.quest.isComplete('swampBeastQuest', 'RecruitEsxea') === true && GAME.quest.isComplete('swampBeastQuest', 'GoblinsAngry') === false) {
-        //         return new Promise((resolve) => {
-        //             let sprite = GAME.add.image(0, 0, 'MoaningMorassBackground').setOrigin(0);
-        //             GAME.dialogue.playDialogue('goblinsAngryMorass').then(() => {
-        //                 sprite.destroy();
-        //                 resolve();
-        //             })
-        //         });
-        //     }
-        // });
-        //
-        // GAME.map.addMapCondition('Crossroad', function () {
-        //     if (GAME.quest.isComplete('worldQuests', 'aviaUnlock') === false) {
-        //         return new Promise((resolve) => {
-        //             let sprite = GAME.add.image(0, 0, 'CrossroadBackground').setOrigin(0);
-        //             GAME.dialogue.playDialogue('aviaUnlock').then(() => {
-        //                 sprite.destroy();
-        //                 resolve();
-        //             })
-        //         });
-        //     }
-        // });
-        //
+        GAME.map.addMapCondition('Crossroad', function () {
+            if (GAME.quest.isComplete('kingsQuest', 'GoToCrossroads') === false) {
+                return new Promise((resolve) => {
+                    GAME.dialogue.playDialogue('crossroadFirstVisit').then(() => {
+                        resolve();
+                    })
+                });
+            }
+        });
+
+        GAME.map.addMapCondition('Avia', function () {
+            if (GAME.quest.isComplete('kingsQuest', 'FuckPeasants') === true && GAME.quest.isComplete('kingsQuest', 'NaknuClimbCastle') === false) {
+                return new Promise((resolve) => {
+                    GAME.dialogue.playDialogue('aviaAfterFuckPeasants').then(() => {
+                        resolve();
+                    })
+                });
+            }
+        });
+
         // GAME.map.addMapCondition('Avia', function () {
         //     if (GAME.quest.isComplete('kingsQuest', 'Started') === true && GAME.quest.isComplete('kingsQuest', 'NaknuDialogue') === false) {
         //         return new Promise((resolve) => {
@@ -424,7 +405,7 @@ class MapManager {
         //         });
         //     }
         // });
-        //
+
         // GAME.map.addMapCondition('Avia', function () {
         //     if (GAME.quest.isComplete('kingsQuest', 'FuckPeasants') === true && GAME.quest.isComplete('kingsQuest', 'NaknuDialogue2') === false) {
         //         return new Promise((resolve) => {

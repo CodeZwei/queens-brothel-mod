@@ -12,7 +12,7 @@
  *     "name": "My mod",
  *     "description": "A description of my mod.",
  *     "version": "1.0.0",
- *     "compatible": "0.7.3"
+ *     "compatible": "0.8.2"
  * }
  */
 
@@ -79,6 +79,16 @@ class Mod {
          * @type {SoundManager}
          */
         this.QBsound = Gameplay.prototype.sound;
+        /**
+         * @name Mod#BattleClient
+         * @type {BattleClient}
+         */
+        this.BattleClient = BattleClient;
+        /**
+         * @name Mod#Battle
+         * @type {Battle}
+         */
+        this.Battle = Battle;
 
         /**
          * Displays a red or purple "Morals" image to notify players that the girl's morals affected the game some how

@@ -102,7 +102,7 @@ class DialogueManager {
      * @instance
      * @param {string} id
      * @param {string} [branchID]
-     * @param {*} parameter
+     * @param {*} [parameter]
      * @returns {Promise<any>}
      */
     playDialogue(id, branchID, parameter) {
@@ -633,7 +633,7 @@ class DialogueFunction extends DialogueStep {
      */
     play() {
         return new Promise((resolve) => {
-            this.callback(this.getParent().getParameter()).then((answer) => {
+            this.callback(this.getParent().getParameter(),this.getParent().getLastAnswer()).then((answer) => {
                 resolve(answer);
             });
         });
