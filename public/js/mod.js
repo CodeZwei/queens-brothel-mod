@@ -81,20 +81,15 @@
 
         /**
          * Here we will create a new battle with Queen as our only girl
-         * We will add two clients, one with a default tick rate and another with a faster tick rate and who only wants Queen and her Pussy
+         * We will add two clients, one who is passive and one who is a cummer
          */
         let battle = new Battle(['Queen']);
 
-        let client1 = new BattleClient('EasthollowResident', 1)
-            .setTicksToFuck(10)
+        let client1 = new BattleClient('', 3,[new BattleClientTypePassive()],'Throat',10000)
             .setGold(10);
 
-        let client2 = new BattleClient('EasthollowResident', 3)
-            .setTicksToFuck(10)
-            .setTickMS(500)
-            .setGold(20)
-            .setBodyPart('Pussy', 20)
-            .setGirl('Queen', 20);
+        let client2 = new BattleClient('', 5,[new BattleClientTypeCummer()],'Pussy',6000)
+            .setGold(20);
 
         battle.addClient(client1);
         battle.addClient(client2);

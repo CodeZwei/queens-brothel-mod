@@ -203,7 +203,8 @@ class BossManager {
             .addClothesReward('Easy', 'ForestQueen')
             .addClothesReward('Easy', 'ForestSuki')
             .addClothesReward('Easy', 'ForestEsxea')
-            .addClothesReward('Easy', 'ForestScarlett');
+            .addClothesReward('Easy', 'ForestScarlett')
+            .addClothesReward('Easy', 'ForestArdura');
 
         // Morass Boss
         this.add(new Boss('Goblins', 'Wild Goblins', function () {
@@ -213,7 +214,8 @@ class BossManager {
             .addClothesReward('Easy', 'MudQueen')
             .addClothesReward('Easy', 'MudSuki')
             .addClothesReward('Easy', 'MudEsxea')
-            .addClothesReward('Easy', 'MudScarlett');
+            .addClothesReward('Easy', 'MudScarlett')
+            .addClothesReward('Easy', 'MudArdura');
 
         // King Boss
         this.add(new Boss('KingOfAvia', 'King of Avia', function () {
@@ -223,7 +225,19 @@ class BossManager {
             .addClothesReward('Easy', 'PrincessQueen')
             .addClothesReward('Easy', 'PrincessSuki')
             .addClothesReward('Easy', 'PrincessEsxea')
-            .addClothesReward('Easy', 'PrincessScarlett');
+            .addClothesReward('Easy', 'PrincessScarlett')
+            .addClothesReward('Easy', 'PrincessArdura');
+
+        // Orc Boss
+        this.add(new Boss('Orcs', 'Orcs', function () {
+            return GAME.quest.isComplete('mountainTraining')
+        }))
+            .setDialogue('Easy', "orcBossEasy")
+            .addClothesReward('Easy', 'OrcQueen')
+            .addClothesReward('Easy', 'OrcSuki')
+            .addClothesReward('Easy', 'OrcEsxea')
+            .addClothesReward('Easy', 'OrcScarlett')
+            .addClothesReward('Easy', 'OrcArdura');
     }
 
     /**

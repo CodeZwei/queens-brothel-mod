@@ -238,6 +238,61 @@ class QuestManager {
         })();
 
         (() => {
+            let abigailCumQuest = GAME.quest.addQuest('abigailCumQuest', "Abigail's Students", false)
+                .setStart('Start')
+                .setEnd('Start');
+            abigailCumQuest
+                .addSubQuest('Start')
+                .setCondition(() => {
+                    return GAME.quest.isComplete('hornyBoris');
+                })
+                .setProgress(true)
+                .setMapKey('ClassroomButton')
+                .setDialogueTree('AbigailClassroom')
+                .setDialogueBranch('abigailCumQuestStart')
+                .setOnComplete((morals) => {
+                    GAME.addGold(300);
+                    GAME.girl.Suki.gainExp(100);
+                    if (morals === true) {
+                        GAME.girl.Suki.increaseMorals(1);
+                    } else {
+                        GAME.girl.Suki.decreaseMorals(1);
+                    }
+                });
+        })();
+
+        (() => {
+            let principalFeetQuest = GAME.quest.addQuest('principalFeetQuest', "The Principal's Fetish", false)
+                .setStart('Start')
+                .setEnd('End');
+            principalFeetQuest
+                .addSubQuest('Start')
+                .setCondition(() => {
+                    return GAME.quest.isComplete('hornyBoris');
+                })
+                .setProgress(true)
+                .setMapKey('PrincipalsOfficeButton')
+                .setDialogueTree('principalsOffice')
+                .setDialogueBranch('principalFeetQuestStart');
+            principalFeetQuest
+                .addSubQuest('End')
+                .setCondition(() => {
+                    return GAME.quest.isComplete('principalFeetQuest', 'Start');
+                })
+                .setProgress(() => {
+                    return GAME.girl.Suki.getClothes().getID() === "LeotardSuki";
+                })
+                .setMapKey('PrincipalsOfficeButton')
+                .setDialogueTree('principalsOffice')
+                .setDialogueBranch('principalFeetQuestEnd')
+                .setLogDescription("Come back to the Principal's office with some skin tight clothing on Suki.")
+                .setOnComplete(() => {
+                    GAME.addGold(250);
+                    GAME.girl.Suki.gainExp(200);
+                });
+        })();
+
+        (() => {
             let sukiQuest = GAME.quest.addQuest('sukiQuest', "Find Another Girl", true)
                 .setStart('Start')
                 .setEnd('End');
@@ -605,6 +660,219 @@ class QuestManager {
                 .setDialogueTree('Nirvokk')
                 .setDialogueBranch('returnDatheaEnd')
                 .setLogDescription("Give Nirvokk a new wife.");
+        })();
+
+        // Battle Orcs
+        (() => {
+            let battleOrcs = GAME.quest.addQuest('battleOrcs', "The Great Orc War", true)
+                .setStart('Start')
+                .setEnd('End');
+            battleOrcs
+                .addSubQuest('Start')
+                .setCondition(() => {
+                    return GAME.quest.isComplete('returnDathea');
+                })
+                .setProgress(true)
+                .setMapKey('TownSquare')
+                .setDialogueTree('TownSquare')
+                .setDialogueBranch('battleOrcsStart');
+            battleOrcs
+                .addSubQuest('AskKing')
+                .setCondition(() => {
+                    return GAME.quest.isComplete('battleOrcs', 'Start');
+                })
+                .setProgress(true)
+                .setMapKey('AviaCastleKeep')
+                .setDialogueTree('AviaCastleKeep')
+                .setDialogueBranch('battleOrcsAskKing')
+                .setLogDescription("Ask the King of Avia for help.");
+            battleOrcs
+                .addSubQuest('CheckBattle')
+                .setCondition(() => {
+                    return GAME.quest.isComplete('battleOrcs', 'AskKing');
+                })
+                .setProgress(true)
+                .setDialogueTree('battleOrcsCheckBattle')
+                .setDialogueBranch('root')
+                .setLogDescription("Go visit Avia's army north of Easthollow.");
+            battleOrcs
+                .addSubQuest('NaknuPoison')
+                .setCondition(() => {
+                    return GAME.quest.isComplete('battleOrcs', 'CheckBattle');
+                })
+                .setProgress(true)
+                .setDialogueTree('onSleep')
+                .setDialogueBranch('battleOrcsNaknuPoison')
+                .setLogDescription("Check on the soldier's morale tomorrow.");
+            battleOrcs
+                .addSubQuest('FuckSoldiers')
+                .setCondition(() => {
+                    return GAME.quest.isComplete('battleOrcs', 'NaknuPoison');
+                })
+                .setProgress(true)
+                .setDialogueTree('onSleep')
+                .setDialogueBranch('battleOrcsNaknuPoison')
+                .setLogDescription("Check on the soldier's morale tomorrow.");
+            battleOrcs
+                .addSubQuest('TalkToMayor')
+                .setCondition(() => {
+                    return GAME.quest.isComplete('battleOrcs', 'FuckSoldiers');
+                })
+                .setProgress(true)
+                .setMapKey('TownMayor')
+                .setDialogueTree('TownMayor')
+                .setDialogueBranch('battleOrcsTalkToMayor')
+                .setLogDescription("Tell the Mayor what happened.");
+            battleOrcs
+                .addSubQuest('End')
+                .setCondition(() => {
+                    return GAME.quest.isComplete('battleOrcs', 'TalkToMayor');
+                })
+                .setProgress(true)
+                .setDialogueTree('onSleep')
+                .setDialogueBranch('battleOrcsEnd')
+                .setLogDescription("Visit the mountains tomorrow.");
+        })();
+
+        (() => {
+            let mountainTraining = GAME.quest.addQuest('mountainTraining', "Anal Training", true)
+                .setStart('Start')
+                .setEnd('End');
+            mountainTraining
+                .addSubQuest('Start')
+                .setCondition(() => {
+                    return GAME.quest.isComplete('battleOrcs');
+                })
+                .setProgress(true)
+                .setMapKey('CampSite')
+                .setDialogueTree('CampSite')
+                .setDialogueBranch('mountainTrainingStart');
+            mountainTraining
+                .addSubQuest('NaknuAfterStart')
+                .setCondition(() => {
+                    return GAME.quest.isComplete('mountainTraining', 'Start');
+                })
+                .setProgress(true)
+                .setDialogueTree('onSleep')
+                .setDialogueBranch('mountainTrainingNaknuAfterStart')
+                .setLogDescription("Go to sleep to get ready for the girl's anal training tomorrow.");
+            mountainTraining
+                .addSubQuest('EasthollowTraining')
+                .setCondition(() => {
+                    return GAME.quest.isComplete('mountainTraining', 'NaknuAfterStart');
+                })
+                .setProgress(true)
+                .setMapKey('TownSquare')
+                .setDialogueTree('TownSquare')
+                .setDialogueBranch('mountainTrainingEasthollowTraining')
+                .setLogDescription("Go to Town and let some men pound the girl's assholes.")
+                .setOnComplete((param) => {
+                    if (param === true) {
+                        GAME.girl.Queen.increaseMorals(1);
+                        GAME.girl.Suki.increaseMorals(1);
+                        GAME.girl.Esxea.increaseMorals(1);
+                        GAME.girl.Scarlett.increaseMorals(1);
+                    } else if (param === false) {
+                        GAME.girl.Queen.decreaseMorals(1);
+                        GAME.girl.Suki.decreaseMorals(1);
+                        GAME.girl.Esxea.decreaseMorals(1);
+                        GAME.girl.Scarlett.decreaseMorals(1);
+                    }
+                });
+            mountainTraining
+                .addSubQuest('GreenhavenTraining')
+                .setCondition(() => {
+                    return GAME.quest.isComplete('mountainTraining', 'EasthollowTraining');
+                })
+                .setProgress(true)
+                .setMapKey('VillageHangout')
+                .setDialogueTree('VillageHangout')
+                .setDialogueBranch('mountainTrainingGreenhavenTraining')
+                .setLogDescription("Go to Greenhaven and let some men pound the girl's assholes.")
+                .setOnComplete((param) => {
+                    if (param === true) {
+                        GAME.girl.Scarlett.increaseMorals(1);
+                    } else if (param === false) {
+                        GAME.girl.Scarlett.decreaseMorals(1);
+                    }
+                });
+            mountainTraining
+                .addSubQuest('MorassTraining')
+                .setCondition(() => {
+                    return GAME.quest.isComplete('mountainTraining', 'GreenhavenTraining');
+                })
+                .setProgress(true)
+                .setMapKey('Inn')
+                .setDialogueTree('MorassInn')
+                .setDialogueBranch('mountainTrainingMorassTraining')
+                .setLogDescription("Go to the Morass and let some men pound the girl's assholes.");
+            mountainTraining
+                .addSubQuest('Debrief')
+                .setCondition(() => {
+                    return GAME.quest.isComplete('mountainTraining', 'MorassTraining');
+                })
+                .setProgress(true)
+                .setDialogueTree('onSleep')
+                .setDialogueBranch('mountainTrainingDebrief')
+                .setLogDescription("The girls are exhausted. Get some rest before continuing the training.");
+            mountainTraining
+                .addSubQuest('Battle')
+                .setCondition(() => {
+                    return GAME.quest.isComplete('mountainTraining', 'Debrief');
+                })
+                .setProgress(true)
+                .setMapKey('CampSite')
+                .setDialogueTree('CampSite')
+                .setDialogueBranch('mountainTrainingBattle')
+                .setLogDescription("Head to the mountains and fuck the orcs.");
+            mountainTraining
+                .addSubQuest('NaknuAfterOrcBoss')
+                .setCondition(() => {
+                    return GAME.quest.isComplete('mountainTraining', 'Battle');
+                })
+                .setProgress(true)
+                .setDialogueTree('onSleep')
+                .setDialogueBranch('mountainTrainingNaknuAfterOrcBoss')
+                .setLogDescription("The girls are exhausted. Get some rest.");
+            mountainTraining
+                .addSubQuest('End')
+                .setCondition(() => {
+                    return GAME.quest.isComplete('mountainTraining', 'NaknuAfterOrcBoss');
+                })
+                .setProgress(() => {
+                    return GAME.checkMax() === false;
+                })
+                .setMapKey('CampSite')
+                .setDialogueTree('CampSite')
+                .setDialogueBranch('mountainTrainingEnd')
+                .setOnComplete(() => {
+                    GAME.girl.getGirl('Ardura').unlock();
+                })
+                .setLogDescription("Recruit Ardura into the brothel.")
+                .setLogProgress(() => {
+                    if (GAME.checkMax() === true) {
+                        return "Ask Geoff to upgrade your house.";
+                    } else {
+                        return "";
+                    }
+                })
+        })();
+
+        // Patreon
+        (() => {
+            let patreon = GAME.quest.addQuest('patreon', "", true)
+                .setStart('Start')
+                .setEnd('Start');
+            patreon
+                .addSubQuest('Start')
+                .setCondition(() => {
+                    return GAME.quest.isComplete('mountainTraining', 'End');
+                })
+                .setProgress(true)
+                .setDialogueTree('patreon')
+                .setDialogueBranch('patreon')
+                .setLogDescription("You have finished the main storyline!")
+                .setLogProgress("Please check out the Patreon page to see if there is more content available!");
         })();
     }
 
@@ -998,6 +1266,10 @@ class SubQuest {
         this.setStatus(true);
         this.onComplete(onCompleteParameter);
 
+        globalEvents.emit('completeQuest', {
+            quest: this.getQuest().getID(),
+            subquest: this.getID()
+        })
         return this;
     }
 

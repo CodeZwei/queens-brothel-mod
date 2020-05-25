@@ -193,6 +193,14 @@ class MapManager {
                         GAME.dialogue.playDialogue('principalsOffice');
                     }
                 },
+                "Classroom": {
+                    key: "ClassroomButton",
+                    x: 250,
+                    y: 300,
+                    callback: () => {
+                        GAME.dialogue.playDialogue('AbigailClassroom');
+                    }
+                },
                 "Exit": {
                     key: 'exit',
                     x: 20,
@@ -266,16 +274,16 @@ class MapManager {
             "Avia": {
                 "Castle": {
                     key: "AviaCastleKeep",
-                    x: 500,
-                    y: 250,
+                    x: 166,
+                    y: 312,
                     callback: () => {
                         GAME.dialogue.playDialogue('AviaCastleKeep');
                     }
                 },
                 "Slums": {
                     key: "AviaSlums",
-                    x: 400,
-                    y: 840,
+                    x: 527,
+                    y: 196,
                     callback: () => {
                         GAME.dialogue.playDialogue('AviaSlums');
                     }
@@ -287,10 +295,10 @@ class MapManager {
                     x: 500,
                     y: 250,
                     callback: () => {
-                        GAME.dialogue.playDialogue('mountainCampSite');
+                        GAME.dialogue.playDialogue('CampSite');
                     },
                     visible: () => {
-                        return GAME.quest.isComplete('worldQuests', 'naknuAfterBattleOrcs');
+                        return GAME.quest.isComplete('battleOrcs');
                     }
                 }
             }
@@ -306,9 +314,6 @@ class MapManager {
                 if (GAME.quest.isComplete('greenhaven', 'Start') === false) {
                     GAME.map.disableArrow('east');
                 }
-                // if (GAME.quest.isComplete('battleOrcs', 'askKing') === false) {
-                GAME.map.disableArrow('north');
-                // }
             }],
             "Greenhaven": [function () {
                 if (GAME.quest.isComplete('mushroomQuest', 'BuildBoat') === false) {
@@ -393,84 +398,41 @@ class MapManager {
             }
         });
 
-        // GAME.map.addMapCondition('Avia', function () {
-        //     if (GAME.quest.isComplete('kingsQuest', 'Started') === true && GAME.quest.isComplete('kingsQuest', 'NaknuDialogue') === false) {
-        //         return new Promise((resolve) => {
-        //             let sprite = GAME.add.image(0, 0, 'CrossroadBackground').setOrigin(0);
-        //             GAME.popUpBoard("Queen is too embarrassed to go back to Avia right now. Try again tomorrow.").then(() => {
-        //                 sprite.destroy();
-        //                 GAME.map.switchMap('Crossroad');
-        //                 resolve();
-        //             })
-        //         });
-        //     }
-        // });
+        GAME.map.addMapCondition('Mountains', function () {
+            if (GAME.quest.isComplete('battleOrcs', 'AskKing') === false) {
+                return new Promise((resolve) => {
+                    if(GAME.girl.Queen.isNaked()){
+                        GAME.dialogue.playDialogue('checkMountainsNaked').then(() => {
+                            resolve();
+                        });
+                    } else {
+                        GAME.dialogue.playDialogue('checkMountainsClothes').then(() => {
+                            resolve();
+                        });
+                    }
+                });
+            }
+        });
 
-        // GAME.map.addMapCondition('Avia', function () {
-        //     if (GAME.quest.isComplete('kingsQuest', 'FuckPeasants') === true && GAME.quest.isComplete('kingsQuest', 'NaknuDialogue2') === false) {
-        //         return new Promise((resolve) => {
-        //             let sprite = GAME.add.image(0, 0, 'CrossroadBackground').setOrigin(0);
-        //             GAME.popUpBoard("Avia is too dangerous to go to right now. Try again tomorrow.").then(() => {
-        //                 sprite.destroy();
-        //                 GAME.map.switchMap('Crossroad');
-        //                 resolve();
-        //             })
-        //         });
-        //     }
-        // });
-        //
-        // GAME.map.addMapCondition('Town', function () {
-        //     if (GAME.quest.isComplete('returnDathea', 'Complete') === true && GAME.quest.isComplete('battleOrcs', 'Start') === false) {
-        //         return new Promise((resolve) => {
-        //             GAME.dialogue.playDialogue('battleOrcsStart').then(() => {
-        //                 resolve();
-        //             });
-        //         });
-        //     }
-        // });
-        //
-        // GAME.map.addMapCondition('Mountains', function () {
-        //     if (GAME.quest.isComplete('battleOrcs', 'askKing') === true && GAME.quest.isComplete('battleOrcs', 'checkBattle') === false) {
-        //         return new Promise((resolve) => {
-        //             GAME.dialogue.playDialogue('battleOrccheckBattle').then(() => {
-        //                 resolve();
-        //             });
-        //         });
-        //     }
-        // });
-        //
-        // GAME.map.addMapCondition('Mountains', function () {
-        //     if (GAME.quest.isComplete('battleOrcs', 'checkBattle') === true && GAME.quest.isComplete('battleOrcs', 'naknuPoison') === false) {
-        //         return new Promise((resolve) => {
-        //             let sprite = GAME.add.image(0, 0, 'MountainsBackground').setOrigin(0);
-        //             GAME.popUpBoard("Come back tomorrow to check on the soldier's morale").then(() => {
-        //                 sprite.destroy();
-        //                 GAME.map.switchMap('Easthollow');
-        //                 resolve();
-        //             })
-        //         });
-        //     }
-        // });
-        //
-        // GAME.map.addMapCondition('Mountains', function () {
-        //     if (GAME.quest.isComplete('battleOrcs', 'naknuPoison') === true && GAME.quest.isComplete('battleOrcs', 'getAnal') === false) {
-        //         return new Promise((resolve) => {
-        //             GAME.dialogue.playDialogue('battleOrcsgetAnal').then(() => {
-        //                 resolve();
-        //             });
-        //         });
-        //     }
-        // });
-        //
-        // GAME.map.addMapCondition('Mountains', function () {
-        //     if (GAME.quest.isComplete('battleOrcs', 'getAnal') === true && GAME.quest.isComplete('battleOrcs', 'fuckSoldiers') === false) {
-        //         return new Promise((resolve) => {
-        //             GAME.dialogue.playDialogue('battleOrcsfuckSoldiers').then(() => {
-        //                 resolve();
-        //             });
-        //         });
-        //     }
-        // });
+        GAME.map.addMapCondition('Mountains', function () {
+            if (GAME.quest.isComplete('battleOrcs', 'AskKing') === true && GAME.quest.isComplete('battleOrcs', 'CheckBattle') === false) {
+                return new Promise((resolve) => {
+                    GAME.dialogue.playDialogue('battleOrcsCheckBattle').then(() => {
+                        resolve();
+                    });
+                });
+            }
+        });
+
+        GAME.map.addMapCondition('Mountains', function () {
+            if (GAME.quest.isComplete('battleOrcs', 'NaknuPoison') === true && GAME.quest.isComplete('battleOrcs', 'FuckSoldiers') === false) {
+                return new Promise((resolve) => {
+                    GAME.dialogue.playDialogue('battleOrcsFuckSoldiers').then(() => {
+                        resolve();
+                    });
+                });
+            }
+        });
         //
         // GAME.map.addMapCondition('Mountains', function () {
         //     if (GAME.quest.isComplete('battleOrcs', 'Complete') === true && GAME.quest.isComplete('worldQuests', 'naknuAfterBattleOrcs') === false) {

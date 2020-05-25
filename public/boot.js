@@ -2,7 +2,7 @@
  * Don't touch anything in this file !!
  */
 let VERSION = "";
-let serverLocation = "https://d1mwm3bb5dfx1z.cloudfront.net/";
+let serverLocation = "https://assets.queensbrothel.com/";
 let gameDebugging = false;
 
 const Http = new XMLHttpRequest();

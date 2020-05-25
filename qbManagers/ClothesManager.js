@@ -456,20 +456,25 @@ class ClothesManager {
 
     _initClothes() {
         // Queen
+        this.add(new Clothes('OrcQueen', 'Queen', false))
+            .setName("Orc")
+            .setDescription("Clothes used during battle.")
+            .setLevel(25)
+            .setStat({Throat: 2, Pussy: 1, Anal: 4});
         this.add(new Clothes('PrincessQueen', 'Queen', false))
             .setName("Princess")
             .setDescription("A dress a princess would wear.")
-            .setLevel(25)
+            .setLevel(20)
             .setStat({Tits: 3, Pussy: 2});
         this.add(new Clothes('MudQueen', 'Queen', false))
             .setName('Mud')
             .setDescription('Not really clothes, just mud slathered onto her body.')
-            .setLevel(20)
-            .setStat({Throat: 1, Tits: 1, Pussy: 1});
+            .setLevel(15)
+            .setStat({Throat: 2, Tits: 2, Pussy: 2});
         this.add(new Clothes('ForestQueen', 'Queen', false))
             .setName('Greenhaven')
             .setDescription("The women of Greenhaven don't seem to wear much clothing.")
-            .setLevel(12)
+            .setLevel(8)
             .setStat({Throat: 1, Pussy: 1});
         this.add(new Clothes('SchoolgirlQueen', 'Queen', false))
             .setName('School Uniform')
@@ -487,8 +492,13 @@ class ClothesManager {
         this.add(new Clothes('Valentines2020Queen', 'Queen', false)
             .setName('Lingerie')
             .setDescription('Valentines 2020 Event')
-            .setLevel(0)
-            .setStat({Throat: 1, Tits: 1, Pussy: 1, Anal: 1}));
+            .setLevel(20)
+            .setStat({Throat: 1, Tits: 1, Pussy: 1, Anal: 1}))
+            .setShop(true)
+            .setCost(1000)
+            .setVisible(() => {
+                return GAME.quest.isComplete('mushroomQuest');
+            });
         this.add(new Clothes('Halloween2019Queen', 'Queen', false))
             .setName('Succubus')
             .setDescription("Halloween 2019 Event")
@@ -497,45 +507,53 @@ class ClothesManager {
             .setShop(true)
             .setCost(1000)
             .setVisible(() => {
-                return GAME.quest.isComplete('hornyBoris', 'End');
+                return GAME.quest.isComplete('hornyBoris');
             });
 
         // Suki
+        this.add(new Clothes('OrcSuki', 'Suki', false))
+            .setName("Orc")
+            .setDescription("Clothes used during battle.")
+            .setLevel(25)
+            .setStat({Throat: 2, Pussy: 1, Anal: 4});
         this.add(new Clothes('PrincessSuki', 'Suki', false))
             .setName("Princess")
             .setDescription("A dress a princess would wear.")
-            .setLevel(25)
+            .setLevel(20)
             .setStat({Tits: 3, Pussy: 2});
         this.add(new Clothes('MudSuki', 'Suki', false))
             .setName('Mud')
             .setDescription('Not really clothes, just mud slathered onto her body.')
-            .setLevel(20)
-            .setStat({Throat: 1, Tits: 1, Pussy: 1});
+            .setLevel(15)
+            .setStat({Throat: 2, Tits: 2, Pussy: 2});
+        this.add(new Clothes('LeotardSuki', 'Suki', false))
+            .setName('Leotard')
+            .setDescription("Skin tight leotard. Careful, tears easily.")
+            .setLevel(11)
+            .setStat({Pussy: 2, Tits: 2})
+            .setShop(true)
+            .setCost(600)
+            .setVisible(function () {
+                return GAME.quest.isComplete('principalFeetQuest', 'Start');
+            });
         this.add(new Clothes('ForestSuki', 'Suki', false))
             .setName('Greenhaven')
             .setDescription("The women of Greenhaven don't seem to wear much clothing.")
-            .setLevel(12)
+            .setLevel(8)
             .setStat({Throat: 1, Pussy: 1});
-
-        // this.add(new Clothes('LeotardSuki', 'Suki', false))
-        //     .setName('Leotard')
-        //     .setDescription("Silky smooth leotard. Careful, tears easily.")
-        //     .setLevel(30)
-        //     .setStat({Pussy: 2, Tits: 2})
-        //     .setShop(true)
-        //     .setCost(2000)
-        //     .setVisible(function () {
-        //         return GAME.quest.isComplete('principalFeetQuest', 'Started');
-        //     });
-
         this.add(new Clothes('DefaultSuki', 'Suki', true))
             .setLevel(0)
             .setStat({Pussy: 3});
         this.add(new Clothes('Valentines2020Suki', 'Suki', false)
             .setName('Lingerie')
             .setDescription('Valentines 2020 Event')
-            .setLevel(0)
-            .setStat({Throat: 1, Tits: 1, Pussy: 1, Anal: 1}));
+            .setLevel(20)
+            .setStat({Throat: 1, Tits: 1, Pussy: 1, Anal: 1}))
+            .setShop(true)
+            .setCost(1000)
+            .setVisible(() => {
+                return GAME.quest.isComplete('mushroomQuest');
+            });
         this.add(new Clothes('Halloween2019Suki', 'Suki', false))
             .setName('Nurse')
             .setDescription("Halloween 2019 Event")
@@ -545,26 +563,31 @@ class ClothesManager {
             .setCost(1000)
             .setFace('Halloween2019')
             .setVisible(() => {
-                return GAME.quest.isComplete('hornyBoris', 'End');
+                return GAME.quest.isComplete('hornyBoris');
             });
 
 
         // Esxea
+        this.add(new Clothes('OrcEsxea', 'Esxea', false))
+            .setName("Orc")
+            .setDescription("Clothes used during battle.")
+            .setLevel(25)
+            .setStat({Throat: 2, Pussy: 1, Anal: 4});
         this.add(new Clothes('PrincessEsxea', 'Esxea', false))
             .setName("Princess")
             .setDescription("A dress a princess would wear.")
-            .setLevel(25)
+            .setLevel(20)
             .setStat({Tits: 3, Pussy: 2});
 
         this.add(new Clothes('MudEsxea', 'Esxea', false))
             .setName('Mud')
             .setDescription('Not really clothes, just mud slathered onto her body.')
-            .setLevel(20)
-            .setStat({Throat: 1, Tits: 1, Pussy: 1});
+            .setLevel(15)
+            .setStat({Throat: 2, Tits: 2, Pussy: 2});
         this.add(new Clothes('ForestEsxea', 'Esxea', false))
             .setName('Greenhaven')
             .setDescription("The women of Greenhaven don't seem to wear much clothing.")
-            .setLevel(12)
+            .setLevel(8)
             .setStat({Throat: 1, Pussy: 1});
         this.add(new Clothes('DefaultEsxea', 'Esxea', true))
             .setLevel(0)
@@ -572,8 +595,13 @@ class ClothesManager {
         this.add(new Clothes('Valentines2020Esxea', 'Esxea', false)
             .setName('Lingerie')
             .setDescription('Valentines 2020 Event')
-            .setLevel(0)
-            .setStat({Throat: 1, Tits: 1, Pussy: 1, Anal: 1}));
+            .setLevel(20)
+            .setStat({Throat: 1, Tits: 1, Pussy: 1, Anal: 1}))
+            .setShop(true)
+            .setCost(1000)
+            .setVisible(() => {
+                return GAME.quest.isComplete('mushroomQuest');
+            });
         this.add(new Clothes('Halloween2019Esxea', 'Esxea', false))
             .setName('Super Hero')
             .setDescription("Halloween 2019 Event")
@@ -582,26 +610,31 @@ class ClothesManager {
             .setShop(true)
             .setCost(1000)
             .setVisible(() => {
-                return GAME.quest.isComplete('hornyBoris', 'End');
+                return GAME.quest.isComplete('hornyBoris');
             });
 
         // Scarlett
+        this.add(new Clothes('OrcScarlett', 'Scarlett', false))
+            .setName("Orc")
+            .setDescription("Clothes used during battle.")
+            .setLevel(25)
+            .setStat({Throat: 2, Pussy: 1, Anal: 4});
         this.add(new Clothes('PrincessScarlett', 'Scarlett', false))
             .setName("Princess")
             .setDescription("A dress a princess would wear.")
-            .setLevel(25)
+            .setLevel(20)
             .setStat({Tits: 3, Pussy: 2});
 
         this.add(new Clothes('MudScarlett', 'Scarlett', false))
             .setName('Mud')
             .setDescription('Not really clothes, just mud slathered onto her body.')
-            .setLevel(20)
-            .setStat({Throat: 1, Tits: 1, Pussy: 1});
+            .setLevel(15)
+            .setStat({Throat: 2, Tits: 2, Pussy: 2});
 
         this.add(new Clothes('ForestScarlett', 'Scarlett', false))
             .setName('Greenhaven')
             .setDescription("The women of Greenhaven don't seem to wear much clothing.")
-            .setLevel(12)
+            .setLevel(8)
             .setStat({Throat: 1, Pussy: 1});
         this.add(new Clothes('DefaultScarlett', 'Scarlett', true))
             .setLevel(0)
@@ -609,8 +642,13 @@ class ClothesManager {
         this.add(new Clothes('Valentines2020Scarlett', 'Scarlett', false)
             .setName('Lingerie')
             .setDescription('Valentines 2020 Event')
-            .setLevel(0)
-            .setStat({Throat: 1, Tits: 1, Pussy: 1, Anal: 1}));
+            .setLevel(20)
+            .setStat({Throat: 1, Tits: 1, Pussy: 1, Anal: 1}))
+            .setShop(true)
+            .setCost(1000)
+            .setVisible(() => {
+                return GAME.quest.isComplete('mushroomQuest');
+            });
         this.add(new Clothes('Halloween2019Scarlett', 'Scarlett', false))
             .setName('Mummy')
             .setDescription("Halloween 2019 Event")
@@ -619,28 +657,43 @@ class ClothesManager {
             .setShop(true)
             .setCost(1000)
             .setVisible(() => {
-                return GAME.quest.isComplete('hornyBoris', 'End');
+                return GAME.quest.isComplete('hornyBoris');
             });
 
         // Ardura
+        this.add(new Clothes('OrcArdura', 'Ardura', false))
+            .setName("Orc")
+            .setDescription("Clothes used during battle.")
+            .setLevel(25)
+            .setStat({Throat: 2, Pussy: 1, Anal: 4});
         this.add(new Clothes('PrincessArdura', 'Ardura', false))
             .setName("Princess")
             .setDescription("A dress a princess would wear.")
-            .setLevel(25)
+            .setLevel(20)
             .setStat({Anal: 2, Pussy: 3});
         this.add(new Clothes('MudArdura', 'Ardura', false))
             .setName('Mud')
             .setDescription('Not really clothes, just mud slathered onto her body.')
-            .setLevel(20)
-            .setStat({Throat: 1, Tits: 1, Pussy: 1});
+            .setLevel(15)
+            .setStat({Throat: 2, Tits: 2, Pussy: 2});
+        this.add(new Clothes('ForestArdura', 'Ardura', false))
+            .setName('Greenhaven')
+            .setDescription("The women of Greenhaven don't seem to wear much clothing.")
+            .setLevel(8)
+            .setStat({Throat: 1, Pussy: 1});
         this.add(new Clothes('DefaultArdura', 'Ardura', true))
             .setLevel(0)
             .setStat({Anal: 2});
-        this.add(new Clothes('Valentines2020Ardura', 'Ardura', true)
+        this.add(new Clothes('Valentines2020Ardura', 'Ardura', false)
             .setName('Lingerie')
             .setDescription('Valentines 2020 Event')
-            .setLevel(0)
-            .setStat({Throat: 1, Tits: 1, Pussy: 1, Anal: 1}));
+            .setLevel(20)
+            .setStat({Throat: 1, Tits: 1, Pussy: 1, Anal: 1}))
+            .setShop(true)
+            .setCost(1000)
+            .setVisible(() => {
+                return GAME.quest.isComplete('mushroomQuest');
+            });
 
     }
 

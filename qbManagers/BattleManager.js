@@ -18,240 +18,6 @@ class BattleManager {
     }
 
     /**
-     * Creates the default game battle conditions that any client can use. These are not mandatory and are only used if you want the client to behave like it
-     * @method _initBattleConditions
-     * @memberOf BattleManager
-     * @instance
-     * @private
-     */
-    _initBattleConditions() {
-        this.setBattleCondition('default', function () {
-            return new Promise((resolve) => {
-                if (this.wants.GirlLength > 0) {
-                    this.wants.GirlLength -= 1;
-                } else {
-                    this.wants.GirlLength = 0;
-                }
-
-                if (this.wants.BodyPartLength > 0) {
-                    this.wants.BodyPartLength -= 1;
-                    this.currently.BodyPart = this.wants.BodyPart;
-                    this.Animation = this.currently.Girl + this.currently.BodyPart + "default";
-                } else {
-                    this.wants.BodyPartLength = 5;
-                    this.wants.BodyPart = chance.pickone(skills);
-                    this.Animation = this.currently.Girl + this.wants.BodyPart + "default";
-                }
-
-                resolve();
-            });
-        });
-        this.setBattleCondition('defaultNoAnalTits', function () {
-            return new Promise((resolve) => {
-                if (this.wants.GirlLength > 0) {
-                    this.wants.GirlLength -= 1;
-                } else {
-                    this.wants.GirlLength = 0;
-                }
-
-                if (this.wants.BodyPartLength > 0) {
-                    this.wants.BodyPartLength -= 1;
-                    this.currently.BodyPart = this.wants.BodyPart;
-                    this.Animation = this.currently.Girl + this.currently.BodyPart + "default";
-                } else {
-                    this.wants.BodyPartLength = 5;
-                    this.wants.BodyPart = chance.pickone(['Throat', 'Pussy']);
-                    this.Animation = this.currently.Girl + this.wants.BodyPart + "default";
-                }
-
-
-                resolve();
-            });
-        });
-        this.setBattleCondition('defaultNoAnal', function () {
-            return new Promise((resolve) => {
-                if (this.wants.GirlLength > 0) {
-                    this.wants.GirlLength -= 1;
-                } else {
-                    this.wants.GirlLength = 0;
-                }
-
-                if (this.wants.BodyPartLength > 0) {
-                    this.wants.BodyPartLength -= 1;
-                    this.currently.BodyPart = this.wants.BodyPart;
-                    this.Animation = this.currently.Girl + this.currently.BodyPart + "default";
-                } else {
-                    this.wants.BodyPartLength = 5;
-                    this.wants.BodyPart = chance.pickone(['Throat', 'Pussy', 'Tits']);
-                    this.Animation = this.currently.Girl + this.wants.BodyPart + "default";
-                }
-
-
-                resolve();
-            });
-        });
-        this.setBattleCondition('charge5', function (BATTLE) {
-            return new Promise((resolve) => {
-                if (this.wants.GirlLength > 0) {
-                    this.wants.GirlLength -= 1;
-                } else {
-                    this.wants.GirlLength = 0;
-                }
-
-                if (this.wants.BodyPartLength > 0) {
-                    this.wants.BodyPartLength -= 1;
-                    this.currently.BodyPart = this.wants.BodyPart;
-                    this.Animation = this.currently.Girl + this.currently.BodyPart + "default";
-                    if (this.wants.BodyPartLength < 6 && this.getTickMS() !== 500) {
-                        BATTLE.changeClientTimerDelay(this, 500);
-                    }
-                } else {
-                    this.wants.BodyPartLength = 10;
-                    this.wants.BodyPart = chance.pickone(skills);
-                    this.Animation = this.currently.Girl + this.wants.BodyPart + "default";
-                    if (this.getTickMS() !== 1000) {
-                        BATTLE.changeClientTimerDelay(this, 1000);
-                    }
-                }
-
-
-                resolve();
-            });
-        });
-        this.setBattleCondition('defaultBoris', function (BATTLE) {
-            return new Promise((resolve) => {
-                if (this.wants.BodyPartLength > 0) {
-                    this.wants.BodyPartLength -= 1;
-                    this.currently.BodyPart = this.wants.BodyPart;
-                    this.Animation = "forestBeast" + this.currently.BodyPart;
-                    if (this.wants.BodyPartLength <= 10 && this.wants.BodyPartLength >= 6 && this.getTickMS() !== 500) {
-                        BATTLE.changeClientTimerDelay(this, 600);
-                    }
-                    if (this.wants.BodyPartLength <= 5 && this.getTickMS() !== 300) {
-                        BATTLE.changeClientTimerDelay(this, 300);
-                    }
-                } else {
-                    this.wants.BodyPartLength = 15;
-                    this.wants.BodyPart = chance.pickone(['Throat', 'Pussy']);
-                    this.Animation = "forestBeast" + this.wants.BodyPart;
-                    if (this.getTickMS() !== 2000) {
-                        BATTLE.changeClientTimerDelay(this, 2000);
-                    }
-                }
-                resolve();
-            });
-        });
-        this.setBattleCondition('defaultGoblin', function (BATTLE) {
-            return new Promise((resolve) => {
-                if (this.wants.GirlLength > 0) {
-                    this.wants.GirlLength -= 1;
-                } else {
-                    this.wants.Girl = chance.pickone(BATTLE.getActiveGirls());
-                    this.wants.GirlLength = 10;
-                }
-
-                if (this.wants.BodyPartLength > 0) {
-                    this.wants.BodyPartLength -= 1;
-                    this.currently.BodyPart = this.wants.BodyPart;
-                    this.Animation = this.currently.Girl + this.currently.BodyPart + "default";
-                } else {
-                    this.wants.BodyPartLength = 5;
-                    this.wants.BodyPart = chance.pickone(skills);
-                    this.Animation = this.currently.Girl + this.wants.BodyPart + "default";
-                }
-
-                resolve();
-            });
-        });
-        this.setBattleCondition('defaultAvia', function (BATTLE) {
-            return new Promise((resolve) => {
-                if (this.hasOwnProperty('Edged') === false) {
-                    this.Edged = 0;
-                }
-                if (this.wants.GirlLength > 0) {
-                    this.wants.GirlLength -= 1;
-                } else {
-                    this.wants.GirlLength = 0;
-                }
-
-                if (this.wants.BodyPartLength > 0) {
-                    this.wants.BodyPartLength -= 1;
-                    this.currently.BodyPart = this.wants.BodyPart;
-                    this.Animation = this.currently.Girl + this.currently.BodyPart + "default";
-                } else {
-                    this.wants.BodyPartLength = 10;
-                    this.wants.BodyPart = chance.weighted(skills, [2, 4, 2, 1]);
-                    this.Animation = this.currently.Girl + this.wants.BodyPart + "default";
-                }
-
-                if (this.Edged < 3 && this.getCum() >= 85) {
-                    this.setGirl(chance.pickone(BATTLE.getActiveGirls()));
-                    this.setGirlLength(5);
-                    this.setTickMS(this.getTickMS() - 200);
-                    this.Edged += 1;
-                    this.setCum(60);
-                }
-
-                resolve();
-            });
-        });
-        this.setBattleCondition('lactate', function (BATTLE) {
-            return new Promise((resolve) => {
-                if (this.wants.GirlLength > 0) {
-                    this.wants.GirlLength -= 1;
-                } else {
-                    this.wants.GirlLength = 15;
-                }
-
-                if (this.wants.BodyPartLength > 0) {
-                    this.wants.BodyPartLength -= 1;
-                    this.currently.BodyPart = this.wants.BodyPart;
-                    this.Animation = "kingsQuestBossSuck";
-                    if (this.wants.BodyPartLength > 5) {
-                        this.Animation = "kingsQuestBossFuckMilk";
-                    }
-                    if (this.wants.BodyPartLength > 10) {
-                        this.Animation = "kingsQuestBossFuck"
-                    }
-                } else {
-                    this.wants.BodyPartLength = 15;
-                    this.wants.BodyPart = 'Tits';
-                    this.Animation = "kingsQuestBossFuck";
-                }
-
-                resolve();
-            });
-        });
-    }
-
-    /**
-     * Returns the function that can be used as a battle condition.
-     * BattleManager will contain a bunch of battle conditions I create for the game, the user can always create their own.
-     * @method getBattleCondition
-     * @memberOf BattleManager
-     * @instance
-     * @param {string} id
-     * @returns {function}
-     */
-    getBattleCondition(id) {
-        return this.battleConditions[id];
-    }
-
-    /**
-     * Adds/Changes a battle condition function
-     * @method setBattleCondition
-     * @memberOf BattleManager
-     * @instance
-     * @param {string} id
-     * @param {function} callback
-     * @returns {BattleManager}
-     */
-    setBattleCondition(id, callback) {
-        this.battleConditions[id] = callback;
-        return this;
-    }
-
-    /**
      * Generates an array of clients that could have been summoned with the current reputation
      * @method getClientPack
      * @memberOf BattleManager
@@ -259,176 +25,164 @@ class BattleManager {
      */
     getClientPack() {
         let clients = [];
-        let available = [];
+        let amountOfClients = 2;
+        let names = [];
+        let types = [];
+        let levels = {min: 1, max: 4};
+        let gold = {min: 10, max: 30};
 
         // Easthollow
-        available.push('EasthollowResident');
+        names.push('ClientBorderE1');
+        names.push('ClientBorderE2');
+        names.push('ClientBorderE3');
+        names.push('ClientBorderE4');
+        types.push('Passive');
+        types.push('Cummer');
+        if (GAME.quest.isComplete('greenhaven')) {
+            levels.min = 1;
+            levels.max = 10;
+            gold.min = 10;
+            gold.max = 30;
+            amountOfClients = 3;
+        }
 
         // Greenhaven
-        if (GAME.quest.isComplete('hornyBoris', 'End')) {
-            available.push('GreenhavenResident');
+        if (GAME.quest.isComplete('hornyBoris', 'WhoreGreenhaven')) {
+            names.push('ClientBorderG1');
+            names.push('ClientBorderG2');
+            names.push('ClientBorderG3');
+            names.push('ClientBorderG4');
+            types.push('Speedy');
+            gold.min = 15;
+            gold.max = 40;
+            amountOfClients = 5;
         }
 
         // Morass
-        if (GAME.quest.isComplete('mushroomQuest')) {
-            available.push('Goblin');
+        if (GAME.quest.isComplete('mushroomQuest', 'ReturnThisa')) {
+            names.push('ClientBorderGo1');
+            names.push('ClientBorderGo2');
+            names.push('ClientBorderGo3');
+            names.push('ClientBorderGo4');
+            types.push('Switcher')
+            levels.min = 8;
+            levels.max = 20;
+            gold.min = 20;
+            gold.max = 60;
+            amountOfClients = 7;
         }
 
         // Avia
         if (GAME.quest.isComplete('kingsQuest')) {
-            available.push('AviaResident');
+            names.push('ClientBorderP1');
+            names.push('ClientBorderP2');
+            names.push('ClientBorderP3');
+            names.push('ClientBorderP4');
+            types.push('Edger')
+            levels.min = 10;
+            levels.max = 30;
+            gold.min = 25;
+            gold.max = 80;
+            amountOfClients = 10;
         }
 
-        let clientLength = 1 + GAME.girl.getUnlocked().length;
+        // Mountains
+        if (GAME.quest.isComplete('mountainTraining', 'NaknuAfterOrcBoss')) {
+            names.push('ClientBorderO1');
+            names.push('ClientBorderO2');
+            names.push('ClientBorderO3');
+            names.push('ClientBorderO4');
+            types.push('BigCock')
+            levels.min = 15;
+            levels.max = 50;
+            gold.min = 30;
+            gold.max = 100;
+            amountOfClients = 13;
+        }
 
-        for (let i = 1; i <= clientLength; i++) {
-            if (i > 6) {
-                break;
-            }
-            let rnd = chance.pickone(available);
+        for (let i = 1; i <= amountOfClients; i++) {
+            let rndName = chance.pickone(names);
+            let rndType = chance.pickone(types);
 
-            let client = new BattleClient(rnd);
+            let client;
 
-            if (rnd === "EasthollowResident") {
-                client
-                    .setLevel(chance.integer({min: 2, max: 8}))
-                    .setGold(14)
-                    .setTicksToFuck(10)
-                    .setTickMS(1000)
-                    .addBattleCondition('default', true);
-                if (GAME.quest.isComplete('townMorals') === false) {
-                    client.addBattleCondition('defaultNoAnalTits', true)
-                }
-                if (GAME.quest.isComplete('sukiQuest') === false) {
-                    client.addBattleCondition('defaultNoAnal', true);
-                }
-            } else if (rnd === "GreenhavenResident") {
-                client
-                    .setLevel(chance.integer({min: 8, max: 20}))
-                    .setGold(22)
-                    .setTicksToFuck(20)
-                    .setTickMS(1000)
-                    .addBattleCondition('charge5', true)
-                    .setBodyPartLength(10);
-            } else if (rnd === "Goblin") {
-                client
-                    .setLevel(chance.integer({min: 12, max: 26}))
-                    .setGold(30)
-                    .setTickMS(600)
-                    .setTicksToFuck(20)
-                    .setGirlLength(10)
-                    .setBodyPartLength(5)
-                    .addBattleCondition('defaultGoblin', true);
-            } else if (rnd === "AviaResident") {
-                client
-                    .setLevel(chance.integer({min: 15, max: 30}))
-                    .setGold(52)
-                    .setTickMS(800)
-                    .setTicksToFuck(30)
-                    .addBattleCondition('defaultAvia', true);
+            switch (rndType) {
+                case 'Passive':
+                    client = new BattleClient("", chance.integer(levels), [new BattleClientTypePassive()], chance.pickone(skills), 16000, rndName)
+                        .setGold(chance.integer(gold));
+                    break;
+                case 'Cummer':
+                    client = new BattleClient("", chance.integer(levels), [new BattleClientTypeCummer()], chance.pickone(skills), 8000, rndName)
+                        .setGold(chance.integer(gold));
+                    break;
+                case 'Speedy':
+                    client = new BattleClient("", chance.integer(levels), [new BattleClientTypeSpeedy()], chance.pickone(skills), 16000, rndName)
+                        .setGold(chance.integer(gold));
+                    break;
+                case 'Switcher':
+                    client = new BattleClient("", chance.integer(levels), [new BattleClientTypeSwitcher()], chance.pickone(skills), 20000, rndName)
+                        .setGold(chance.integer(gold));
+                    break;
+                case 'Edger':
+                    client = new BattleClient("", chance.integer(levels), [new BattleClientTypeEdger()], chance.pickone(skills), 16000, rndName)
+                        .setGold(chance.integer(gold));
+                    break;
+                case 'BigCock':
+                    client = new BattleClient("", chance.integer(levels), [new BattleClientTypeBigCock()], chance.pickone(skills), 20000, rndName)
+                        .setGold(chance.integer(gold));
+                    break;
             }
 
             clients.push(client);
         }
 
         clients = Phaser.Utils.Array.Shuffle(clients);
-
         return clients;
     }
 
     /**
-     * @method _onClientTick
+     * @method clientAttack
      * @memberOf BattleManager
      * @instance
      * @private
-     * @param {Battle} BATTLE
-     * @param {string} girl
      * @param {string} clientGUID
      */
-    _onClientTick(BATTLE, girl, clientGUID) {
+    clientAttack(clientGUID) {
+        let BATTLE = GAME.battle.currentBattle;
         let client = BATTLE.getClientByGUID(clientGUID);
-        let bodyPart = client.currently.BodyPart;
-        client.cum += (1 / client.getTicksToFuck()) * 100;
+        let girl = client.getGirl().getID();
+        let bodyPart = client.getBodyPart();
+        let attack = client.getAttack(true);
 
         let girlLevel = GAME.girl.getGirl(girl).getStat(bodyPart);
-        let totalDamage = 0.2 - (0.2 * (Math.round(GAME.Sigmoid(girlLevel, client.getLevel()) * 10) / 10));
+        let baseDamage = 0.6;
+        let totalDamage = baseDamage - (baseDamage * (Math.round(GAME.Sigmoid(girlLevel, client.getLevel()) * 10) / 10));
+        totalDamage = totalDamage * attack.damageScale;
+
         if (totalDamage <= 0) {
             totalDamage = 0.01;
         }
 
         let totalExp = client.getExp(girl);
 
-        let iterateTicks = (index) => {
-            return new Promise((resolve) => {
-                let iterate = (index) => {
-                    if (client.onTick[index]) {
-                        let condition = client.onTick[index];
+        GAME.girl.getGirl(girl).loseStamina(totalDamage);
+        GAME.girl.getGirl(girl).gainExp(totalExp, true);
+        if (totalDamage <= 0.2) {
+            GAME.girl.getGirl(girl).addUltimate(5);
+        } else if (totalDamage > 0.2 && totalDamage <= 0.5) {
+            GAME.girl.getGirl(girl).addUltimate(10);
+        } else {
+            GAME.girl.getGirl(girl).addUltimate(15);
+        }
 
-                        if (condition.getType() === "Battle") {
-                            condition.do(client.cum, totalDamage, totalExp).then((results) => {
-                                if (results) {
-                                    if (results.hasOwnProperty("Cum")) {
-                                        client.cum = results.Cum;
-                                    }
-                                    if (results.hasOwnProperty("totalDamage")) {
-                                        totalDamage = results.totalDamage;
-                                    }
-                                    if (results.hasOwnProperty('totalExp')) {
-                                        totalExp = results.totalExp;
-                                    }
-                                }
-
-                                iterate(index + 1);
-                            });
-                        } else if (condition.getType() === "Dialogue") {
-                            if (condition.Happened === true && condition.Repeat === false) {
-                                iterate(index + 1);
-                            } else if (condition.Condition(condition, BATTLE, girl, bodyPart, client) === true) {
-                                condition.Happened = true;
-                                condition.RepeatCounter += 1;
-                                client.addToQueue(condition);
-                                BATTLE.stopClientTimer(client);
-                                iterate(index + 1);
-                            } else {
-                                iterate(index + 1);
-                            }
-                        } else if (condition.getType() === "User") {
-                            condition.do().then(() => {
-                                iterate(index + 1);
-                            });
-                        } else {
-                            iterate(index + 1);
-                        }
-                    } else {
-                        resolve();
-                    }
-                };
-                iterate(index);
-
-            });
-        };
-
-        iterateTicks(0).then(() => {
-            GAME.girl.getGirl(girl).loseStamina(totalDamage);
-            GAME.girl.getGirl(girl).gainExp(totalExp, true);
-
-            if (client.cum >= 100) {
-                client.cum = 100;
+        if (GAME.girl.getGirl(girl).getStamina() <= 0) {
+            BATTLE.stopFuckingClient(client);
+            if (BATTLE.getActiveGirls().length <= 0) {
+                BATTLE.loseBattle();
             }
+        }
 
-            if (GAME.girl.getGirl(girl).getStamina() < 0) {
-                BATTLE.stopClientTimer(client);
-                if (GAME.girl.getUnlocked(true).length <= 0) {
-                    globalEvents.emit('loseBattle');
-                }
-            }
-
-            if (client.wants.Girl !== client.currently.Girl && client.wants.Girl !== "Any") {
-                BATTLE.stopClientTimer(client);
-            }
-
-            globalEvents.emit('clientTick', BATTLE, girl, clientGUID);
-        });
+        globalEvents.emit('clientTick', clientGUID);
     }
 
     /**
@@ -441,11 +195,12 @@ class BattleManager {
     startBattle(Battle) {
         return new Promise((resolve) => {
             this.currentBattle = Battle;
-            globalEvents.on('_clientTick', this._onClientTick, this);
+            globalEvents.on('clientAttack', this.clientAttack, this);
 
             game.scene.start('BattleScene', {pauseAllScenes: true, BATTLE: this.currentBattle});
             game.scene.getScene('BattleScene').events.once('shutdown', (scene, data) => {
-                globalEvents.off('_clientTick', this._onClientTick);
+                this.currentBattle = false;
+                globalEvents.off('clientAttack', this.clientAttack);
                 resolve(data.answer);
             })
         });
@@ -476,6 +231,9 @@ class Battle {
         for (let i in girlArray) {
             this.GIRLS[girlArray[i]] = {
                 Client: false,
+                Trapped: false,
+                Effect: false,
+                Ultimate: false
             }
         }
 
@@ -506,19 +264,10 @@ class Battle {
      * @method addClient
      * @memberOf Battle
      * @instance
-     * @param {string|BattleClient} client - Client ID or a new {@link BattleClient}
-     * @param {number} [level]
-     * @param [startGirl]
-     * @param [startBodyPart]
-     * @param [defaultBattleCondition='default']
-     * @returns {Battle}
+     * @param {BattleClient} client - {@link BattleClient}
      */
-    addClient(client, level, startGirl, startBodyPart, defaultBattleCondition) {
-        if (typeof client === "string") {
-            this.CLIENTS.push(new BattleClient(client, level, startGirl, startBodyPart, defaultBattleCondition));
-        } else {
-            this.CLIENTS.push(client);
-        }
+    addClient(client) {
+        this.CLIENTS.push(client);
 
         globalEvents.emit('refreshClients');
 
@@ -556,159 +305,39 @@ class Battle {
             GAME.notify("Select a client!");
             return null;
         }
-        let bodyPart = client.getWants().BodyPart;
-        if (this.clientWantsMatch(client, girl) === false) {
-            GAME.notify("Client does not want " + girl);
-            return null;
-        }
+
+        let bodyPart = client.getBodyPart();
+
         if (GAME.girl.getGirl(girl).getStamina() <= 0) {
             GAME.notify(girl + " does not have enough stamina!");
             return null;
         }
-        if (this.GIRLS[girl].Client !== false) {
-            this.stopClientTimer(this.GIRLS[girl].Client);
-            this.GIRLS[girl].Client = client;
-        }
-        if (client.currently.Girl !== false) {
-            this.GIRLS[client.currently.Girl].Client = false;
-        }
-        if (client.cum >= 100) {
-            client.currently.Girl = girl;
-            client.currently.BodyPart = bodyPart;
-            client.doCum(this, girl, bodyPart, client).then((newGirl, newBodyPart) => {
-                newGirl = newGirl || girl;
-                newBodyPart = newBodyPart || bodyPart;
-                this.stopClientTimer(client);
-                this.clientCum(newGirl, newBodyPart, client);
-            });
+        if (this.isTrapped(girl)) {
+            GAME.notify(girl + " is trapped!");
             return null;
         }
-
-        this.startClientTimer(girl, bodyPart, client);
-        globalEvents.emit('doClient');
-    }
-
-    /**
-     * @method startClientTimer
-     * @memberOf Battle
-     * @instance
-     * @param girl
-     * @param bodyPart
-     * @param client
-     */
-    startClientTimer(girl, bodyPart, client) {
-        this.stopClientTimer(client);
-        let GUID = client.GUID;
-        client.timer = game.scene.getScene('BattleScene').time.addEvent({
-            delay: client.getTickMS(), callback: () => {
-                globalEvents.emit('_clientTick', this, girl, GUID);
-            }, loop: true
-        });
-        this.GIRLS[girl].Client = client;
-        client.currently.Girl = girl;
-        client.currently.BodyPart = bodyPart;
-        globalEvents.emit("startClientTimer", this, girl, client);
-    }
-
-    /**
-     * Also changes the client's tickMS
-     * @method changeClientTimerDelay
-     * @memberOf Battle
-     * @instance
-     * @param client
-     * @param delay
-     */
-    changeClientTimerDelay(client, delay) {
-        let girl = client.currently.Girl;
-        client.setTickMS(delay);
-        client.timer.reset({
-            delay: client.getTickMS(), callback: () => {
-                globalEvents.emit('_clientTick', this, girl, client.GUID);
-            }, loop: true
-        })
-    }
-
-    /**
-     * @method pauseClientTimer
-     * @memberOf Battle
-     * @instance
-     * @param client
-     */
-    pauseClientTimer(client) {
-        if (client.timer !== false) {
-            client.timer.paused = true;
-        }
-    }
-
-    /**
-     * @method resumeClientTimer
-     * @memberOf Battle
-     * @instance
-     * @param client
-     */
-    resumeClientTimer(client) {
-        if (client.timer !== false) {
-            client.timer.paused = false;
-        }
-    }
-
-    /**
-     * @method stopClientTimer
-     * @memberOf Battle
-     * @instance
-     * @param client
-     */
-    stopClientTimer(client) {
-        if (client.timer !== false) {
-            client.timer.destroy();
-        }
-        if (client.currently.Girl !== false) {
-            this.GIRLS[client.currently.Girl].Client = false;
-        }
-
-        client.currently.Girl = false;
-        client.currently.BodyPart = false;
-        client.timer = false;
-        client.Animation = "battleNullImage";
-        globalEvents.emit('stopClientTimer', client);
-    }
-
-    /**
-     * @method clientWantsMatch
-     * @memberOf Battle
-     * @instance
-     * @param client
-     * @param girl
-     * @returns {boolean}
-     */
-    clientWantsMatch(client, girl) {
-        if (client.wants.Girl !== 'Any') {
-            if (client.wants.Girl !== girl) {
-                return false;
+        if (client.getGirl() !== false) {
+            if (this.isTrapped(client.getGirl().getID())) {
+                GAME.notify("Client is busy fucking " + client.getGirl().getID());
+                return null;
             }
         }
-
-        return true;
+        if (this.getClientByGirl(girl) !== false) {
+            this.stopFuckingClient(this.getClientByGirl(girl));
+        }
+        client.fuck(girl);
     }
 
     /**
-     * @method clientCum
+     * @method stopFuckingClient
      * @memberOf Battle
      * @instance
-     * @param girl
-     * @param bodyPart
      * @param client
      */
-    clientCum(girl, bodyPart, client) {
-        GAME.girl.getGirl(girl).cumOn(bodyPart);
-        GAME.girl.getGirl(girl).fuckGuys(1);
-        if (client.getGold(girl) > 0) {
-            GAME.addGold(client.getGold(girl));
-        }
-        client.finished = true;
-        this.SelectedClient = false;
-
-        globalEvents.emit('clientCum', this, girl, bodyPart, client);
+    stopFuckingClient(client) {
+        client.stopFucking();
+        client.setAnimation("battleNullImage");
+        globalEvents.emit('stopFuckingClient', client);
     }
 
     /**
@@ -760,5 +389,547 @@ class Battle {
         }
 
         return array;
+    }
+
+    /**
+     * @method getClientByGirl
+     * @memberOf Battle
+     * @instance
+     * @param {string} girlID
+     * @returns {boolean|BattleClient}
+     */
+    getClientByGirl(girlID) {
+        let client = false;
+
+        for (let c of this.CLIENTS) {
+            if (c.getGirl() !== false) {
+                if (c.getGirl().getID() === girlID) {
+                    client = c;
+                }
+            }
+        }
+
+        return client;
+    }
+
+    /**
+     * @method isTrapped
+     * @memberOf Battle
+     * @instance
+     * @param {string} girlID
+     * @returns {boolean}
+     */
+    isTrapped(girlID) {
+        return this.GIRLS[girlID].Trapped !== false;
+    }
+
+    /**
+     * @method trapGirl
+     * @memberOf Battle
+     * @instance
+     * @param {string} girlID
+     * @param {BattleEffect} BattleEffect
+     */
+    trapGirl(girlID, BattleEffect) {
+        let girl = this.GIRLS[girlID];
+
+        if (this.isTrapped(girlID)) {
+            this.removeTrap(girlID);
+        }
+
+        girl.Trapped = BattleEffect;
+
+        girl.Trapped.start(this.getClientByGirl(girlID), null, () => {
+            this.removeTrap(girlID);
+        });
+    }
+
+    /**
+     * @method getTrap
+     * @memberOf Battle
+     * @instance
+     * @param {string} girlID
+     * @returns {boolean}
+     */
+    getTrap(girlID) {
+        if (this.isTrapped(girlID)) {
+            return this.GIRLS[girlID].Trapped;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * @method removeTrap
+     * @memberOf Battle
+     * @instance
+     * @param {string} girlID
+     */
+    removeTrap(girlID) {
+        if (this.isTrapped(girlID)) {
+            this.GIRLS[girlID].Trapped.remove();
+            this.GIRLS[girlID].Trapped = false;
+        } else {
+            this.GIRLS[girlID].Trapped = false;
+        }
+    }
+
+    /**
+     * @method isEffected
+     * @memberOf Battle
+     * @instance
+     * @param {string} girlID
+     * @returns {boolean}
+     */
+    isEffected(girlID) {
+        return this.GIRLS[girlID].Effect !== false;
+    }
+
+    /**
+     * @method effectGirl
+     * @memberOf Battle
+     * @instance
+     * @param {string} girlID
+     * @param {BattleEffect} BattleEffect
+     */
+    effectGirl(girlID, BattleEffect) {
+        let girl = this.GIRLS[girlID];
+
+        if (this.isEffected(girlID)) {
+            this.removeEffect(girlID);
+        }
+
+        girl.Effect = BattleEffect;
+
+        girl.Effect.start(this.getClientByGirl(girlID), null, () => {
+            this.removeEffect(girlID);
+        });
+    }
+
+    /**
+     * @method getEffect
+     * @memberOf Battle
+     * @instance
+     * @param {string} girlID
+     * @returns {boolean}
+     */
+    getEffect(girlID) {
+        if (this.isEffected(girlID)) {
+            return this.GIRLS[girlID].Effect;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * @method removeEffect
+     * @memberOf Battle
+     * @instance
+     * @param {string} girlID
+     */
+    removeEffect(girlID) {
+        if (this.isEffected(girlID)) {
+            this.GIRLS[girlID].Effect.remove();
+            this.GIRLS[girlID].Effect = false;
+        } else {
+            this.GIRLS[girlID].Effect = false;
+        }
+    }
+
+    /**
+     * @method isUltimating
+     * @memberOf Battle
+     * @instance
+     * @param {string} girlID
+     * @returns {boolean}
+     */
+    isUltimating(girlID) {
+        return this.GIRLS[girlID].Ultimate !== false;
+    }
+
+    /**
+     * @method ultimateGirl
+     * @memberOf Battle
+     * @instance
+     * @param {string} girlID
+     */
+    ultimateGirl(girlID) {
+        let girl = this.GIRLS[girlID];
+
+        if (this.isUltimating(girlID)) {
+            this.removeUltimate(girlID);
+        }
+
+        girl.Ultimate = this.getUltimateEffect(girlID);
+
+        girl.Ultimate.start(this.getClientByGirl(girlID), null, () => {
+            this.removeUltimate(girlID);
+        });
+    }
+
+    /**
+     * @method getUltimate
+     * @memberOf Battle
+     * @instance
+     * @param {string} girlID
+     * @returns {boolean}
+     */
+    getUltimate(girlID) {
+        if (this.isUltimating(girlID)) {
+            return this.GIRLS[girlID].Ultimate;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * @method getUltimateEffect
+     * @memberOf Battle
+     * @instance
+     * @param {string} girlID
+     * @returns {BattleEffect}
+     */
+    getUltimateEffect(girlID) {
+        let battleEffect = false;
+
+        switch (girlID) {
+            case 'Queen':
+                battleEffect = new BattleEffectUltimateQueen();
+                break;
+            case'Suki':
+                battleEffect = new BattleEffectUltimateSuki();
+                break;
+            case 'Esxea':
+                battleEffect = new BattleEffectUltimateEsxea();
+                break;
+            case 'Scarlett':
+                battleEffect = new BattleEffectUltimateScarlett();
+                break;
+            case 'Ardura':
+                battleEffect = new BattleEffectUltimateArdura();
+                break;
+        }
+
+        return battleEffect;
+    }
+
+    /**
+     * @method removeUltimate
+     * @memberOf Battle
+     * @instance
+     * @param {string} girlID
+     */
+    removeUltimate(girlID) {
+        if (this.isUltimating(girlID)) {
+            this.GIRLS[girlID].Ultimate.remove();
+            this.GIRLS[girlID].Ultimate = false;
+        } else {
+            this.GIRLS[girlID].Ultimate = false;
+        }
+    }
+
+    /**
+     * @method useUltimate
+     * @memberOf Battle
+     * @instance
+     * @param {string} girlID
+     */
+    useUltimate(girlID) {
+        let girl = GAME.girl.getGirl(girlID);
+
+        if (this.isUltimating(girlID) === false && girl.getUltimate() >= 100) {
+            let ultimate = this.getUltimateEffect(girlID);
+            // Needs a client to ultimate
+            if (ultimate.needsClient === true) {
+                let client = this.getClientByGirl(girlID);
+                if (client !== false && client.getFinished() === false) {
+                    girl.subtractUltimate(100);
+                    this.ultimateGirl(girlID);
+                } else {
+                    GAME.notify("Select a client!");
+                }
+            } else {
+                girl.subtractUltimate(100);
+                this.ultimateGirl(girlID);
+            }
+        } else {
+            GAME.notify(girlID + "'s ultimate is not ready!");
+        }
+    }
+}
+
+class BattleEffect {
+    constructor(id, name, description, thumbnail) {
+        this.battle = GAME.battle.currentBattle;
+        this.id = id;
+        this.name = name;
+        this.description = description || "";
+        this.thumbnail = thumbnail || 'nullPixel';
+        this.lengthMS = 1000;
+        this.attackMS = 1000;
+        this.effectText = '';
+
+        this.properties = {
+            tween: false,
+            attackTween: false,
+            tweenDuration: 0,
+            attackDuration: 0
+        }
+
+        return this;
+    }
+
+    getName() {
+        return this.name;
+    }
+
+    setName(name) {
+        this.name = name;
+        return this;
+    }
+
+    getID() {
+        return this.id;
+    }
+
+    setID(id) {
+        this.id = id;
+        return this;
+    }
+
+    getEffectText() {
+        return this.effectText;
+    }
+
+    setEffectText(text) {
+        this.effectText = text;
+        return this;
+    }
+
+    setThumbnail(thumbnail) {
+        this.thumbnail = thumbnail;
+        return this;
+    }
+
+    getThumbnail() {
+        return this.thumbnail;
+    }
+
+    onStart(client) {
+
+    }
+
+    onComplete(client) {
+
+    }
+
+    onRepeat(client) {
+
+    }
+
+    start(client, onStart, onComplete) {
+        this.remove();
+        let scene = game.scene.getScene('BattleScene');
+
+        this.properties.tween = scene.tweens.add({
+            targets: this.properties,
+            tweenDuration: 100,
+            ease: "Linear",
+            duration: this.lengthMS,
+            onStart: onStart,
+            onComplete: onComplete,
+            paused: false
+        });
+
+        this.properties.tween.on(Phaser.Tweens.Events.TWEEN_COMPLETE, () => {
+            this.onComplete(client);
+        });
+
+        this.properties.tween.on(Phaser.Tweens.Events.TWEEN_START, () => {
+            this.onStart(client);
+        });
+
+        this.properties.attackTween = scene.tweens.add({
+            targets: this.properties,
+            attackDuration: 100,
+            ease: "Linear",
+            duration: this.attackMS,
+            repeat: -1,
+            paused: false
+        });
+
+        this.properties.attackTween.on(Phaser.Tweens.Events.TWEEN_REPEAT, () => {
+            this.onRepeat(client);
+        });
+    }
+
+    update(attack, client) {
+        return attack;
+    }
+
+    remove() {
+        if (this.properties.tween !== false) {
+            this.properties.tween.stop();
+        }
+        if (this.properties.attackTween !== false) {
+            this.properties.attackTween.stop();
+        }
+    }
+
+    getTweenDuration() {
+        return this.properties.tweenDuration;
+    }
+
+    getAttackTweenDuration() {
+        return this.properties.attackDuration;
+    }
+}
+
+class BattleEffectTrap extends BattleEffect {
+    constructor(girlID, damageScale, trapUpdate) {
+        super("Trap", "Trap", girlID + " is trapped and can not move.", "trapIcon");
+        this.girlID = girlID;
+        this.damageScale = damageScale || 0;
+        if (this.trapUpdate) {
+            this.update = trapUpdate;
+        }
+
+        return this;
+    }
+
+    onRepeat() {
+        if (this.battle.getClientByGirl(this.girlID)) {
+            this.battle.getClientByGirl(this.girlID).fuck(this.girlID);
+        }
+    }
+
+    update(attack, client) {
+        attack.damageScale = attack.damageScale + this.damageScale;
+        return attack;
+    }
+}
+
+class BattleEffectBreak extends BattleEffect {
+    constructor() {
+        super("Break", "Break", "Girl has a chance to stop fucking the client", "breakIcon");
+        this.attackMS = 10000;
+        this.lengthMS = 10000;
+        return this;
+    }
+}
+
+class BattleEffectLactate extends BattleEffect {
+    constructor(girlID, lengthMS) {
+        super("Lactate", "Lactate", girlID + " is lactating and losing extra stamina.", "lactateIcon");
+        this.attackMS = 10000;
+        this.lengthMS = lengthMS || 10000;
+        return this;
+    }
+
+    update(attack, client) {
+        attack.damageScale = attack.damageScale + 0.5;
+        return attack;
+    }
+}
+
+class BattleEffectMud extends BattleEffect {
+    constructor(mudStack) {
+        super("Mud", "Mud", "Mud slows down the client's cum meter.", "nullPixel");
+        this.attackMS = 10000;
+        this.mudStack = mudStack || 1;
+        this.lengthMS = this.mudStack * 1000;
+        this.setThumbnail('mudIcon');
+
+        if (this.mudStack < 0) {
+            this.mudStack = 1;
+        }
+        if (this.mudStack > 10) {
+            this.mudStack = 10;
+        }
+
+        this.effectText = this.mudStack.toString();
+    }
+
+    update(attack, client) {
+        attack.cumTweenScale = attack.cumTweenScale - (this.mudStack / 10);
+        return attack;
+    }
+}
+
+class BattleEffectUltimateQueen extends BattleEffect {
+    constructor() {
+        super("UltimateQueen", "Ultimate for Queen", "Ultimate for Queen", 'nullPixel');
+        this.lengthMS = 1000;
+        this.attackMS = 1000;
+        this.needsClient = false;
+
+        this.onStart = () => {
+            for (let girl of GAME.battle.currentBattle.GIRLS.girlArray) {
+                GAME.girl.getGirl(girl).gainStamina(1, false);
+            }
+        }
+    }
+}
+
+class BattleEffectUltimateSuki extends BattleEffect {
+    constructor() {
+        super("UltimateSuki", "Ultimate for Suki", "Ultimate for Suki", 'nullPixel');
+        this.lengthMS = 10000;
+        this.attackMS = 10000;
+        this.needsClient = false;
+
+        this.update = (attack, client) => {
+            attack.excitementTweenScale = attack.excitementTweenScale - 0.3;
+            return attack;
+        }
+    }
+}
+
+class BattleEffectUltimateEsxea extends BattleEffect {
+    constructor() {
+        super("UltimateEsxea", "Ultimate for Esxea", "Ultimate for Esxea", 'nullPixel');
+        this.lengthMS = 5000;
+        this.attackMS = 5000;
+        this.needsClient = false;
+
+        this.update = (attack, client) => {
+            attack.damageScale = attack.damageScale - 2;
+            return attack;
+        }
+    }
+}
+
+class BattleEffectUltimateScarlett extends BattleEffect {
+    constructor() {
+        super("UltimateScarlett", "Ultimate for Scarlett", "Ultimate for Scarlett", 'nullPixel');
+        this.lengthMS = 10000;
+        this.attackMS = 10000;
+        this.needsClient = false;
+
+        this.update = (attack, client) => {
+            attack.cumTweenScale = attack.cumTweenScale + 0.5;
+            return attack;
+        }
+    }
+}
+
+class BattleEffectUltimateArdura extends BattleEffect {
+    constructor() {
+        super("UltimateArdura", "Ultimate for Ardura", "Ultimate for Ardura", 'nullPixel');
+        this.lengthMS = 10000;
+        this.attackMS = 10000;
+        this.before = 0;
+        this.client = "";
+        this.needsClient = true;
+
+        this.onStart = (client) => {
+            this.before = client.getLevel();
+            this.client = client.GUID;
+            client.setLevel(client.getLevel() - 10);
+        }
+
+        this.onComplete = () => {
+            GAME.battle.currentBattle.getClientByGUID(this.client).setLevel(this.before);
+        }
     }
 }

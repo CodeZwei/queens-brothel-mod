@@ -36,10 +36,31 @@ class DialogueManager {
         this.addName('Nirvokk', 'Nirvokk');
         this.addName('Peasant', 'Peasant');
         this.addName('Principal', 'Principal');
+        this.addName('Abigail', 'Abigail');
         this.addName('ScaryMan', 'Scary Man');
         this.addName('Thisa', 'Thisa');
         this.addName('AviaCaptain', 'Avia Captain');
         this.addName('Mog', 'Mog')
+        this.addName('E1', 'Man')
+        this.addName('E2', 'Man')
+        this.addName('E3', 'Man')
+        this.addName('E4', 'Man')
+        this.addName('G1', 'Man')
+        this.addName('G2', 'Man')
+        this.addName('G3', 'Man')
+        this.addName('G4', 'Man')
+        this.addName('Go1', 'Goblin')
+        this.addName('Go2', 'Goblin')
+        this.addName('Go3', 'Goblin')
+        this.addName('Go4', 'Goblin')
+        this.addName('P1', 'Man')
+        this.addName('P2', 'Man')
+        this.addName('P3', 'Man')
+        this.addName('P4', 'Man')
+        this.addName('O1', 'Orc')
+        this.addName('O2', 'Orc')
+        this.addName('O3', 'Orc')
+        this.addName('O4', 'Orc')
     }
 
     _playDialogueTree(id, branch, parameter) {
@@ -276,6 +297,51 @@ class DialogueManager {
 
         return found;
     }
+
+    // /**
+    //  * Exports all of the dialogue in the game into an editable mod
+    //  * @method export
+    //  * @memberOf DialogueManager
+    //  * @instance
+    //  * @return {Array<object>}
+    //  */
+    // export() {
+    //     let rows = [['character','emotion','tree','branchParent','branch','leaf','text']];
+    //
+    //     let checkLeaves = (leaves) => {
+    //         for (let i in leaves) {
+    //             let leaf = leaves[i];
+    //             if (leaf.getType() === "Talk") {
+    //                 let emotion = leaf.emotion || "";
+    //                 rows.push([leaf.character,emotion,leaf.getParent().getTree().getID(),leaf.getParent().getParent().getID(),leaf.getParent().getID(),i,leaf.text])
+    //             }
+    //         }
+    //     };
+    //
+    //     let checkBranch = (branch) => {
+    //         checkLeaves(branch.getLeaves());
+    //
+    //         for (let branchID in branch.getBranches()) {
+    //             checkBranch(branch.getBranch(branchID));
+    //         }
+    //     };
+    //
+    //     let checkDialogue = (dialogueID) => {
+    //         for (let branches in this.getDialogueTree(dialogueID).branches) {
+    //             checkBranch(this.getDialogueTree(dialogueID).getBranch(branches));
+    //         }
+    //     };
+    //
+    //     for (let dialogue in this.dialogues) {
+    //         checkDialogue(dialogue);
+    //     }
+    //
+    //     let csvContent = "data:text/csv;charset=utf-8,"
+    //         + rows.map(e => e.join(",")).join("\n");
+    //
+    //     let encodedUri = encodeURI(csvContent);
+    //     window.open(encodedUri);
+    // }
 }
 
 class DialogueTree {
@@ -603,8 +669,8 @@ class DialogueSwitchBranch extends DialogueStep {
      */
     play() {
         return new Promise((resolve) => {
-            this.getParent().playBranch(this.branchID).then(() => {
-                resolve();
+            this.getParent().playBranch(this.branchID).then((answer) => {
+                resolve(answer);
             });
         });
     }
@@ -633,7 +699,7 @@ class DialogueFunction extends DialogueStep {
      */
     play() {
         return new Promise((resolve) => {
-            this.callback(this.getParent().getParameter(),this.getParent().getLastAnswer()).then((answer) => {
+            this.callback(this.getParent().getParameter(), this.getParent().getLastAnswer()).then((answer) => {
                 resolve(answer);
             });
         });
@@ -643,7 +709,7 @@ class DialogueFunction extends DialogueStep {
 class DialogueSetBackground extends DialogueStep {
     /**
      * @constructor
-     * @param {string} key
+     * @param {string|boolean} [key]
      */
     constructor(key) {
         super("SetBackground");
@@ -659,7 +725,6 @@ class DialogueSetBackground extends DialogueStep {
      */
     play() {
         return new Promise((resolve) => {
-
             this.getDialogueScene().setBackground(this.key).then(() => {
                 resolve();
             });
@@ -696,12 +761,12 @@ class DialogueifLastAnswer extends DialogueStep {
         return new Promise((resolve) => {
             if (this.answer === this.scope.getLastAnswer(this.skipAnswers)) {
                 if (this.dialogueID) {
-                    GAME.dialogue.playDialogue(this.dialogueID, this.branchID).then(() => {
-                        resolve();
+                    GAME.dialogue.playDialogue(this.dialogueID, this.branchID).then((answer) => {
+                        resolve(answer);
                     });
                 } else if (this.branchID) {
-                    this.getParent().playBranch(this.branchID).then(() => {
-                        resolve();
+                    this.getParent().playBranch(this.branchID).then((answer) => {
+                        resolve(answer);
                     });
                 } else {
                     resolve();
@@ -742,12 +807,12 @@ class DialogueifAnswerAtStep extends DialogueStep {
         return new Promise((resolve) => {
             if (this.answer === this.scope.getAnswers(this.step)) {
                 if (this.dialogue) {
-                    GAME.dialogue.playDialogue(this.dialogueID, this.branchID).then(() => {
-                        resolve();
+                    GAME.dialogue.playDialogue(this.dialogueID, this.branchID).then((answer) => {
+                        resolve(answer);
                     });
                 } else if (this.branchID) {
-                    this.getParent().playBranch(this.branchID).then(() => {
-                        resolve();
+                    this.getParent().playBranch(this.branchID).then((answer) => {
+                        resolve(answer);
                     });
                 } else {
                     resolve();
@@ -1359,12 +1424,12 @@ class Branch {
      * @method getLastAnswer
      * @memberOf Branch
      * @instance
-     * @param {number} [skipAnswers=1] - If there are 3 answers, you can get the 3rd answer by passing 3 in this variable
+     * @param {number} [skipAnswers=0] - If there are 3 answers, you can get the 3rd answer by passing 2 in this variable
      * @returns {number}
      */
     getLastAnswer(skipAnswers) {
-        skipAnswers = skipAnswers || 1;
-        return this.questionAnswers[Object.keys(this.questionAnswers)[Object.keys(this.questionAnswers).length - skipAnswers]];
+        skipAnswers = skipAnswers || 0;
+        return this.questionAnswers[Object.keys(this.questionAnswers)[Object.keys(this.questionAnswers).length - 1 - skipAnswers]];
     }
 
     /**
@@ -1437,7 +1502,7 @@ class Branch {
      * @method setBackground
      * @memberOf Branch
      * @instance
-     * @param {string} key
+     * @param {string|boolean} [key]
      * @param {integer} [index]
      * @returns {Branch}
      */
@@ -1452,13 +1517,30 @@ class Branch {
     }
 
     /**
+     * @method removeBackground
+     * @memberOf Branch
+     * @instance
+     * @param {integer} [index]
+     * @returns {Branch}
+     */
+    removeBackground(index) {
+        if (index || index === 0) {
+            Phaser.Utils.Array.AddAt(this.leaves, new DialogueSetBackground('nullPixel')._setParent(this), index);
+        } else {
+            this.leaves.push(new DialogueSetBackground('nullPixel')._setParent(this));
+        }
+
+        return this;
+    }
+
+    /**
      * @method ifLastAnswer
      * @memberOf Branch
      * @instance
      * @param {*} answer
      * @param {string} branchID
      * @param {string} [dialogueID]
-     * @param {number} [skipAnswers=1] - If there are 3 answers, you can get the 3rd answer by passing 3 in this variable
+     * @param {number} [skipAnswers=0] - If there are 3 answers, you can get the 3rd answer by passing 3 in this variable
      * @param {integer} [index]
      * @returns {Branch}
      */
@@ -1758,8 +1840,16 @@ class Branch {
                         if (this.getLeaves(step).getReturnAnswer() === true) {
                             this.setAnswer(step, answer);
                         }
+                        // If the leaf is a return or ifLastAnswer has an answer
                         if (this.getLeaves(step).getType() === "Return") {
                             resolve(answer);
+                        } else if (this.getLeaves(step).getType() === "ifLastAnswer" || this.getLeaves(step).getType() === "ifAnswerAtStep") {
+                            if (answer !== undefined) {
+                                resolve(answer);
+
+                            } else {
+                                nextStep(step + 1);
+                            }
                         } else {
                             nextStep(step + 1);
                         }

@@ -166,6 +166,11 @@ class AnimationManager {
             frames: [{key: 'battleNullImage'}]
         });
         this.createAnimation({
+            ID: 'QueenFreeBlowjobs',
+            frameRate: 1,
+            frames: [{key: 'QueenFreeBlowjobs'}]
+        });
+        this.createAnimation({
             ID: 'QueenThroatdefault',
             frameRate: 24,
             frames: this.createFrames('QueenThroatdefault', 0, 13, 5)
@@ -175,11 +180,46 @@ class AnimationManager {
             frameRate: 24,
             frames: this.createFrames('QueenPussydefault', 0, 12, 5)
         });
+        this.createAnimation({
+            ID: 'QueenAssGrab',
+            frameRate: 1,
+            frames: [{key: 'QueenAssGrab'}]
+        });
+        this.createAnimation({
+            ID: 'QueenLeonAlphaBlack',
+            frameRate: 1,
+            frames: [{key: 'QueenLeonAlphaBlack'}]
+        });
         // this.createAnimation({
         //     ID: 'QueenHandsdefault',
         //     frameRate: 24,
         //     frames: this.createFrames('QueenHandsdefault', 0, 15, 5)
         // });
+        this.createAnimation({
+            ID: 'QueenDanielMilk',
+            frameRate: 1,
+            frames: [{key: 'QueenDanielMilk'}]
+        });
+        this.createAnimation({
+            ID: 'SukiDanielCum',
+            frameRate: 1,
+            frames: [{key: 'SukiDanielCum'}]
+        });
+        this.createAnimation({
+            ID: 'SukiPrincipalThighs',
+            frameRate: 1,
+            frames: [{key: 'SukiPrincipalThighs'}]
+        });
+        this.createAnimation({
+            ID: 'SukiSpitroastOrcs',
+            frameRate: 1,
+            frames: [{key: 'SukiSpitroastOrcs'}]
+        });
+        this.createAnimation({
+            ID: 'SukiClassFuck',
+            frameRate: 1,
+            frames: [{key: 'SukiClassFuck'}]
+        });
         this.createAnimation({
             ID: 'SukiPussydefault',
             frameRate: 24,
@@ -196,20 +236,20 @@ class AnimationManager {
             frames: this.createFrames('SukiThroatdefault', 0, 12, 5)
         });
         this.createAnimation({
+            ID: 'SukiAnaldefault',
+            frameRate: 24,
+            frames: this.createFrames('SukiAnaldefault', 0, 14, 5)
+        });
+        this.createAnimation({
             ID: 'EsxeaPussydefault',
             frameRate: 24,
             frames: this.createFrames('EsxeaPussydefault', 0, 10, 5)
         });
-        // this.createAnimation({
-        //     ID: 'principalFeetQuest1',
-        //     frameRate: 1,
-        //     frames: [{key: 'principalFeetQuest1'}]
-        // });
-        // this.createAnimation({
-        //     ID: 'principalFeetQuest2',
-        //     frameRate: 1,
-        //     frames: [{key: 'principalFeetQuest2'}, {key: 'principalFeetQuest3'}]
-        // });
+        this.createAnimation({
+            ID: 'QueenNirvokkDoggy',
+            frameRate: 1,
+            frames: [{key: 'QueenNirvokkDoggy'}]
+        });
         this.createAnimation({
             ID: 'forestBeastPussy',
             frameRate: 24,
@@ -220,36 +260,51 @@ class AnimationManager {
             frameRate: 24,
             frames: this.createFrames('forestBeastThroat', 0, 13, 5)
         });
+        // this.createAnimation({
+        //     ID: 'goblinBossPussy',
+        //     frameRate: 24,
+        //     frames: this.createFrames('goblinBossPussy', 0, 13, 5)
+        // });
         this.createAnimation({
-            ID: 'goblinBossPussy',
-            frameRate: 24,
-            frames: this.createFrames('goblinBossPussy', 0, 13, 5)
+            ID: 'ScarlettPeasantsMilk',
+            frameRate: 1,
+            frames: [{key: 'ScarlettPeasantsMilk'}]
         });
         this.createAnimation({
-            ID: 'kingsQuestBossFuck',
+            ID: 'ScarlettTitsdefault',
             frameRate: 24,
-            frames: this.createFrames('kingsQuestBossFuck', 0, 18, 5)
-        });
-        this.createAnimation({
-            ID: 'kingsQuestBossFuckMilk',
-            frameRate: 24,
-            frames: this.createFrames('kingsQuestBossFuckMilk', 0, 18, 5)
-        });
-        this.createAnimation({
-            ID: 'kingsQuestBossSuck',
-            frameRate: 24,
-            frames: this.createFrames('kingsQuestBossSuck', 0, 16, 5)
+            frames: this.createFrames('ScarlettTitsdefault', 0, 18, 5)
         });
         // this.createAnimation({
-        //     ID: 'aviaGuard2Fuck',
+        //     ID: 'kingsQuestBossFuckMilk',
         //     frameRate: 24,
-        //     frames: this.createFrames('aviaGuard2Fuck', 0, 18, 5)
+        //     frames: this.createFrames('kingsQuestBossFuckMilk', 0, 18, 5)
         // });
         // this.createAnimation({
-        //     ID: 'aviaGuard2Cum',
+        //     ID: 'kingsQuestBossSuck',
         //     frameRate: 24,
-        //     frames: this.createFrames('aviaGuard2Cum', 0, 75, 5)
+        //     frames: this.createFrames('kingsQuestBossSuck', 0, 16, 5)
         // });
+        this.createAnimation({
+            ID: 'ScarlettAnaldefault',
+            frameRate: 24,
+            frames: this.createFrames('ScarlettAnaldefault', 0, 18, 5)
+        });
+        // this.createAnimation({
+        //     ID: 'ScarlettAnaldefaultCum',
+        //     frameRate: 24,
+        //     frames: this.createFrames('ScarlettAnaldefaultCum', 0, 75, 5)
+        // });
+        this.createAnimation({
+            ID: 'ScarlettGuardAnalCum',
+            frameRate: 1,
+            frames: [{key: 'ScarlettGuardAnalCum'}]
+        });
+        this.createAnimation({
+            ID: 'QueenOrcBattle',
+            frameRate: 1,
+            frames: [{key: 'QueenOrcBattle'}]
+        });
     }
 
     /**
@@ -264,6 +319,10 @@ class AnimationManager {
             // Town Fuck Quest
             if (GAME.quest.isComplete('townFuckQuest', 'End') === true) {
                 return [{
+                    thumbnail: 'QueenFreeBlowjobs',
+                    type: 'Image',
+                    animationID: 'QueenFreeBlowjobs'
+                }, {
                     thumbnail: 'QueenThroatdefault00000',
                     type: 'Animation',
                     animationID: 'QueenThroatdefault'
@@ -275,9 +334,33 @@ class AnimationManager {
             }
         });
         this.addToGallery(function () {
+            // AlphaBlack
+            if (GAME.quest.isComplete('alphaBlack') === true) {
+                return [{
+                    thumbnail: 'QueenLeonAlphaBlack',
+                    type: 'Image',
+                    animationID: 'QueenLeonAlphaBlack'
+                }];
+            }
+        })
+        this.addToGallery(function () {
+            // Town Morals
+            if (GAME.quest.isComplete('townMorals') === true) {
+                return [{
+                    thumbnail: 'QueenAssGrab',
+                    type: 'Image',
+                    animationID: 'QueenAssGrab'
+                }];
+            }
+        })
+        this.addToGallery(function () {
             // Forest Beast Quest
             if (GAME.quest.isComplete('hornyBoris', 'End') === true) {
                 return [{
+                    thumbnail: 'QueenNirvokkDoggy',
+                    type: 'Image',
+                    animationID: 'QueenNirvokkDoggy'
+                }, {
                     thumbnail: 'forestBeastPussy00000',
                     type: 'Animation',
                     animationID: 'forestBeastPussy'
@@ -292,6 +375,14 @@ class AnimationManager {
             // Suki Animations
             if (GAME.girl.Suki.isUnlocked()) {
                 return [{
+                    thumbnail: 'QueenDanielMilk',
+                    type: 'Image',
+                    animationID: 'QueenDanielMilk'
+                }, {
+                    thumbnail: 'SukiDanielCum',
+                    type: 'Image',
+                    animationID: 'SukiDanielCum'
+                }, {
                     thumbnail: 'SukiPussydefault00000',
                     type: 'Animation',
                     animationID: 'SukiPussydefault'
@@ -299,6 +390,30 @@ class AnimationManager {
                     thumbnail: 'SukiThroatdefault00000',
                     type: 'Animation',
                     animationID: 'SukiThroatdefault'
+                }, {
+                    thumbnail: 'SukiAnaldefault00000',
+                    type: 'Animation',
+                    animationID: 'SukiAnaldefault'
+                }]
+            }
+        });
+        this.addToGallery(function () {
+            // principalFeetQuest
+            if (GAME.quest.isComplete('principalFeetQuest') === true) {
+                return [{
+                    thumbnail: 'SukiPrincipalThighs',
+                    type: 'Image',
+                    animationID: 'SukiPrincipalThighs'
+                }]
+            }
+        });
+        this.addToGallery(function () {
+            // principalFeetQuest
+            if (GAME.quest.isComplete('abigailCumQuest') === true) {
+                return [{
+                    thumbnail: 'SukiClassFuck',
+                    type: 'Image',
+                    animationID: 'SukiClassFuck'
                 }]
             }
         });
@@ -319,10 +434,6 @@ class AnimationManager {
                     thumbnail: 'SukiHandsdefault00000',
                     type: 'Animation',
                     animationID: 'SukiHandsdefault'
-                }, {
-                    thumbnail: 'goblinBossPussy00000',
-                    type: 'Animation',
-                    animationID: 'goblinBossPussy'
                 }];
             }
         });
@@ -330,33 +441,49 @@ class AnimationManager {
             // Kings Quest
             if (GAME.quest.isComplete('kingsQuest') === true) {
                 return [{
-                    thumbnail: 'kingsQuestBossFuck00000',
-                    type: 'Animation',
-                    animationID: 'kingsQuestBossFuck'
-                }, {
-                    thumbnail: 'kingsQuestBossFuckMilk00000',
-                    type: 'Animation',
-                    animationID: 'kingsQuestBossFuckMilk'
-                }, {
-                    thumbnail: 'kingsQuestBossSuck00000',
-                    type: 'Animation',
-                    animationID: 'kingsQuestBossSuck'
+                    thumbnail: 'ScarlettPeasantsMilk',
+                    type: 'Image',
+                    animationID: 'ScarlettPeasantsMilk'
                 }];
             }
         });
-        // this.addToGallery(function () {
-        //     // Battle Orcs
-        //     if (GAME.quest.isComplete('battleOrcs', 'Complete') === true) {
-        //         return [{
-        //             thumbnail: 'aviaGuard2Fuck00000',
-        //             type: 'Animation',
-        //             animationID: 'aviaGuard2Fuck'
-        //         }, {
-        //             thumbnail: 'aviaGuard2Cum00000',
-        //             type: 'Animation',
-        //             animationID: 'aviaGuard2Cum'
-        //         }];
-        //     }
-        // });
+        this.addToGallery(function () {
+            // Scarlett Animations
+            if (GAME.girl.Scarlett.isUnlocked()) {
+                return [{
+                    thumbnail: 'ScarlettTitsdefault00000',
+                    type: 'Animation',
+                    animationID: 'ScarlettTitsdefault'
+                }, {
+                    thumbnail: 'ScarlettAnaldefault00000',
+                    type: 'Animation',
+                    animationID: 'ScarlettAnaldefault'
+                }]
+            }
+        });
+        this.addToGallery(function () {
+            // Battle Orcs
+            if (GAME.quest.isComplete('battleOrcs') === true) {
+                return [{
+                    thumbnail: 'ScarlettGuardAnalCum',
+                    type: 'Image',
+                    animationID: 'ScarlettGuardAnalCum'
+                }, {
+                    thumbnail: 'QueenOrcBattle',
+                    type: 'Image',
+                    animationID: 'QueenOrcBattle'
+                }];
+            }
+        });
+        this.addToGallery(function () {
+            // Mountain Training
+            if (GAME.quest.isComplete('mountainTraining') === true) {
+                return [{
+                    thumbnail: 'SukiSpitroastOrcs',
+                    type: 'Image',
+                    animationID: 'SukiSpitroastOrcs'
+                }];
+            }
+        });
     }
 }

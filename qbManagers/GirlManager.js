@@ -37,6 +37,7 @@ class Girl {
      * @property {boolean} naked
      * @property {number} age
      * @property {string} height
+     * @property {string} ultimateDescription
      */
     constructor(id, baseLevel, baseStamina, age, height) {
         this.id = id;
@@ -47,7 +48,6 @@ class Girl {
             Pussy: [],
             Anal: []
         };
-        this._girlRecovery = 2;
         this.baseStats = {
             Throat: 1,
             Pussy: 1,
@@ -58,6 +58,8 @@ class Girl {
         this.staminaGain = {};
         this.baseLevel = baseLevel;
         this.naked = false;
+        this.ultimateDescription = "";
+        this.ultimate = 0;
 
         // Lore stuff
         this.age = age;
@@ -65,6 +67,10 @@ class Girl {
 
         this.Manager = GAME.girl;
         return this;
+    }
+
+    getID() {
+        return this.id;
     }
 
     /**
@@ -146,10 +152,11 @@ class Girl {
      */
     availablePoints() {
         let totalUsedStats = 0;
+        let baseGain = 1;
         for (let stat of skills) {
             totalUsedStats += this.getPlayerStats(stat);
         }
-        let statsForLevel = 2 * (this.getLevel() - this.getBaseLevel());
+        let statsForLevel = baseGain * (this.getLevel() - this.getBaseLevel());
 
         return statsForLevel - totalUsedStats;
     }
@@ -161,7 +168,7 @@ class Girl {
      * @param {GirlManager.bodyPart} bodyPart
      */
     getBaseStat(bodyPart) {
-        return this.baseStats[bodyPart] + (this.getLevel() - this.getBaseLevel());
+        return this.baseStats[bodyPart] + Math.floor((this.getLevel() - this.getBaseLevel()) / 2);
     }
 
     /**
@@ -415,58 +422,6 @@ class Girl {
 
         return this;
     };
-
-    /**
-     * Returns the girl's total recovery each turn of a battle
-     * @method getRecovery
-     * @memberOf Girl
-     * @instance
-     * @returns {number}
-     */
-    getRecovery() {
-        return this._girlRecovery;
-    }
-
-    /**
-     * @method setRecovery
-     * @memberOf Girl
-     * @instance
-     * @param {number} amount
-     * @returns {Girl}
-     */
-    setRecovery(amount) {
-        this._girlRecovery = amount;
-        globalEvents.emit('recoveryStamina');
-        return this;
-    }
-
-    /**
-     * @method recoverStamina
-     * @memberOf Girl
-     * @instance
-     * @returns {Girl}
-     */
-    recoverStamina() {
-        if (this.getRecovery() > 0) {
-            this.gainStamina(0.2, false);
-            this._girlRecovery -= 0.2;
-        }
-        globalEvents.emit('recoveryStamina');
-        return this;
-    }
-
-    /**
-     * @method gainRecoveryStamina
-     * @memberOf Girl
-     * @instance
-     * @param {number} amount
-     * @returns {Girl}
-     */
-    gainRecoveryStamina(amount) {
-        this._girlRecovery += amount;
-        globalEvents.emit('recoveryStamina');
-        return this;
-    }
 
     /**
      * @method getGuysFucked
@@ -792,11 +747,55 @@ class Girl {
      */
     bukkake() {
         for (let skill of skills) {
-            for (let i = 1; i <= 6; i++) {
+            for (let i = 1; i <= 4; i++) {
                 this.cumOn(skill);
             }
         }
         return this;
+    }
+
+    /**
+     * @method setUltimateDescription
+     * @memberOf Girl
+     * @instancce
+     * @param {string} text
+     * @returns {Girl}
+     */
+    setUltimateDescription(text) {
+        this.ultimateDescription = text;
+        return this;
+    }
+
+    /**
+     * @method getUltimateDescription
+     * @memberOf Girl
+     * @instance
+     * @returns {string}
+     */
+    getUltimateDescription() {
+        return this.ultimateDescription;
+    }
+
+    subtractUltimate(amount) {
+        this.ultimate -= amount;
+        if (this.ultimate < 0) {
+            this.ultimate = 0;
+        }
+
+        return this;
+    }
+
+    addUltimate(amount) {
+        this.ultimate += amount;
+        if (this.ultimate > 100) {
+            this.ultimate = 100;
+        }
+
+        return this;
+    }
+
+    getUltimate() {
+        return this.ultimate;
     }
 }
 
@@ -824,18 +823,22 @@ class GirlManager {
                 Tits: 1,
                 Anal: 1
             })
-            .addStaminaGain(15, 1)
-            .addStaminaGain(40, 1);
+            .addStaminaGain(10, 1)
+            .addStaminaGain(30, 1)
+            .addStaminaGain(50, 1)
+            .setUltimateDescription("All girls gain 1 stamina.");
 
-        this.add(new Girl('Suki', 10, 3, 18, "5'0''"))
+        this.add(new Girl('Suki', 8, 3, 18, "5'0''"))
             .setBaseStats({
-                Throat: 10,
-                Pussy: 20,
+                Throat: 8,
+                Pussy: 15,
                 Tits: 1,
-                Anal: 1
+                Anal: 3
             })
             .addStaminaGain(20, 1)
-            .addStaminaGain(50, 1);
+            .addStaminaGain(50, 1)
+            .addStaminaGain(80, 1)
+            .setUltimateDescription("Suki makes clients lose excitement slowly.");
 
         this.add(new Girl('Esxea', 10, 3, 22, "3'4''"))
             .setBaseStats({
@@ -845,7 +848,9 @@ class GirlManager {
                 Anal: 10
             })
             .addStaminaGain(20, 1)
-            .addStaminaGain(35, 1);
+            .addStaminaGain(35, 1)
+            .addStaminaGain(55, 1)
+            .setUltimateDescription("Esxea loses less stamina.");
 
         this.add(new Girl('Scarlett', 15, 4, 21, "5'7''"))
             .setBaseStats({
@@ -855,17 +860,19 @@ class GirlManager {
                 Anal: 1
             })
             .addStaminaGain(40, 1)
-            .addStaminaGain(70, 1);
+            .addStaminaGain(70, 1)
+            .setUltimateDescription("Scarlett makes clients cum faster.");
 
         this.add(new Girl('Ardura', 20, 5, 28, "8'0''"))
             .setBaseStats({
-                Throat: 25,
+                Throat: 15,
                 Pussy: 10,
                 Tits: 5,
-                Anal: 30
+                Anal: 25
             })
             .addStaminaGain(60, 1)
-            .addStaminaGain(100, 1);
+            .addStaminaGain(99, 1)
+            .setUltimateDescription("Ardura reduces the client's level by 10.");
 
         for (let girl of this._girls) {
             if (GAME.girl.getGirl(girl).getExp() < GAME.getExp(GAME.girl.getGirl(girl).getBaseLevel())) {
@@ -885,7 +892,6 @@ class GirlManager {
         this.Queen.addCumLayer('Throat', 'Cum-Throat2');
         this.Queen.addCumLayer('Throat', 'Cum-Throat3');
         this.Queen.addCumLayer('Throat', 'Cum-Throat4');
-        this.Queen.addCumLayer('Throat', 'Cum-Throat5');
         this.Queen.addCumLayer('Pussy', 'Cum-Pussy1');
         this.Queen.addCumLayer('Pussy', 'Cum-Pussy2');
         this.Queen.addCumLayer('Pussy', 'Cum-Pussy3');
@@ -894,28 +900,18 @@ class GirlManager {
         this.Queen.addCumLayer('Tits', 'Cum-Tits2');
         this.Queen.addCumLayer('Tits', 'Cum-Tits3');
         this.Queen.addCumLayer('Tits', 'Cum-Tits4');
-        this.Queen.addCumLayer('Tits', 'Cum-Tits5');
-        this.Queen.addCumLayer('Tits', 'Cum-Tits6');
         this.Suki.addCumLayer('Pussy', 'Cum-Pussy1');
         this.Suki.addCumLayer('Pussy', 'Cum-Pussy2');
         this.Suki.addCumLayer('Pussy', 'Cum-Pussy3');
         this.Suki.addCumLayer('Pussy', 'Cum-Pussy4');
-        this.Suki.addCumLayer('Pussy', 'Cum-Pussy5');
         this.Suki.addCumLayer('Throat', 'Cum-Throat1');
         this.Suki.addCumLayer('Throat', 'Cum-Throat2');
         this.Suki.addCumLayer('Throat', 'Cum-Throat3');
         this.Suki.addCumLayer('Throat', 'Cum-Throat4');
-        this.Suki.addCumLayer('Throat', 'Cum-Throat5');
-        this.Suki.addCumLayer('Throat', 'Cum-Throat6');
-        this.Suki.addCumLayer('Throat', 'Cum-Throat7');
         this.Suki.addCumLayer('Tits', 'Cum-Tits1');
         this.Suki.addCumLayer('Tits', 'Cum-Tits2');
         this.Suki.addCumLayer('Tits', 'Cum-Tits3');
         this.Suki.addCumLayer('Tits', 'Cum-Tits4');
-        this.Suki.addCumLayer('Tits', 'Cum-Tits5');
-        this.Suki.addCumLayer('Tits', 'Cum-Tits6');
-        this.Suki.addCumLayer('Tits', 'Cum-Tits7');
-        this.Suki.addCumLayer('Tits', 'Cum-Tits8');
         this.Esxea.addCumLayer('Pussy', 'Cum-Pussy1');
         this.Esxea.addCumLayer('Pussy', 'Cum-Pussy2');
         this.Esxea.addCumLayer('Pussy', 'Cum-Pussy3');
@@ -924,16 +920,34 @@ class GirlManager {
         this.Esxea.addCumLayer('Throat', 'Cum-Throat2');
         this.Esxea.addCumLayer('Throat', 'Cum-Throat3');
         this.Esxea.addCumLayer('Throat', 'Cum-Throat4');
-        this.Esxea.addCumLayer('Throat', 'Cum-Throat5');
-        this.Esxea.addCumLayer('Throat', 'Cum-Throat6');
-        this.Esxea.addCumLayer('Throat', 'Cum-Throat7');
-        this.Esxea.addCumLayer('Throat', 'Cum-Throat8');
         this.Esxea.addCumLayer('Tits', 'Cum-Tits1');
         this.Esxea.addCumLayer('Tits', 'Cum-Tits2');
         this.Esxea.addCumLayer('Tits', 'Cum-Tits3');
         this.Esxea.addCumLayer('Tits', 'Cum-Tits4');
-        this.Esxea.addCumLayer('Tits', 'Cum-Tits5');
-        this.Esxea.addCumLayer('Tits', 'Cum-Tits6');
+        this.Scarlett.addCumLayer('Pussy', 'Cum-Pussy1');
+        this.Scarlett.addCumLayer('Pussy', 'Cum-Pussy2');
+        this.Scarlett.addCumLayer('Pussy', 'Cum-Pussy3');
+        this.Scarlett.addCumLayer('Pussy', 'Cum-Pussy4');
+        this.Scarlett.addCumLayer('Throat', 'Cum-Throat1');
+        this.Scarlett.addCumLayer('Throat', 'Cum-Throat2');
+        this.Scarlett.addCumLayer('Throat', 'Cum-Throat3');
+        this.Scarlett.addCumLayer('Throat', 'Cum-Throat4');
+        this.Scarlett.addCumLayer('Tits', 'Cum-Tits1');
+        this.Scarlett.addCumLayer('Tits', 'Cum-Tits2');
+        this.Scarlett.addCumLayer('Tits', 'Cum-Tits3');
+        this.Scarlett.addCumLayer('Tits', 'Cum-Tits4');
+        this.Ardura.addCumLayer('Pussy', 'Cum-Pussy1');
+        this.Ardura.addCumLayer('Pussy', 'Cum-Pussy2');
+        this.Ardura.addCumLayer('Pussy', 'Cum-Pussy3');
+        this.Ardura.addCumLayer('Pussy', 'Cum-Pussy4');
+        this.Ardura.addCumLayer('Throat', 'Cum-Throat1');
+        this.Ardura.addCumLayer('Throat', 'Cum-Throat2');
+        this.Ardura.addCumLayer('Throat', 'Cum-Throat3');
+        this.Ardura.addCumLayer('Throat', 'Cum-Throat4');
+        this.Ardura.addCumLayer('Tits', 'Cum-Tits1');
+        this.Ardura.addCumLayer('Tits', 'Cum-Tits2');
+        this.Ardura.addCumLayer('Tits', 'Cum-Tits3');
+        this.Ardura.addCumLayer('Tits', 'Cum-Tits4');
     }
 
     /**
@@ -1068,6 +1082,22 @@ class GirlManager {
                 container.getByName('clothes').setVisible(false);
             }
 
+            container.viewImage = () => {
+                return new Promise((resolve) => {
+                    let imageLayers = [];
+                    container.iterate((child) => {
+                        if (child.visible === true) {
+                            imageLayers.push({Key: child.texture.key});
+                        }
+                    });
+                    GAME.viewImage(imageLayers).then(resolve);
+                })
+            }
+
+            container.onPointerUp = () => {
+                container.viewImage();
+            }
+
             if (input === true) {
                 if (container.input) {
                     container.input.hitArea.setSize(container.getByName('body').getBounds().width, container.getByName('body').getBounds().height);
@@ -1078,13 +1108,7 @@ class GirlManager {
                         useHandCursor: true
                     })
                         .on('pointerup', () => {
-                            let imageLayers = [];
-                            container.iterate((child) => {
-                                if (child.visible === true) {
-                                    imageLayers.push({Key: child.texture.key});
-                                }
-                            });
-                            GAME.viewImage(imageLayers);
+                            container.onPointerUp();
                         })
                 }
             }
