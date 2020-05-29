@@ -36,7 +36,7 @@ Once you're done programming your mod, edit the config.json file in:
       "name": "My Mod",
       "description": "This is my mod.",
       "version": "1.0",
-      "compatible": "0.8.2",
+      "compatible": "0.9.0",
       "script": "mod.js"
     }
 }
