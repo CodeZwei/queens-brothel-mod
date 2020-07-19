@@ -35,6 +35,7 @@ class Girl {
      * @property {object} staminaGain
      * @property {number} baseLevel
      * @property {boolean} naked
+     * @property {boolean} futa
      * @property {number} age
      * @property {string} height
      * @property {string} ultimateDescription
@@ -46,7 +47,8 @@ class Girl {
             Throat: [],
             Tits: [],
             Pussy: [],
-            Anal: []
+            Anal: [],
+            Futa: []
         };
         this.baseStats = {
             Throat: 1,
@@ -58,6 +60,7 @@ class Girl {
         this.staminaGain = {};
         this.baseLevel = baseLevel;
         this.naked = false;
+        this.futa = false;
         this.ultimateDescription = "";
         this.ultimate = 0;
 
@@ -558,13 +561,38 @@ class Girl {
 
     /**
      * Returns if the girl is naked or not
-     * @method getNaked
+     * @method isNaked
      * @memberOf Girl
      * @instance
      * @returns {boolean}
      */
     isNaked() {
         return this.naked;
+    }
+
+    /**
+     * Sets the girl as futa or not
+     * @method setFuta
+     * @memberOf Girl
+     * @instance
+     * @param {boolean} boolean
+     * @returns {Girl}
+     */
+    setFuta(boolean) {
+        this.futa = boolean;
+        globalEvents.emit('refreshGirls');
+        return this;
+    }
+
+    /**
+     * Returns if the girl is futa or not
+     * @method isFuta
+     * @memberOf Girl
+     * @instance
+     * @returns {boolean}
+     */
+    isFuta() {
+        return this.futa;
     }
 
     /**
@@ -732,7 +760,12 @@ class Girl {
             let availableLayers = this.getCumLayers(bodyPart).filter((cumLayer) => girlLayers.includes(cumLayer) === false);
 
             if (availableLayers.length > 0) {
-                this.addLayer(bodyPart !== "Throat", chance.pickone(availableLayers));
+                let beforeClothes = this.isNaked() === true;
+
+                if (bodyPart === "Throat" || bodyPart === "Futa") {
+                    beforeClothes = true
+                }
+                this.addLayer(beforeClothes, chance.pickone(availableLayers));
             }
         }
         return this;
@@ -805,7 +838,7 @@ class Girl {
  */
 class GirlManager {
     constructor() {
-        this._girls = ['Queen', 'Suki', 'Esxea', 'Scarlett', 'Ardura'];
+        this._girls = ['Queen', 'Suki', 'Esxea', 'Scarlett', 'Ardura', 'Natasha'];
 
         /**
          * currentGirl is the currently selected girl. It's the girl displayed on the HUD.
@@ -828,7 +861,7 @@ class GirlManager {
             .addStaminaGain(50, 1)
             .setUltimateDescription("All girls gain 1 stamina.");
 
-        this.add(new Girl('Suki', 8, 3, 18, "5'0''"))
+        this.add(new Girl('Suki', 8, 3, 18, "5'4''"))
             .setBaseStats({
                 Throat: 8,
                 Pussy: 15,
@@ -852,7 +885,7 @@ class GirlManager {
             .addStaminaGain(55, 1)
             .setUltimateDescription("Esxea loses less stamina.");
 
-        this.add(new Girl('Scarlett', 15, 4, 21, "5'7''"))
+        this.add(new Girl('Scarlett', 15, 4, 21, "5'10''"))
             .setBaseStats({
                 Throat: 10,
                 Pussy: 15,
@@ -873,6 +906,21 @@ class GirlManager {
             .addStaminaGain(60, 1)
             .addStaminaGain(99, 1)
             .setUltimateDescription("Ardura reduces the client's level by 10.");
+
+        this.add(new Girl('Natasha', 10, 3, 19, "5'0''"))
+            .setBaseStats({
+                Throat: 5,
+                Pussy: 13,
+                Tits: 5,
+                Anal: 7
+            })
+            .addStaminaGain(25, 1)
+            .addStaminaGain(40, 1)
+            .addStaminaGain(64, 1)
+            .addStaminaGain(80, 1)
+            .addStaminaGain(99, 1)
+            .setUltimateDescription("");
+        // .setUltimateDescription("Natasha increases the ultimate meter for all the girls.");
 
         for (let girl of this._girls) {
             if (GAME.girl.getGirl(girl).getExp() < GAME.getExp(GAME.girl.getGirl(girl).getBaseLevel())) {
@@ -900,6 +948,7 @@ class GirlManager {
         this.Queen.addCumLayer('Tits', 'Cum-Tits2');
         this.Queen.addCumLayer('Tits', 'Cum-Tits3');
         this.Queen.addCumLayer('Tits', 'Cum-Tits4');
+        this.Queen.addCumLayer('Futa', 'Cum-Futa');
         this.Suki.addCumLayer('Pussy', 'Cum-Pussy1');
         this.Suki.addCumLayer('Pussy', 'Cum-Pussy2');
         this.Suki.addCumLayer('Pussy', 'Cum-Pussy3');
@@ -912,6 +961,7 @@ class GirlManager {
         this.Suki.addCumLayer('Tits', 'Cum-Tits2');
         this.Suki.addCumLayer('Tits', 'Cum-Tits3');
         this.Suki.addCumLayer('Tits', 'Cum-Tits4');
+        this.Suki.addCumLayer('Futa', 'Cum-Futa');
         this.Esxea.addCumLayer('Pussy', 'Cum-Pussy1');
         this.Esxea.addCumLayer('Pussy', 'Cum-Pussy2');
         this.Esxea.addCumLayer('Pussy', 'Cum-Pussy3');
@@ -924,6 +974,7 @@ class GirlManager {
         this.Esxea.addCumLayer('Tits', 'Cum-Tits2');
         this.Esxea.addCumLayer('Tits', 'Cum-Tits3');
         this.Esxea.addCumLayer('Tits', 'Cum-Tits4');
+        this.Esxea.addCumLayer('Futa', 'Cum-Futa');
         this.Scarlett.addCumLayer('Pussy', 'Cum-Pussy1');
         this.Scarlett.addCumLayer('Pussy', 'Cum-Pussy2');
         this.Scarlett.addCumLayer('Pussy', 'Cum-Pussy3');
@@ -936,6 +987,7 @@ class GirlManager {
         this.Scarlett.addCumLayer('Tits', 'Cum-Tits2');
         this.Scarlett.addCumLayer('Tits', 'Cum-Tits3');
         this.Scarlett.addCumLayer('Tits', 'Cum-Tits4');
+        this.Scarlett.addCumLayer('Futa', 'Cum-Futa');
         this.Ardura.addCumLayer('Pussy', 'Cum-Pussy1');
         this.Ardura.addCumLayer('Pussy', 'Cum-Pussy2');
         this.Ardura.addCumLayer('Pussy', 'Cum-Pussy3');
@@ -948,6 +1000,20 @@ class GirlManager {
         this.Ardura.addCumLayer('Tits', 'Cum-Tits2');
         this.Ardura.addCumLayer('Tits', 'Cum-Tits3');
         this.Ardura.addCumLayer('Tits', 'Cum-Tits4');
+        this.Ardura.addCumLayer('Futa', 'Cum-Futa');
+        this.Natasha.addCumLayer('Pussy', 'Cum-Pussy1');
+        this.Natasha.addCumLayer('Pussy', 'Cum-Pussy2');
+        this.Natasha.addCumLayer('Pussy', 'Cum-Pussy3');
+        this.Natasha.addCumLayer('Pussy', 'Cum-Pussy4');
+        this.Natasha.addCumLayer('Throat', 'Cum-Throat1');
+        this.Natasha.addCumLayer('Throat', 'Cum-Throat2');
+        this.Natasha.addCumLayer('Throat', 'Cum-Throat3');
+        this.Natasha.addCumLayer('Throat', 'Cum-Throat4');
+        this.Natasha.addCumLayer('Tits', 'Cum-Tits1');
+        this.Natasha.addCumLayer('Tits', 'Cum-Tits2');
+        this.Natasha.addCumLayer('Tits', 'Cum-Tits3');
+        this.Natasha.addCumLayer('Tits', 'Cum-Tits4');
+        this.Natasha.addCumLayer('Futa', 'Cum-Futa');
     }
 
     /**
@@ -1060,6 +1126,7 @@ class GirlManager {
             container.removeAll(true);
 
             container.add(context.add.image(0, 0, chosenGirlID + "-Body-" + girlBody).setOrigin(0.5, 1).setName('body'));
+            container.add(context.add.image(0, 0, chosenGirlID + "-Layer-Futa").setOrigin(0.5, 1).setName('futa').setVisible(false));
             container.add(context.add.image(0, 0, chosenGirlID + "-Face-" + girlFace + "-" + girlEmotion).setOrigin(0.5, 1).setName('face'));
 
             if (girlClothes.getPlayerStyle() !== false) {
@@ -1076,10 +1143,39 @@ class GirlManager {
                 } else {
                     container.add(context.add.image(0, 0, chosenGirlID + "-Layer-" + layer.layerID).setOrigin(0.5, 1).setName(layer.layerID));
                 }
+
+                if (GAME.girl[chosenGirlID].isFuta() === true) {
+                    if (layer.layerID.includes("Pussy") === true) {
+                        container.getByName(layer.layerID).setVisible(false);
+                    }
+                    if (GAME.girl[chosenGirlID].isNaked() === false) {
+                        if (layer.layerID.includes("Futa") === true) {
+                            container.getByName(layer.layerID).setVisible(false);
+                        }
+                    }
+                } else {
+                    if (layer.layerID.includes("Futa") === true) {
+                        container.getByName(layer.layerID).setVisible(false);
+                    }
+                    if (GAME.girl[chosenGirlID].isNaked() === false) {
+                        if (layer.layerID.includes("Futa") === true) {
+                            container.getByName(layer.layerID).setVisible(false);
+                        }
+                    }
+                }
             }
 
             if (GAME.girl[chosenGirlID].isNaked() === true) {
                 container.getByName('clothes').setVisible(false);
+                if (GAME.girl[chosenGirlID].isFuta() === true) {
+                    container.getByName('futa').setVisible(true);
+                } else {
+                    container.getByName('futa').setVisible(false);
+                }
+            } else {
+                if (GAME.girl[chosenGirlID].isFuta() === true) {
+                    container.getByName('futa').setVisible(false);
+                }
             }
 
             container.viewImage = () => {

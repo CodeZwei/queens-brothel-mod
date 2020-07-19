@@ -27,6 +27,10 @@ class QuestManager {
                 .setCondition(true)
                 .setProgress(true);
             worldQuests
+                .addSubQuest('firstVisitCassie')
+                .setCondition(true)
+                .setProgress(true);
+            worldQuests
                 .addSubQuest('introduceAntagonist')
                 .setCondition(() => {
                     return GAME.quest.isComplete('townFuckQuest', 'Start');
@@ -66,6 +70,20 @@ class QuestManager {
                 .setMapIcon(false)
                 .setDialogueTree('Geoff')
                 .setDialogueBranch('upgradeHouse');
+        })();
+
+        (() => {
+            let clothesShop = this.addQuest('clothesShop', "Browse Clothes", true)
+                .setStart('clothesShop')
+                .setEnd('clothesShop');
+            clothesShop
+                .addSubQuest('clothesShop')
+                .setCondition(true)
+                .setProgress(true)
+                .setMapKey('TownClothesShop')
+                .setMapIcon(false)
+                .setDialogueTree('ClothesShop')
+                .setDialogueBranch('openClothesShop');
         })();
 
         (() => {
@@ -858,6 +876,125 @@ class QuestManager {
                 })
         })();
 
+        (() => {
+            let findTrasonia = GAME.quest.addQuest('findTrasonia', "Trasonia", true)
+                .setStart('Start')
+                .setEnd('End');
+            findTrasonia
+                .addSubQuest('Start')
+                .setCondition(() => {
+                    return GAME.quest.isComplete('mountainTraining');
+                })
+                .setProgress(true)
+                .setMapKey('Inn')
+                .setDialogueTree('MorassInn')
+                .setDialogueBranch('findTrasoniaStart');
+            findTrasonia
+                .addSubQuest('End')
+                .setCondition(() => {
+                    return GAME.quest.isComplete('findTrasonia', 'Start');
+                })
+                .setProgress(true)
+                .setDialogueTree('TrasoniaMap')
+                .setLogDescription("Travel west of the mountains to find the elves.")
+        })();
+
+        (() => {
+            let magicQuest = GAME.quest.addQuest('magic', "School of Witchcraft", true)
+                .setStart('Start')
+                .setEnd('End');
+            magicQuest
+                .addSubQuest('Start')
+                .setCondition(() => {
+                    return GAME.quest.isComplete('findTrasonia');
+                })
+                .setProgress(true)
+                .setMapKey('TrasoniaGroundFloor')
+                .setDialogueTree('TrasoniaGroundFloor')
+                .setDialogueBranch('magicStart');
+            magicQuest
+                .addSubQuest('FindSabrina')
+                .setCondition(() => {
+                    return GAME.quest.isComplete('magic', 'Start');
+                })
+                .setProgress(true)
+                .setMapKey('TrasoniaGroundFloor')
+                .setDialogueTree('TrasoniaGroundFloor')
+                .setDialogueBranch('magicFindSabrina')
+                .setLogDescription("Explore Trasonia");
+            magicQuest
+                .addSubQuest('FindDaisy')
+                .setCondition(() => {
+                    return GAME.quest.isComplete('magic', 'Start');
+                })
+                .setProgress(true)
+                .setMapKey('TrasoniaDorms')
+                .setDialogueTree('TrasoniaDorms')
+                .setDialogueBranch('magicFindDaisy')
+                .setLogDescription("Explore Trasonia");
+            magicQuest
+                .addSubQuest('FindArietta')
+                .setCondition(() => {
+                    return GAME.quest.isComplete('magic', 'Start');
+                })
+                .setProgress(true)
+                .setMapKey('TrasoniaAlley')
+                .setDialogueTree('TrasoniaAlley')
+                .setDialogueBranch('magicFindArietta')
+                .setLogDescription("Explore Trasonia");
+            magicQuest
+                .addSubQuest('FindNatasha')
+                .setCondition(() => {
+                    return (GAME.quest.isComplete('magic', 'FindArietta')
+                        && GAME.quest.isComplete('magic', 'FindDaisy')
+                        && GAME.quest.isComplete('magic', 'FindSabrina'));
+                })
+                .setProgress(true)
+                .setMapKey('TrasoniaLibrary')
+                .setDialogueTree('TrasoniaLibrary')
+                .setDialogueBranch('magicFindNatasha')
+                .setLogDescription("Explore Trasonia");
+            magicQuest
+                .addSubQuest('VisitAlley')
+                .setCondition(() => {
+                    return GAME.quest.isComplete('magic', 'FindNatasha');
+                })
+                .setProgress(true)
+                .setMapKey('TrasoniaAlley')
+                .setDialogueTree('TrasoniaAlley')
+                .setDialogueBranch('magicVisitAlley')
+                .setLogDescription("Explore Trasonia with Natasha");
+            magicQuest
+                .addSubQuest('MeetElfGang')
+                .setCondition(() => {
+                    return GAME.quest.isComplete('magic', 'VisitAlley');
+                })
+                .setProgress(true)
+                .setMapKey('TrasoniaGroundFloor')
+                .setDialogueTree('TrasoniaGroundFloor')
+                .setDialogueBranch('magicMeetElfGang')
+                .setLogDescription("See what the ruckus is about at Trasonia.");
+            magicQuest
+                .addSubQuest('Futa')
+                .setCondition(() => {
+                    return GAME.quest.isComplete('magic', 'MeetElfGang');
+                })
+                .setProgress(true)
+                .setMapKey('TrasoniaDorms')
+                .setDialogueTree('TrasoniaDorms')
+                .setDialogueBranch('magicFuta')
+                .setLogDescription("Go to Natasha's dorm.");
+            magicQuest
+                .addSubQuest('End')
+                .setCondition(() => {
+                    return GAME.quest.isComplete('magic', 'Futa');
+                })
+                .setProgress(true)
+                .setDialogueTree('onSleep')
+                .setDialogueBranch('magicEnd')
+                .setLogDescription("Go to sleep.");
+        })();
+
         // Patreon
         (() => {
             let patreon = GAME.quest.addQuest('patreon', "", true)
@@ -866,13 +1003,37 @@ class QuestManager {
             patreon
                 .addSubQuest('Start')
                 .setCondition(() => {
-                    return GAME.quest.isComplete('mountainTraining', 'End');
+                    return GAME.quest.isComplete('magic', 'End');
                 })
                 .setProgress(true)
                 .setDialogueTree('patreon')
                 .setDialogueBranch('patreon')
                 .setLogDescription("You have finished the main storyline!")
                 .setLogProgress("Please check out the Patreon page to see if there is more content available!");
+        })();
+
+        // Clothes Quests
+        (() => {
+            // Queen
+            (() => {
+
+            })();
+            // Suki
+            (() => {
+
+            })();
+            // Esxea
+            (() => {
+
+            })();
+            // Scarlett
+            (() => {
+
+            })();
+            // Ardura
+            (() => {
+
+            })();
         })();
     }
 

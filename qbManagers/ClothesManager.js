@@ -695,6 +695,10 @@ class ClothesManager {
                 return GAME.quest.isComplete('mushroomQuest');
             });
 
+        // Natasha
+        this.add(new Clothes('DefaultNatasha', 'Natasha', true))
+            .setLevel(0);
+
     }
 
     /**

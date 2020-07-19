@@ -19,6 +19,7 @@ class DialogueManager {
         this.addName('Esxea', 'Esxea');
         this.addName('Scarlett', 'Scarlett');
         this.addName('Ardura', 'Ardura');
+        this.addName('Natasha', 'Natasha')
         this.addName('AviaGuard', 'Avia Guard');
         this.addName('Brior', 'Brior');
         this.addName('Daniel', 'Daniel');
@@ -37,10 +38,16 @@ class DialogueManager {
         this.addName('Peasant', 'Peasant');
         this.addName('Principal', 'Principal');
         this.addName('Abigail', 'Abigail');
+        this.addName('Cassie', 'Cassie');
+        this.addName('Thomas', 'Thomas');
         this.addName('ScaryMan', 'Scary Man');
         this.addName('Thisa', 'Thisa');
         this.addName('AviaCaptain', 'Avia Captain');
         this.addName('Mog', 'Mog')
+        this.addName('Arietta', 'Arietta')
+        this.addName('Sabrina', 'Sabrina')
+        this.addName('Daisy', 'Daisy')
+        this.addName('ElfGang', 'Elves')
         this.addName('E1', 'Man')
         this.addName('E2', 'Man')
         this.addName('E3', 'Man')
@@ -131,7 +138,7 @@ class DialogueManager {
             let dialogueScene = game.scene.getScene('DialogueScene');
 
             if (dialogueScene.sys.isActive() === false) {
-                dialogueScene.events.once(Phaser.Scenes.Events.CREATE, () => {
+                dialogueScene.events.once('doneLoading', () => {
                     this._playDialogueTree(id, branchID, parameter).then((answer) => {
                         dialogueScene.end(answer).then(() => {
                             resolve(answer)
@@ -198,9 +205,10 @@ class DialogueManager {
      * @param {String} characterID - The ID of the character
      * @param {String} dialogueText - The text to put in the dialogue box
      * @param {GirlManager.facialExpression} [emotion="Neutral"]
+     * @param {number} [duration]
      * @returns Promise
      */
-    talk(characterID, dialogueText, emotion) {
+    talk(characterID, dialogueText, emotion, duration) {
         return new Promise((resolve) => {
             this.addDialogueTree('tempDialogue')
                 .addBranch('tempBranch', true)
@@ -513,12 +521,14 @@ class DialogueTalk extends DialogueStep {
      * @param {string} character
      * @param {string} text
      * @param {GirlManager.facialExpression} [emotion="Neutral"]
+     * @param {number} [duration]
      */
-    constructor(character, text, emotion) {
+    constructor(character, text, emotion, duration) {
         super("Talk");
         this.character = character;
         this.text = text;
         this.emotion = emotion;
+        this.duration = duration;
     }
 
     /**
@@ -529,7 +539,7 @@ class DialogueTalk extends DialogueStep {
      */
     play() {
         return new Promise((resolve) => {
-            this.getDialogueScene().talk(this.character, this.text, this.emotion).then(() => {
+            this.getDialogueScene().talk(this.character, this.text, this.emotion, this.duration).then(() => {
                 resolve();
             });
         });
@@ -574,13 +584,17 @@ class DialogueQuestPicker extends DialogueStep {
      * @constructor
      * @param {string} mapKey
      * @param {string} text
-     * @param {string} character
+     * @param {string} [character="nullPixel"]
+     * @param {boolean} [greet=false]
      */
-    constructor(mapKey, text, character) {
+    constructor(mapKey, text, character, greet) {
         super("QuestPicker");
         this.mapKey = mapKey;
         this.text = text || "";
         this.character = character || "nullPixel";
+        this.greet = greet;
+
+        this.returnAnswer(true);
     }
 
     /**
@@ -602,19 +616,29 @@ class DialogueQuestPicker extends DialogueStep {
                 questNames.push(quest.getQuest().getName());
             }
 
+            if (this.greet) {
+                Phaser.Utils.Array.AddAt(questNames, "Greet", 0);
+                Phaser.Utils.Array.AddAt(quests, "Greet", 0);
+            }
+
             this.getDialogueScene().question(questNames, true, this.text, this.character, quests).then((answer) => {
                 if (answer === false) {
                     resolve();
                 } else {
                     let quest = quests[answer - 1];
-                    if (quest.getDialogueBranch() !== "") {
-                        GAME.dialogue.playDialogue(quest.getDialogueTree(), quest.getDialogueBranch()).then(() => {
-                            resolve();
-                        });
+
+                    if (this.greet && answer === 1) {
+                        resolve("greet");
                     } else {
-                        GAME.dialogue.playDialogue(quest.getDialogueTree()).then(() => {
-                            resolve();
-                        });
+                        if (quest.getDialogueBranch() !== "") {
+                            GAME.dialogue.playDialogue(quest.getDialogueTree(), quest.getDialogueBranch()).then((answer) => {
+                                resolve(answer);
+                            });
+                        } else {
+                            GAME.dialogue.playDialogue(quest.getDialogueTree()).then((answer) => {
+                                resolve(answer);
+                            });
+                        }
                     }
                 }
             });
@@ -966,6 +990,38 @@ class DialogueSetNaked extends DialogueStep {
                 }
             } else {
                 GAME.girl.getGirl(this.girl).setNaked(this.boolean);
+            }
+            resolve();
+        });
+    }
+}
+
+class DialogueSetFuta extends DialogueStep {
+    /**
+     * @constructor
+     * @param {string|array<string>} girl
+     * @param {boolean} boolean
+     */
+    constructor(girl, boolean) {
+        super("SetFuta");
+        this.girl = girl;
+        this.boolean = boolean || false;
+    }
+
+    /**
+     * @method play
+     * @memberOf DialogueSetFuta
+     * @instance
+     * @returns {Promise<*>}
+     */
+    play() {
+        return new Promise((resolve) => {
+            if (typeof this.girl === "object") {
+                for (let girl of this.girl) {
+                    GAME.girl.getGirl(girl).setFuta(this.boolean);
+                }
+            } else {
+                GAME.girl.getGirl(this.girl).setFuta(this.boolean);
             }
             resolve();
         });
@@ -1338,14 +1394,15 @@ class Branch {
      * @param {string} character
      * @param {string} text
      * @param {string} [emotion="Neutral"]
+     * @param {number} [duration] - How fast the text moves
      * @param {integer} [index]
      * @returns {Branch}
      */
-    talk(character, text, emotion, index) {
+    talk(character, text, emotion, duration, index) {
         if (index || index === 0) {
-            Phaser.Utils.Array.AddAt(this.leaves, new DialogueTalk(character, text, emotion)._setParent(this), index);
+            Phaser.Utils.Array.AddAt(this.leaves, new DialogueTalk(character, text, emotion, duration)._setParent(this), index);
         } else {
-            this.leaves.push(new DialogueTalk(character, text, emotion)._setParent(this));
+            this.leaves.push(new DialogueTalk(character, text, emotion, duration)._setParent(this));
         }
 
         return this;
@@ -1379,14 +1436,15 @@ class Branch {
      * @param {string} mapKey
      * @param {string} [text]
      * @param {string} [character]
+     * @param {boolean} [greet=false]
      * @param {integer} [index]
      * @returns {Branch}
      */
-    QuestPicker(mapKey, text, character, index) {
+    QuestPicker(mapKey, text, character, greet, index) {
         if (index || index === 0) {
-            Phaser.Utils.Array.AddAt(this.leaves, new DialogueQuestPicker(mapKey, text, character)._setParent(this), index);
+            Phaser.Utils.Array.AddAt(this.leaves, new DialogueQuestPicker(mapKey, text, character, greet)._setParent(this), index);
         } else {
-            this.leaves.push(new DialogueQuestPicker(mapKey, text, character)._setParent(this));
+            this.leaves.push(new DialogueQuestPicker(mapKey, text, character, greet)._setParent(this));
         }
 
         return this;
@@ -1663,6 +1721,25 @@ class Branch {
             Phaser.Utils.Array.AddAt(this.leaves, new DialogueSetNaked(girl, boolean)._setParent(this), index);
         } else {
             this.leaves.push(new DialogueSetNaked(girl, boolean)._setParent(this));
+        }
+
+        return this;
+    }
+
+    /**
+     * @method setFuta
+     * @memberOf Branch
+     * @instance
+     * @param {string|Array<string>} girl - Girl ID or Array of IDs
+     * @param {boolean} boolean - Futa on or off
+     * @param {integer} [index]
+     * @returns {Branch}
+     */
+    setFuta(girl, boolean, index) {
+        if (index || index === 0) {
+            Phaser.Utils.Array.AddAt(this.leaves, new DialogueSetFuta(girl, boolean)._setParent(this), index);
+        } else {
+            this.leaves.push(new DialogueSetFuta(girl, boolean)._setParent(this));
         }
 
         return this;

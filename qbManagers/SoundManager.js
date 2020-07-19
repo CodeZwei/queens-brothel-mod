@@ -6,6 +6,7 @@
  * @property {number} MaxVolume - The highest the volume should go. Starts at 0, ends at 1
  * @property {Array<GirlManager.bodyPart>} BodyParts - What body parts should use this sound effect
  * @property {'Slow'|'Medium'|'Fast'} Speed - What speed should this sound effect be categorized as?
+ * @property {boolean} isUnique - If the sound is a unique voice line only played when the girl makes a client cum. Will ignore the Speed property
  */
 
 /**
@@ -22,60 +23,182 @@ class SoundManager {
             lubeKey: false,
             unique: false
         };
-        this._sounds = {
-            Queen: {
-                Medium: [],
-                Fast: []
-            },
-            Suki: {
-                Medium: [],
-                Fast: []
-            },
-            Esxea: {
-                Medium: [],
-                Fast: []
-            },
-            Scarlett: {
-                Medium: [],
-                Fast: []
-            },
-            Ardura: {
-                Medium: [],
-                Fast: []
-            }
-        }
+        this._sounds = {}
     }
 
     _initSounds() {
         // Queen
-        this.addSound({
-            Girl: "Queen",
-            ID: "Queen-BJ-Medium-1",
-            MaxVolume: 0.4,
-            BodyParts: ['Throat'],
-            Speed: "Medium"
-        });
-        this.addSound({
-            Girl: "Queen",
-            ID: "Queen-BJ-Fast-1",
-            MaxVolume: 0.4,
-            BodyParts: ['Throat'],
-            Speed: "Fast"
-        });
-        this.addSound({
-            Girl: "Queen",
-            ID: "Queen-Moan-Medium-1",
-            MaxVolume: 0.4,
-            BodyParts: ['Pussy', 'Anal', 'Tits'],
-            Speed: "Medium"
-        });
-        this.addSound({
-            Girl: "Queen",
-            ID: "Queen-Moan-Fast-1",
-            MaxVolume: 0.4,
-            BodyParts: ['Pussy', 'Anal', 'Tits'],
-            Speed: "Fast"
-        });
+        (() => {
+            this.addSound({
+                Girl: "Queen",
+                ID: "Queen-BJ-Medium-1",
+                MaxVolume: 0.4,
+                BodyParts: ['Throat'],
+                Speed: "Medium"
+            });
+            this.addSound({
+                Girl: "Queen",
+                ID: "Queen-BJ-Fast-1",
+                MaxVolume: 0.4,
+                BodyParts: ['Throat'],
+                Speed: "Fast"
+            });
+            this.addSound({
+                Girl: "Queen",
+                ID: "Queen-Moan-Medium-1",
+                MaxVolume: 0.4,
+                BodyParts: ['Pussy', 'Anal', 'Tits'],
+                Speed: "Medium"
+            });
+            this.addSound({
+                Girl: "Queen",
+                ID: "Queen-Moan-Fast-1",
+                MaxVolume: 0.4,
+                BodyParts: ['Pussy', 'Anal', 'Tits'],
+                Speed: "Fast"
+            });
+            this.addSound({
+                Girl: "Queen",
+                ID: "Queen-Throat-1",
+                MaxVolume: 1,
+                BodyParts: ['Throat'],
+                isUnique: true
+            });
+            this.addSound({
+                Girl: "Queen",
+                ID: "Queen-Throat-2",
+                MaxVolume: 1,
+                BodyParts: ['Throat'],
+                isUnique: true
+            });
+            this.addSound({
+                Girl: "Queen",
+                ID: "Queen-Throat-3",
+                MaxVolume: 1,
+                BodyParts: ['Throat'],
+                isUnique: true
+            });
+            this.addSound({
+                Girl: "Queen",
+                ID: "Queen-Throat-4",
+                MaxVolume: 1,
+                BodyParts: ['Throat'],
+                isUnique: true
+            });
+            this.addSound({
+                Girl: "Queen",
+                ID: "Queen-Throat-5",
+                MaxVolume: 1,
+                BodyParts: ['Throat'],
+                isUnique: true
+            });
+            this.addSound({
+                Girl: "Queen",
+                ID: "Queen-Tits-1",
+                MaxVolume: 1,
+                BodyParts: ['Tits'],
+                isUnique: true
+            });
+            this.addSound({
+                Girl: "Queen",
+                ID: "Queen-Tits-2",
+                MaxVolume: 1,
+                BodyParts: ['Tits'],
+                isUnique: true
+            });
+            this.addSound({
+                Girl: "Queen",
+                ID: "Queen-Tits-3",
+                MaxVolume: 1,
+                BodyParts: ['Tits'],
+                isUnique: true
+            });
+            this.addSound({
+                Girl: "Queen",
+                ID: "Queen-Tits-4",
+                MaxVolume: 1,
+                BodyParts: ['Tits'],
+                isUnique: true
+            });
+            this.addSound({
+                Girl: "Queen",
+                ID: "Queen-Tits-5",
+                MaxVolume: 1,
+                BodyParts: ['Tits'],
+                isUnique: true
+            });
+            this.addSound({
+                Girl: "Queen",
+                ID: "Queen-Pussy-1",
+                MaxVolume: 1,
+                BodyParts: ['Pussy'],
+                isUnique: true
+            });
+            this.addSound({
+                Girl: "Queen",
+                ID: "Queen-Pussy-2",
+                MaxVolume: 1,
+                BodyParts: ['Pussy'],
+                isUnique: true
+            });
+            this.addSound({
+                Girl: "Queen",
+                ID: "Queen-Pussy-3",
+                MaxVolume: 1,
+                BodyParts: ['Pussy'],
+                isUnique: true
+            });
+            this.addSound({
+                Girl: "Queen",
+                ID: "Queen-Pussy-4",
+                MaxVolume: 1,
+                BodyParts: ['Pussy'],
+                isUnique: true
+            });
+            this.addSound({
+                Girl: "Queen",
+                ID: "Queen-Pussy-5",
+                MaxVolume: 1,
+                BodyParts: ['Pussy'],
+                isUnique: true
+            });
+            this.addSound({
+                Girl: "Queen",
+                ID: "Queen-Anal-1",
+                MaxVolume: 1,
+                BodyParts: ['Anal'],
+                isUnique: true
+            });
+            this.addSound({
+                Girl: "Queen",
+                ID: "Queen-Anal-2",
+                MaxVolume: 1,
+                BodyParts: ['Anal'],
+                isUnique: true
+            });
+            this.addSound({
+                Girl: "Queen",
+                ID: "Queen-Anal-3",
+                MaxVolume: 1,
+                BodyParts: ['Anal'],
+                isUnique: true
+            });
+            this.addSound({
+                Girl: "Queen",
+                ID: "Queen-Anal-4",
+                MaxVolume: 1,
+                BodyParts: ['Anal'],
+                isUnique: true
+            });
+            this.addSound({
+                Girl: "Queen",
+                ID: "Queen-Anal-5",
+                MaxVolume: 1,
+                BodyParts: ['Anal'],
+                isUnique: true
+            });
+        })();
+
 
         // Suki
         this.addSound({
@@ -175,7 +298,6 @@ class SoundManager {
         });
 
         // Ardura
-
         this.addSound({
             Girl: "Ardura",
             ID: "Ardura-BJ-Medium-1",
@@ -194,14 +316,14 @@ class SoundManager {
             Girl: "Ardura",
             ID: "Ardura-Moan-Medium-1",
             MaxVolume: 0.4,
-            BodyParts: ['Pussy', 'Anal'],
+            BodyParts: ['Pussy', 'Anal', 'Tits'],
             Speed: "Medium"
         });
         this.addSound({
             Girl: "Ardura",
             ID: "Ardura-Moan-Fast-1",
             MaxVolume: 0.4,
-            BodyParts: ['Pussy', 'Anal'],
+            BodyParts: ['Pussy', 'Anal', 'Tits'],
             Speed: "Fast"
         });
     }
@@ -288,7 +410,30 @@ class SoundManager {
     }
 
     playUnique(girlID, bodyPart) {
+        if (this.currentSound.unique === false) {
+            if (this._sounds[girlID].Uniques[bodyPart].length > 0) {
+                let randomSound = chance.pickone(this._sounds[girlID].Uniques[bodyPart]);
 
+
+                let girlSound = GAME.sound.add(randomSound.ID);
+                this.currentSound.unique = true;
+
+                girlSound.on(Phaser.Sound.Events.STOP, () => {
+                    this.currentSound.unique = false;
+                });
+                girlSound.on(Phaser.Sound.Events.STOP_ALL, () => {
+                    this.currentSound.unique = false;
+                });
+                girlSound.on(Phaser.Sound.Events.COMPLETE, () => {
+                    this.currentSound.unique = false;
+                });
+
+                girlSound.play({
+                    loop: false,
+                    volume: randomSound.MaxVolume
+                });
+            }
+        }
     }
 
     /**
@@ -336,18 +481,37 @@ class SoundManager {
      * @param {SoundManager.soundConfig} soundConfig
      */
     addSound(soundConfig) {
+        if (soundConfig.hasOwnProperty('isUnique') === false) {
+            soundConfig.isUnique = false;
+        }
+
         if (this._sounds.hasOwnProperty(soundConfig.Girl) === false) {
             this._sounds[soundConfig.Girl] = {
                 Medium: [],
-                Fast: []
+                Fast: [],
+                Uniques: {
+                    Throat: [],
+                    Tits: [],
+                    Pussy: [],
+                    Anal: []
+                }
             }
         }
 
-        this._sounds[soundConfig.Girl][soundConfig.Speed].push({
-            ID: soundConfig.ID,
-            MaxVolume: soundConfig.MaxVolume,
-            BodyParts: soundConfig.BodyParts
-        });
+        if (soundConfig.isUnique === true) {
+            for (let bodyPart of soundConfig.BodyParts) {
+                this._sounds[soundConfig.Girl].Uniques[bodyPart].push({
+                    ID: soundConfig.ID,
+                    MaxVolume: soundConfig.MaxVolume
+                })
+            }
+        } else {
+            this._sounds[soundConfig.Girl][soundConfig.Speed].push({
+                ID: soundConfig.ID,
+                MaxVolume: soundConfig.MaxVolume,
+                BodyParts: soundConfig.BodyParts
+            });
+        }
     }
 }
 

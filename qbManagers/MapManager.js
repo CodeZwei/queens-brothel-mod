@@ -1,11 +1,13 @@
 /**
  * @typedef {object} MapManager.map
+ * @property {string} name - the name of hte map
  * @property {boolean|string} north - id of the map north of this map or false
  * @property {boolean|string} south - id of the map south of this map or false
  * @property {boolean|string} east - id of the map eest of this map or false
  * @property {boolean|string} west - id of the map west of this map or false
  * @example
  * {
+ *     "name": "Easthollow",
  *     "north": false,
  *     "south": false,
  *     "east": "Greenhaven",
@@ -54,39 +56,66 @@ class MapManager {
         this._regions = ['Easthollow', 'Greenhaven', 'MoaningMorass', 'Avia', 'Mountains'];
         this._map = {
             "Easthollow": {
+                "name": "Easthollow",
                 "north": 'Mountains',
                 "south": false,
                 "east": 'Greenhaven',
                 "west": false
             },
+            "Town": {
+                "name": "Easthollow Town",
+                "north": false,
+                "south": false,
+                "east": false,
+                "west": false
+            },
+            "School": {
+                "name": "Easthollow School",
+                "north": false,
+                "south": false,
+                "east": false,
+                "west": false
+            },
             "Greenhaven": {
+                "name": "Greenhaven",
                 "north": false,
                 "south": 'MoaningMorass',
                 "east": false,
                 "west": 'Easthollow'
             },
             "MoaningMorass": {
+                "name": "Morass",
                 "north": 'Greenhaven',
                 "south": 'Crossroad',
                 "east": false,
                 "west": false
             },
             "Crossroad": {
+                "name": "Crossroads",
                 "north": "MoaningMorass",
                 "south": false,
                 "east": "Avia",
                 "west": false
             },
             "Avia": {
+                "name": "Avia",
                 "north": false,
                 "south": false,
                 "east": false,
                 "west": "Crossroad"
             },
             "Mountains": {
+                "name": "Mountains",
                 "north": false,
                 "south": "Easthollow",
                 "east": false,
+                "west": "Trasonia"
+            },
+            "Trasonia": {
+                "name": "Trasonia",
+                "north": false,
+                "south": false,
+                "east": "Mountains",
                 "west": false
             }
         };
@@ -95,6 +124,7 @@ class MapManager {
             "Easthollow": {
                 "House": {
                     key: "House",
+                    name: "House",
                     x: 375,
                     y: 486,
                     callback: () => {
@@ -103,6 +133,7 @@ class MapManager {
                 },
                 "Brothel": {
                     key: "Brothel",
+                    name: "Brothel",
                     x: 630,
                     y: 496,
                     callback: () => {
@@ -111,6 +142,7 @@ class MapManager {
                 },
                 "Town": {
                     key: "Town",
+                    name: "Town",
                     x: 1150,
                     y: 134,
                     callback: () => {
@@ -121,6 +153,7 @@ class MapManager {
             "Town": {
                 "TownSquare": {
                     key: "TownSquare",
+                    name: "Town Square",
                     x: 519,
                     y: 567,
                     callback: () => {
@@ -129,14 +162,20 @@ class MapManager {
                 },
                 "ClothesShop": {
                     key: "TownClothesShop",
+                    name: "Clothes Shop",
                     x: 729,
                     y: 142,
                     callback: () => {
-                        GAME.menu.openMenu('townClothesShop');
+                        GAME.dialogue.playDialogue('ClothesShop').then((answer) => {
+                            if (answer === "openClothesShop") {
+                                GAME.menu.openMenu('townClothesShop');
+                            }
+                        });
                     }
                 },
                 "School": {
                     key: "school",
+                    name: "School",
                     x: 1385,
                     y: 0,
                     callback: () => {
@@ -145,6 +184,7 @@ class MapManager {
                 },
                 "Geoff": {
                     key: "TownGeoff",
+                    name: "Geoff's Shop",
                     x: 0,
                     y: 48,
                     callback: () => {
@@ -153,6 +193,7 @@ class MapManager {
                 },
                 "Mayor": {
                     key: "TownMayor",
+                    name: "Mayor's Office",
                     x: 1118,
                     y: 259,
                     callback: () => {
@@ -161,6 +202,7 @@ class MapManager {
                 },
                 "Exit": {
                     key: 'exit',
+                    name: "Exit",
                     x: 600,
                     y: 963,
                     callback: () => {
@@ -171,6 +213,7 @@ class MapManager {
             "School": {
                 "Cafeteria": {
                     key: "CafeteriaButton",
+                    name: "Cafeteria",
                     x: 1200,
                     y: 150,
                     callback: () => {
@@ -179,6 +222,7 @@ class MapManager {
                 },
                 "Janitors": {
                     key: "JanitorsClosetButton",
+                    name: "Janitor's Closet",
                     x: 1400,
                     y: 720,
                     callback: () => {
@@ -187,6 +231,7 @@ class MapManager {
                 },
                 "Principals": {
                     key: "PrincipalsOfficeButton",
+                    name: "Principal's Office",
                     x: 800,
                     y: 730,
                     callback: () => {
@@ -195,6 +240,7 @@ class MapManager {
                 },
                 "Classroom": {
                     key: "ClassroomButton",
+                    name: "Classroom",
                     x: 250,
                     y: 300,
                     callback: () => {
@@ -203,6 +249,7 @@ class MapManager {
                 },
                 "Exit": {
                     key: 'exit',
+                    name: "Exit",
                     x: 20,
                     y: 963,
                     callback: () => {
@@ -213,6 +260,7 @@ class MapManager {
             "Greenhaven": {
                 "Nirvokk": {
                     key: "NirvokkHut",
+                    name: "Nirvokk's Hut",
                     x: 311,
                     y: 150,
                     callback: () => {
@@ -221,6 +269,7 @@ class MapManager {
                 },
                 "Darrak": {
                     key: "DarrakHut",
+                    name: "Darrak's Hut",
                     x: 1129,
                     y: 213,
                     callback: () => {
@@ -229,6 +278,7 @@ class MapManager {
                 },
                 "Boris": {
                     key: "BorisHut",
+                    name: "Boris's Hut",
                     x: 1403,
                     y: 242,
                     callback: () => {
@@ -237,6 +287,7 @@ class MapManager {
                 },
                 "Hangout": {
                     key: "VillageHangout",
+                    name: "Village Hangout",
                     x: 405,
                     y: 0,
                     callback: () => {
@@ -247,6 +298,7 @@ class MapManager {
             "MoaningMorass": {
                 "Inn": {
                     key: "Inn",
+                    name: "Inn",
                     x: 1154,
                     y: 39,
                     callback: () => {
@@ -255,6 +307,7 @@ class MapManager {
                 },
                 "Pond": {
                     key: "Pond",
+                    name: "Pond",
                     x: 309,
                     y: 555,
                     callback: () => {
@@ -263,6 +316,7 @@ class MapManager {
                 },
                 "EsxeaHouse": {
                     key: "EsxeaHouse",
+                    name: "Esxea's House",
                     x: 717,
                     y: 147,
                     callback: () => {
@@ -274,6 +328,7 @@ class MapManager {
             "Avia": {
                 "Castle": {
                     key: "AviaCastleKeep",
+                    name: "Castle",
                     x: 166,
                     y: 312,
                     callback: () => {
@@ -282,6 +337,7 @@ class MapManager {
                 },
                 "Slums": {
                     key: "AviaSlums",
+                    name: "Slums",
                     x: 527,
                     y: 196,
                     callback: () => {
@@ -292,6 +348,7 @@ class MapManager {
             "Mountains": {
                 "CampSite": {
                     key: "CampSite",
+                    name: "Camp Site",
                     x: 500,
                     y: 250,
                     callback: () => {
@@ -299,6 +356,44 @@ class MapManager {
                     },
                     visible: () => {
                         return GAME.quest.isComplete('battleOrcs');
+                    }
+                }
+            },
+            "Trasonia": {
+                "TrasoniaGroundFloor": {
+                    key: "TrasoniaGroundFloor",
+                    name: "Ground Floor",
+                    x: 843,
+                    y: 720,
+                    callback: () => {
+                        GAME.dialogue.playDialogue('TrasoniaGroundFloor');
+                    }
+                },
+                "TrasoniaAlley": {
+                    key: "TrasoniaAlley",
+                    name: "Alley",
+                    x: 254,
+                    y: 575,
+                    callback: () => {
+                        GAME.dialogue.playDialogue('TrasoniaAlley');
+                    }
+                },
+                "TrasoniaDorms": {
+                    key: "TrasoniaDorms",
+                    name: "Dorms",
+                    x: 1209,
+                    y: 344,
+                    callback: () => {
+                        GAME.dialogue.playDialogue('TrasoniaDorms');
+                    }
+                },
+                "TrasoniaLibrary": {
+                    key: "TrasoniaLibrary",
+                    name: "Library",
+                    x: 500,
+                    y: 250,
+                    callback: () => {
+                        GAME.dialogue.playDialogue('TrasoniaLibrary');
                     }
                 }
             }
@@ -323,6 +418,11 @@ class MapManager {
             "MoaningMorass": [function () {
                 if (GAME.quest.isComplete('kingsQuest', 'Start') === false) {
                     GAME.map.disableArrow('south');
+                }
+            }],
+            "Mountains": [function () {
+                if (GAME.quest.isComplete('findTrasonia', 'Start') === false) {
+                    GAME.map.disableArrow('west');
                 }
             }]
         };
@@ -401,7 +501,7 @@ class MapManager {
         GAME.map.addMapCondition('Mountains', function () {
             if (GAME.quest.isComplete('battleOrcs', 'AskKing') === false) {
                 return new Promise((resolve) => {
-                    if(GAME.girl.Queen.isNaked()){
+                    if (GAME.girl.Queen.isNaked()) {
                         GAME.dialogue.playDialogue('checkMountainsNaked').then(() => {
                             resolve();
                         });
@@ -433,16 +533,16 @@ class MapManager {
                 });
             }
         });
-        //
-        // GAME.map.addMapCondition('Mountains', function () {
-        //     if (GAME.quest.isComplete('battleOrcs', 'Complete') === true && GAME.quest.isComplete('worldQuests', 'naknuAfterBattleOrcs') === false) {
-        //         return new Promise((resolve) => {
-        //             GAME.popUpBoard("Queen is tired. Come back tomorrow!").then(() => {
-        //                 GAME.map.switchMap('Easthollow');
-        //             })
-        //         });
-        //     }
-        // });
+
+        GAME.map.addMapCondition('Trasonia', function () {
+            if (GAME.quest.isComplete('findTrasonia', 'Start') === true && GAME.quest.isComplete('findTrasonia', 'End') === false) {
+                return new Promise((resolve) => {
+                    GAME.dialogue.playDialogue('TrasoniaMap').then(() => {
+                        resolve();
+                    });
+                });
+            }
+        });
     }
 
     /**
@@ -624,6 +724,9 @@ class MapManager {
         this.clearQueue();
         GAME.map.currentMap = mapID;
         GAME.createMap(silent);
+        if (GAME.map.getMap(mapID)) {
+            GAME.showMapName(this.getMap(mapID).name);
+        }
     }
 
     /**

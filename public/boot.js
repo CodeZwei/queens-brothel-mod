@@ -4,6 +4,8 @@
 let VERSION = "";
 let serverLocation = "https://assets.queensbrothel.com/";
 let gameDebugging = false;
+let serverAssets = true;
+let givenTo = "mod"
 
 const Http = new XMLHttpRequest();
 Http.open("GET", 'https://queensbrothel.com/api');

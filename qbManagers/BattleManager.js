@@ -66,7 +66,7 @@ class BattleManager {
             names.push('ClientBorderGo4');
             types.push('Switcher')
             levels.min = 8;
-            levels.max = 20;
+            levels.max = 15;
             gold.min = 20;
             gold.max = 60;
             amountOfClients = 7;
@@ -80,7 +80,7 @@ class BattleManager {
             names.push('ClientBorderP4');
             types.push('Edger')
             levels.min = 10;
-            levels.max = 30;
+            levels.max = 20;
             gold.min = 25;
             gold.max = 80;
             amountOfClients = 10;
@@ -94,7 +94,7 @@ class BattleManager {
             names.push('ClientBorderO4');
             types.push('BigCock')
             levels.min = 15;
-            levels.max = 50;
+            levels.max = 25;
             gold.min = 30;
             gold.max = 100;
             amountOfClients = 13;
@@ -167,12 +167,14 @@ class BattleManager {
 
         GAME.girl.getGirl(girl).loseStamina(totalDamage);
         GAME.girl.getGirl(girl).gainExp(totalExp, true);
-        if (totalDamage <= 0.2) {
-            GAME.girl.getGirl(girl).addUltimate(5);
-        } else if (totalDamage > 0.2 && totalDamage <= 0.5) {
-            GAME.girl.getGirl(girl).addUltimate(10);
-        } else {
-            GAME.girl.getGirl(girl).addUltimate(15);
+        if(BATTLE.isUltimating(girl) === false){
+            if (totalDamage <= 0.2) {
+                GAME.girl.getGirl(girl).addUltimate(5);
+            } else if (totalDamage > 0.2 && totalDamage <= 0.5) {
+                GAME.girl.getGirl(girl).addUltimate(10);
+            } else {
+                GAME.girl.getGirl(girl).addUltimate(15);
+            }
         }
 
         if (GAME.girl.getGirl(girl).getStamina() <= 0) {

@@ -1,4 +1,11 @@
 class BattleClientType {
+    /**
+     * @constructor
+     * @param id
+     * @param name
+     * @param color
+     * @returns {BattleClientType}
+     */
     constructor(id, name, color) {
         this.id = id;
         this.name = name || "NOT_SET";
@@ -59,6 +66,10 @@ class BattleClientType {
 }
 
 class BattleClientTypePassive extends BattleClientType {
+    /**
+     * @constructor
+     * @returns {BattleClientTypePassive}
+     */
     constructor() {
         super("Passive", "Passive", "rgb(255,204,150)");
         this.setDescription("This client has no modifiers.")
@@ -67,6 +78,10 @@ class BattleClientTypePassive extends BattleClientType {
 }
 
 class BattleClientTypeSpeedy extends BattleClientType {
+    /**
+     * @constructor
+     * @returns {BattleClientTypeSpeedy}
+     */
     constructor() {
         super("Speedy", "Speedy", "rgb(150,255,152)");
         this.setDescription("This client loses excitement slowly when they are more excited.")
@@ -88,6 +103,10 @@ class BattleClientTypeSpeedy extends BattleClientType {
 }
 
 class BattleClientTypeCummer extends BattleClientType {
+    /**
+     * @constructor
+     * @returns {BattleClientTypeCummer}
+     */
     constructor() {
         super("Cummer", "Cummer", "rgb(255,253,150)");
         this.setDescription("This client cums quickly.")
@@ -106,6 +125,15 @@ class BattleClientTypeCummer extends BattleClientType {
 }
 
 class BattleClientTypeTrapper extends BattleClientType {
+    /**
+     * @constructor
+     * @param trapChance
+     * @param lengthMS
+     * @param attackMS
+     * @param damageScale
+     * @param trapUpdate
+     * @returns {BattleClientTypeTrapper}
+     */
     constructor(trapChance, lengthMS, attackMS, damageScale, trapUpdate) {
         super("Trapper", "Trapper", "rgb(255,0,0)");
         this.setDescription("This client has the ability to trap girls.")
@@ -139,10 +167,17 @@ class BattleClientTypeTrapper extends BattleClientType {
 }
 
 class BattleClientTypeSwitcher extends BattleClientType {
-    constructor(skillsArray) {
+    /**
+     * @constructor
+     * @param skillsArray
+     * @param {number} chance
+     * @returns {BattleClientTypeSwitcher}
+     */
+    constructor(skillsArray, chance) {
         super("Switcher", "Switcher", "rgb(158,98,255)");
         this.setDescription("This client has a chance to switch body parts when a girl is selected.")
         this.skills = skillsArray || skills;
+        this.chance = chance || 30;
         return this;
     }
 
@@ -152,7 +187,7 @@ class BattleClientTypeSwitcher extends BattleClientType {
     }
 
     condition(client) {
-        return chance.bool({likelihood: 30});
+        return chance.bool({likelihood: this.chance});
     }
 
     onAttack(attack, client) {
@@ -162,6 +197,10 @@ class BattleClientTypeSwitcher extends BattleClientType {
 }
 
 class BattleClientTypeEdger extends BattleClientType {
+    /**
+     * @constructor
+     * @returns {BattleClientTypeEdger}
+     */
     constructor() {
         super("Edger", "Edger", "rgb(255,116,116)");
         this.setDescription("This client loses excitement quicker the closer they are to cumming.")
@@ -183,6 +222,10 @@ class BattleClientTypeEdger extends BattleClientType {
 }
 
 class BattleClientTypeBigCock extends BattleClientType {
+    /**
+     * @constructor
+     * @returns {BattleClientTypeBigCock}
+     */
     constructor() {
         super("BigCock", "Big Cock", "rgb(150,185,255)");
         this.setDescription("This client takes more stamina to please the more excited they are.")
@@ -200,6 +243,12 @@ class BattleClientTypeBigCock extends BattleClientType {
 }
 
 class BattleClientTypeSummoner extends BattleClientType {
+    /**
+     * @constructor
+     * @param clientArray
+     * @param summonChance
+     * @returns {BattleClientTypeSummoner}
+     */
     constructor(clientArray, summonChance) {
         super("Summoner", "Summoner", "rgb(255,98,239)");
         this.setDescription("This client has a chance to summon another client when a girl is selected.")
@@ -227,6 +276,10 @@ class BattleClientTypeSummoner extends BattleClientType {
 }
 
 class BattleClientTypeMudder extends BattleClientType {
+    /**
+     * @constructor
+     * @returns {BattleClientTypeMudder}
+     */
     constructor() {
         super("Mudder", "Mudder", "rgb(134,68,41)");
         this.setDescription("This client adds stacks of mud to girls when fucked. Mud slows down the client's excitement and cum meter.");
@@ -251,6 +304,11 @@ class BattleClientTypeMudder extends BattleClientType {
 }
 
 class BattleClientTypeLactater extends BattleClientType {
+    /**
+     * @constructor
+     * @param lactateChance
+     * @returns {BattleClientTypeLactater}
+     */
     constructor(lactateChance) {
         super("Lactater", "Lactater", "rgb(255,255,255)");
         this.setDescription("This client has a chance to make the girl lactate, causing the girl to lose more stamina.");
@@ -280,6 +338,13 @@ class BattleClientTypeLactater extends BattleClientType {
 }
 
 class BattleClientTypeBreaker extends BattleClientType {
+    /**
+     * @constructor
+     * @param inflictChance
+     * @param breakChance
+     * @param damage
+     * @returns {BattleClientTypeBreaker}
+     */
     constructor(inflictChance, breakChance, damage) {
         super("Breaker", "Breaker", "rgb(255,0,0)");
         this.setDescription("This client has a chance to inflict 'Break', causing a chance for the girl's to stop fucking the client.");
@@ -378,6 +443,11 @@ class BattleClient {
         return this;
     }
 
+    /**
+     * @method startCumTween
+     * @memberOf BattleClient
+     * @instance
+     */
     startCumTween() {
         this.stopCumTween();
         let duration = this.timeToCum - (this.timeToCum * (this.cum / 100))
@@ -403,12 +473,22 @@ class BattleClient {
         });
     }
 
+    /**
+     * @method stopCumTween
+     * @memberOf BattleClient
+     * @instance
+     */
     stopCumTween() {
         if (this.cumTween) {
             this.cumTween.stop();
         }
     }
 
+    /**
+     * @method startCumDownTween
+     * @memberOf BattleClient
+     * @instance
+     */
     startCumDownTween() {
         this.stopCumDownTween();
         this.stopCumTween();
@@ -424,12 +504,22 @@ class BattleClient {
         this.setCumDownTweenScale(this.cumDownTweenScale);
     }
 
+    /**
+     * @method stopCumDownTween
+     * @memberOf BattleClient
+     * @instance
+     */
     stopCumDownTween() {
         if (this.cumDownTween) {
             this.cumDownTween.stop();
         }
     }
 
+    /**
+     * @method startExcitementTween
+     * @memberOf BattleClient
+     * @instance
+     */
     startExcitementTween() {
         this.stopExcitementTween();
         this.stopCumDownTween();
@@ -455,13 +545,22 @@ class BattleClient {
         });
     }
 
+    /**
+     * @method stopExcitementTween
+     * @memberOf BattleClient
+     * @instance
+     */
     stopExcitementTween() {
         if (this.excitementTween) {
             this.excitementTween.stop();
         }
     }
 
-
+    /**
+     * @method pushExcitement
+     * @memberOf BattleClient
+     * @instance
+     */
     pushExcitement(amount) {
         amount = amount || 30;
         this.excitement += amount;
@@ -477,6 +576,13 @@ class BattleClient {
         }
     }
 
+    /**
+     * @method setCumDownTweenScale
+     * @memberOf BattleClient
+     * @instance
+     * @param {number} scale
+     * @returns BattleClient
+     */
     setCumDownTweenScale(scale) {
         if (scale < 0.1) {
             scale = 0.1;
@@ -488,6 +594,13 @@ class BattleClient {
         return this;
     }
 
+    /**
+     * @method setCumTweenScale
+     * @memberOf BattleClient
+     * @instance
+     * @param {number} scale
+     * @returns BattleClient
+     */
     setCumTweenScale(scale) {
         if (scale < 0.1) {
             scale = 0.1;
@@ -499,6 +612,13 @@ class BattleClient {
         return this;
     }
 
+    /**
+     * @method setExcitementTweenScale
+     * @memberOf BattleClient
+     * @instance
+     * @param {number} scale
+     * @returns BattleClient
+     */
     setExcitementTweenScale(scale) {
         if (scale < 0.1) {
             scale = 0.1;
@@ -510,15 +630,34 @@ class BattleClient {
         return this;
     }
 
+    /**
+     * @method getTimeToCum
+     * @memberOf BattleClient
+     * @instance
+     * @returns {number}
+     */
     getTimeToCum() {
         return this.timeToCum;
     }
 
+    /**
+     * @method setTimeToCum
+     * @memberOf BattleClient
+     * @instance
+     * @returns {BattleClient}
+     */
     setTimeToCum(timeToCum) {
         this.timeToCum = timeToCum;
         return this;
     }
 
+    /**
+     * @method setDamageScale
+     * @memberOf BattleClient
+     * @instance
+     * @param {number} scale
+     * @returns {BattleClient}
+     */
     setDamageScale(scale) {
         if (scale < 0.1) {
             scale = 0.1;
@@ -527,6 +666,13 @@ class BattleClient {
         return this;
     }
 
+    /**
+     * @method fuck
+     * @memberOf BattleClient
+     * @instance
+     * @param {string} girlID
+     * @returns {BattleClient}
+     */
     fuck(girlID) {
         if (this.getGirl() !== false) {
             if (this.getGirl().getID() === girlID) {
@@ -562,12 +708,16 @@ class BattleClient {
             globalEvents.emit('startFuckingClient', this.GUID);
         }
 
-        this.setAnimation(girlID + this.getBodyPart() + 'default')
-
         globalEvents.emit('clientAttack', this.GUID);
         return this;
     }
 
+    /**
+     * @method stopFucking
+     * @memberOf BattleClient
+     * @instance
+     * @returns {BattleClient}
+     */
     stopFucking() {
         this.setGirl(false);
         this.setAnimation('nullImage');
@@ -591,6 +741,7 @@ class BattleClient {
         this.destroy();
         this.finished = true;
         if (this.getGirl()) {
+            GAME.QBsound.playUnique(this.getGirl().getID(), this.getBodyPart());
             if (GAME.battle.currentBattle.isTrapped(this.getGirl().getID())) {
                 GAME.battle.currentBattle.removeTrap(this.getGirl().getID());
             }
@@ -657,6 +808,7 @@ class BattleClient {
 
         this.updateTweens(attack);
 
+        this.setAnimation(this.getGirl().getID() + this.getBodyPart() + "default");
         return attack;
     }
 
@@ -739,7 +891,7 @@ class BattleClient {
 
     /**
      * @method
-     * @memberOf Client
+     * @memberOf BattleClient
      * @instance
      * @param {string} name
      * @returns {BattleClient}
@@ -752,7 +904,7 @@ class BattleClient {
 
     /**
      * @method getID
-     * @memberOf Client
+     * @memberOf BattleClient
      * @instance
      * @returns {string}
      */
@@ -762,7 +914,7 @@ class BattleClient {
 
     /**
      * @method setLevel
-     * @memberOf Client
+     * @memberOf BattleClient
      * @instance
      * @param {number} number
      * @returns {BattleClient}
@@ -775,7 +927,7 @@ class BattleClient {
 
     /**
      * @method getLevel
-     * @memberOf Client
+     * @memberOf BattleClient
      * @instance
      * @returns {number}
      */
@@ -785,7 +937,7 @@ class BattleClient {
 
     /**
      * @method setGold
-     * @memberOf Client
+     * @memberOf BattleClient
      * @instance
      * @param {number} number
      * @returns {BattleClient}
@@ -798,7 +950,7 @@ class BattleClient {
 
     /**
      * @method getGold
-     * @memberOf Client
+     * @memberOf BattleClient
      * @instance
      * @param {string} girl
      * @returns {number}
@@ -820,7 +972,7 @@ class BattleClient {
 
     /**
      * @method getExp
-     * @memberOf Client
+     * @memberOf BattleClient
      * @instance
      * @param {string} girl
      * @returns {number}
@@ -840,7 +992,7 @@ class BattleClient {
 
     /**
      * @method setCum
-     * @memberOf Client
+     * @memberOf BattleClient
      * @instance
      * @param {number} number
      * @returns {number}
@@ -853,7 +1005,7 @@ class BattleClient {
 
     /**
      * @method getCum
-     * @memberOf Client
+     * @memberOf BattleClient
      * @instance
      * @returns {number}
      */
@@ -867,7 +1019,7 @@ class BattleClient {
 
     /**
      * @method setFinished
-     * @memberOf Client
+     * @memberOf BattleClient
      * @instance
      * @param {boolean} boolean
      * @returns {BattleClient}
@@ -880,7 +1032,7 @@ class BattleClient {
 
     /**
      * @method getFinished
-     * @memberOf Client
+     * @memberOf BattleClient
      * @instance
      * @returns {boolean}
      */
@@ -890,7 +1042,7 @@ class BattleClient {
 
     /**
      * @method setAnimation
-     * @memberOf Client
+     * @memberOf BattleClient
      * @instance
      * @param {string} animationID
      * @returns {BattleClient}
@@ -905,7 +1057,7 @@ class BattleClient {
 
     /**
      * @method getAnimation
-     * @memberOf Client
+     * @memberOf BattleClient
      * @instance
      * @returns {string}
      */
@@ -916,7 +1068,7 @@ class BattleClient {
     /**
      * Automatically calculates the animation's fps using the client's attack tween scale
      * @method getAnimationFPS
-     * @memberOf Client
+     * @memberOf BattleClient
      * @instance
      * @returns {number}
      */

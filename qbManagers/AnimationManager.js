@@ -181,6 +181,11 @@ class AnimationManager {
             frames: this.createFrames('QueenPussydefault', 0, 12, 5)
         });
         this.createAnimation({
+            ID: 'QueenAnaldefault',
+            frameRate: 24,
+            frames: this.createFrames('QueenAnaldefault', 0, 18, 5)
+        });
+        this.createAnimation({
             ID: 'QueenAssGrab',
             frameRate: 1,
             frames: [{key: 'QueenAssGrab'}]
@@ -305,6 +310,36 @@ class AnimationManager {
             frameRate: 1,
             frames: [{key: 'QueenOrcBattle'}]
         });
+        this.createAnimation({
+            ID: 'EsxeaTied',
+            frameRate: 1,
+            frames: [{key: 'EsxeaTied'}]
+        });
+        this.createAnimation({
+            ID: 'EsxeaPondFuck',
+            frameRate: 1,
+            frames: [{key: 'EsxeaPondFuck'}]
+        });
+        this.createAnimation({
+            ID: 'MorassInnGangbang',
+            frameRate: 1,
+            frames: [{key: 'MorassInnGangbang'}]
+        });
+        this.createAnimation({
+            ID: 'ScarlettBigTits',
+            frameRate: 1,
+            frames: [{key: 'ScarlettBigTits'}]
+        });
+        this.createAnimation({
+            ID: 'SukiFutaCum',
+            frameRate: 1,
+            frames: [{key: 'SukiFutaCum'}]
+        });
+        this.createAnimation({
+            ID: 'SukiFutaNoCum',
+            frameRate: 1,
+            frames: [{key: 'SukiFutaNoCum'}]
+        });
     }
 
     /**
@@ -330,6 +365,10 @@ class AnimationManager {
                     thumbnail: 'QueenPussydefault00000',
                     type: 'Animation',
                     animationID: 'QueenPussydefault'
+                }, {
+                    thumbnail: 'QueenAnaldefault00000',
+                    type: 'Animation',
+                    animationID: 'QueenAnaldefault'
                 }];
             }
         });
@@ -434,6 +473,14 @@ class AnimationManager {
                     thumbnail: 'SukiHandsdefault00000',
                     type: 'Animation',
                     animationID: 'SukiHandsdefault'
+                }, {
+                    thumbnail: 'MorassInnGangbang',
+                    type: 'Image',
+                    animationID: 'MorassInnGangbang'
+                }, {
+                    thumbnail: 'EsxeaPondFuck',
+                    type: 'Image',
+                    animationID: 'EsxeaPondFuck'
                 }];
             }
         });
@@ -479,9 +526,31 @@ class AnimationManager {
             // Mountain Training
             if (GAME.quest.isComplete('mountainTraining') === true) {
                 return [{
+                    thumbnail: 'EsxeaTied',
+                    type: 'Image',
+                    animationID: 'EsxeaTied'
+                }, {
                     thumbnail: 'SukiSpitroastOrcs',
                     type: 'Image',
                     animationID: 'SukiSpitroastOrcs'
+                }];
+            }
+        });
+        this.addToGallery(function () {
+            // Magic
+            if (GAME.quest.isComplete('magic') === true) {
+                return [{
+                    thumbnail: 'ScarlettBigTits',
+                    type: 'Image',
+                    animationID: 'ScarlettBigTits'
+                }, {
+                    thumbnail: 'SukiFutaNoCum',
+                    type: 'Image',
+                    animationID: 'SukiFutaNoCum'
+                }, {
+                    thumbnail: 'SukiFutaCum',
+                    type: 'Image',
+                    animationID: 'SukiFutaCum'
                 }];
             }
         });
