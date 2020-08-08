@@ -47,7 +47,7 @@ class DialogueManager {
         this.addName('Arietta', 'Arietta')
         this.addName('Sabrina', 'Sabrina')
         this.addName('Daisy', 'Daisy')
-        this.addName('ElfGang', 'Elves')
+        this.addName('Archmage', 'ArchMage')
         this.addName('E1', 'Man')
         this.addName('E2', 'Man')
         this.addName('E3', 'Man')
@@ -1028,6 +1028,66 @@ class DialogueSetFuta extends DialogueStep {
     }
 }
 
+class DialogueEquipClothes extends DialogueStep {
+    /**
+     * @constructor
+     * @param {string} girl
+     * @param {string} clothes
+     * @param {boolean} [force=false]
+     */
+    constructor(girl, clothes, force) {
+        super("EquipClothes");
+        this.girl = girl;
+        this.clothes = clothes;
+        this.force = force;
+    }
+
+    /**
+     * @method play
+     * @memberOf DialogueSetFuta
+     * @instance
+     * @returns {Promise<*>}
+     */
+    play() {
+        return new Promise((resolve) => {
+            GAME.girl.getGirl(this.girl).equipClothes(this.clothes, this.force);
+            resolve();
+        });
+    }
+}
+
+class DialogueSetClothesStyle extends DialogueStep {
+    /**
+     * @constructor
+     * @param {string} girl
+     * @param {string|boolean} style
+     * @param {string} clothes
+     */
+    constructor(girl, style, clothes) {
+        super("EquipClothes");
+        this.girl = girl;
+        this.style = style;
+        this.clothes = clothes;
+    }
+
+    /**
+     * @method play
+     * @memberOf DialogueSetFuta
+     * @instance
+     * @returns {Promise<*>}
+     */
+    play() {
+        return new Promise((resolve) => {
+            if (this.clothes) {
+                GAME.clothes.getClothes(this.clothes).setStyle(this.style);
+            } else {
+                GAME.girl.getGirl(this.girl).getClothes().setStyle(this.style);
+            }
+            resolve();
+        });
+    }
+}
+
 class DialogueCumOn extends DialogueStep {
     /**
      * @constructor
@@ -1740,6 +1800,46 @@ class Branch {
             Phaser.Utils.Array.AddAt(this.leaves, new DialogueSetFuta(girl, boolean)._setParent(this), index);
         } else {
             this.leaves.push(new DialogueSetFuta(girl, boolean)._setParent(this));
+        }
+
+        return this;
+    }
+
+    /**
+     * @method equipClothes
+     * @memberOf Branch
+     * @instance
+     * @param {string} girl - Girl ID
+     * @param {string} clothes - Clothes ID
+     * @param {boolean} [force=false] - Force the clothes on
+     * @param {integer} [index]
+     * @returns {Branch}
+     */
+    equipClothes(girl, clothes, force, index) {
+        if (index || index === 0) {
+            Phaser.Utils.Array.AddAt(this.leaves, new DialogueEquipClothes(girl, clothes, force)._setParent(this), index);
+        } else {
+            this.leaves.push(new DialogueEquipClothes(girl, clothes, force)._setParent(this));
+        }
+
+        return this;
+    }
+
+    /**
+     * @method setClothesStyle
+     * @memberOf Branch
+     * @instance
+     * @param {string} girl - Girl ID
+     * @param {string|boolean} style - Style ID
+     * @param {string} [clothes] - Clothes ID if you want to change the style of non-equipped clothes
+     * @param {integer} [index]
+     * @returns {Branch}
+     */
+    setClothesStyle(girl, style, clothes, index) {
+        if (index || index === 0) {
+            Phaser.Utils.Array.AddAt(this.leaves, new DialogueSetClothesStyle(girl, style, clothes)._setParent(this), index);
+        } else {
+            this.leaves.push(new DialogueSetClothesStyle(girl, style, clothes)._setParent(this));
         }
 
         return this;

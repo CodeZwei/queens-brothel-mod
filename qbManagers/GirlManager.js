@@ -624,16 +624,15 @@ class Girl {
      * @memberOf Girl
      * @instance
      * @param {string} clothesID
+     * @param {boolean} force - Force the clothes on even if the girl is not a high enough level
      * @returns {Girl}
      */
-    equipClothes(clothesID) {
+    equipClothes(clothesID,force) {
+        force = force || false;
         let clothes = GAME.clothes.getClothes(clothesID);
         let girl = clothes.Girl;
 
-        if (clothes.isUnlocked() === false) {
-            return this;
-        }
-        if (girl.getLevel() < clothes.getLevel()) {
+        if (girl.getLevel() < clothes.getLevel() && force === false) {
             GAME.notify(girl.id + " does not have a high enough level to wear that!");
             return this;
         }
@@ -760,12 +759,7 @@ class Girl {
             let availableLayers = this.getCumLayers(bodyPart).filter((cumLayer) => girlLayers.includes(cumLayer) === false);
 
             if (availableLayers.length > 0) {
-                let beforeClothes = this.isNaked() === true;
-
-                if (bodyPart === "Throat" || bodyPart === "Futa") {
-                    beforeClothes = true
-                }
-                this.addLayer(beforeClothes, chance.pickone(availableLayers));
+                this.addLayer(true, chance.pickone(availableLayers));
             }
         }
         return this;
@@ -835,6 +829,12 @@ class Girl {
 /**
  * The GirlManager class lets you check and change anything related to the girls.
  * @class GirlManager
+ * @property {Girl} Queen
+ * @property {Girl} Suki
+ * @property {Girl} Esxea
+ * @property {Girl} Scarlett
+ * @property {Girl} Ardura
+ * @property {Girl} Natasha
  */
 class GirlManager {
     constructor() {

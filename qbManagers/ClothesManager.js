@@ -612,6 +612,11 @@ class ClothesManager {
             .setVisible(() => {
                 return GAME.quest.isComplete('hornyBoris');
             });
+        this.add(new Clothes('JanitorEsxea', 'Esxea', false)
+            .setName('JanitorEsxea')
+            .setDescription('')
+            .setLevel(0)
+            .setShop(false));
 
         // Scarlett
         this.add(new Clothes('OrcScarlett', 'Scarlett', false))
@@ -698,6 +703,14 @@ class ClothesManager {
         // Natasha
         this.add(new Clothes('DefaultNatasha', 'Natasha', true))
             .setLevel(0);
+        this.add(new Clothes('CrossDressNatasha', 'Natasha', false)
+            .setName('CrossDress')
+            .setBody('Boy')
+            .setDescription('')
+            .setLevel(0)
+            .setShop(false))
+            .addStyle(new ClothesStyle('NoPants', "No Pants", true))
+            .addStyle(new ClothesStyle('NoPantsFuta', "No Pants Futa", true));
 
     }
 

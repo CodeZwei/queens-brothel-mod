@@ -804,11 +804,11 @@ class BattleClient {
             if (GAME.battle.currentBattle.isUltimating(this.getGirl().getID())) {
                 attack = GAME.battle.currentBattle.getUltimate(this.getGirl().getID()).update(attack, this);
             }
+            this.setAnimation(this.getGirl().getID() + this.getBodyPart() + "default");
         }
 
         this.updateTweens(attack);
 
-        this.setAnimation(this.getGirl().getID() + this.getBodyPart() + "default");
         return attack;
     }
 

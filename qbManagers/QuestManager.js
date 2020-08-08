@@ -888,7 +888,8 @@ class QuestManager {
                 .setProgress(true)
                 .setMapKey('Inn')
                 .setDialogueTree('MorassInn')
-                .setDialogueBranch('findTrasoniaStart');
+                .setDialogueBranch('findTrasoniaStart')
+                .setLogDescription("Continue the main story at the morass inn.");
             findTrasonia
                 .addSubQuest('End')
                 .setCondition(() => {
@@ -896,7 +897,7 @@ class QuestManager {
                 })
                 .setProgress(true)
                 .setDialogueTree('TrasoniaMap')
-                .setLogDescription("Travel west of the mountains to find the elves.")
+                .setLogDescription("Travel west of the mountains to find the elves.");
         })();
 
         (() => {
@@ -938,8 +939,8 @@ class QuestManager {
                     return GAME.quest.isComplete('magic', 'Start');
                 })
                 .setProgress(true)
-                .setMapKey('TrasoniaAlley')
-                .setDialogueTree('TrasoniaAlley')
+                .setMapKey('TrasoniaHallway')
+                .setDialogueTree('TrasoniaHallway')
                 .setDialogueBranch('magicFindArietta')
                 .setLogDescription("Explore Trasonia");
             magicQuest
@@ -960,8 +961,8 @@ class QuestManager {
                     return GAME.quest.isComplete('magic', 'FindNatasha');
                 })
                 .setProgress(true)
-                .setMapKey('TrasoniaAlley')
-                .setDialogueTree('TrasoniaAlley')
+                .setMapKey('TrasoniaHallway')
+                .setDialogueTree('TrasoniaHallway')
                 .setDialogueBranch('magicVisitAlley')
                 .setLogDescription("Explore Trasonia with Natasha");
             magicQuest
@@ -995,6 +996,149 @@ class QuestManager {
                 .setLogDescription("Go to sleep.");
         })();
 
+        (() => {
+            let ariettaQuest = GAME.quest.addQuest('ariettaQuest', "Busting Arietta", true)
+                .setStart('Start')
+                .setEnd('End');
+            ariettaQuest
+                .addSubQuest('Start')
+                .setCondition(() => {
+                    return GAME.quest.isComplete('magic');
+                })
+                .setProgress(true)
+                .setMapKey('TrasoniaDorms')
+                .setDialogueTree('TrasoniaDorms')
+                .setDialogueBranch('ariettaQuestStart')
+                .setLogDescription("Visit Natasha at the dorms.");
+            ariettaQuest
+                .addSubQuest('GetClothes')
+                .setCondition(() => {
+                    return GAME.quest.isComplete('ariettaQuest', 'Start');
+                })
+                .setProgress(true)
+                .setMapKey('TownClothesShop')
+                .setDialogueTree('ClothesShop')
+                .setDialogueBranch('ariettaQuestGetClothes')
+                .setLogDescription("Find some clothes for Natasha at the clothes shop.")
+                .setOnComplete((parameter) => {
+                    if (parameter === true) {
+                        GAME.girl.getGirl('Scarlett').increaseMorals(1);
+                        GAME.quest.complete('scarlettDressCow', 'Dress');
+                    } else {
+                        GAME.girl.getGirl('Scarlett').decreaseMorals(1);
+                        GAME.quest.complete('scarlettDressCow', 'Hucow');
+                    }
+                })
+            ariettaQuest
+                .addSubQuest('StartPlan')
+                .setCondition(() => {
+                    return GAME.quest.isComplete('ariettaQuest', 'GetClothes');
+                })
+                .setProgress(true)
+                .setMapKey('TrasoniaDorms')
+                .setDialogueTree('TrasoniaDorms')
+                .setDialogueBranch('ariettaQuestStartPlan')
+                .setLogDescription("Bring Natasha her clothes.");
+            ariettaQuest
+                .addSubQuest('MeetArietta')
+                .setCondition(() => {
+                    return GAME.quest.isComplete('ariettaQuest', 'StartPlan');
+                })
+                .setProgress(true)
+                .setMapKey('TrasoniaGroundFloor')
+                .setDialogueTree('TrasoniaGroundFloor')
+                .setDialogueBranch('ariettaQuestMeetArietta')
+                .setLogDescription("Find Arietta at the ground floor.");
+            ariettaQuest
+                .addSubQuest('FindArchMage')
+                .setCondition(() => {
+                    return GAME.quest.isComplete('ariettaQuest', 'MeetArietta');
+                })
+                .setProgress(true)
+                .setMapKey('TrasoniaLibrary')
+                .setDialogueTree('TrasoniaLibrary')
+                .setDialogueBranch('ariettaQuestFindArchMage')
+                .setLogDescription("Find and notify the ArchMage.");
+            ariettaQuest
+                .addSubQuest('BustArietta')
+                .setCondition(() => {
+                    return GAME.quest.isComplete('ariettaQuest', 'FindArchMage');
+                })
+                .setProgress(true)
+                .setMapKey('TrasoniaHallway')
+                .setDialogueTree('TrasoniaHallway')
+                .setDialogueBranch('ariettaQuestBustArietta')
+                .setLogDescription("Bust Arietta");
+            ariettaQuest
+                .addSubQuest('RecruitNatasha')
+                .setCondition(() => {
+                    return GAME.quest.isComplete('ariettaQuest', 'BustArietta');
+                })
+                .setProgress(() => {
+                    return GAME.checkMax() === false;
+                })
+                .setMapKey('TrasoniaDorms')
+                .setDialogueTree('TrasoniaDorms')
+                .setDialogueBranch('ariettaQuestRecruitNatasha')
+                .setOnComplete(() => {
+                    GAME.girl.getGirl('Natasha').unlock();
+                })
+                .setLogDescription("Recruit Natasha into the brothel.")
+                .setLogProgress(() => {
+                    if (GAME.checkMax() === true) {
+                        return "Ask Geoff to upgrade your house.";
+                    } else {
+                        return "";
+                    }
+                })
+        })();
+
+        (() => {
+            let scarlettDressCow = GAME.quest.addQuest('scarlettDressCow', "Scarlett's Outfit", false)
+                .setStart('Start')
+                .setEnd('End');
+            scarlettDressCow
+                .addSubQuest('Start')
+                .setCondition(() => {
+                    // return GAME.quest.isComplete('ariettaQuest');
+                    return false;
+                })
+                .setMapKey("TownClothesShop")
+                .setProgress(true)
+                .setDialogueTree('ClothesShop')
+                .setDialogueBranch('scarlettDressCowStart');
+            scarlettDressCow
+                .addSubQuest('Hucow')
+                .setCondition(false)
+                .setProgress(true)
+                .setDialogueTree('ClothesShop')
+                .setDialogueBranch('ariettaQuestGetClothes');
+            scarlettDressCow
+                .addSubQuest('Dress')
+                .setCondition(false)
+                .setProgress(true)
+                .setDialogueTree('ClothesShop')
+                .setDialogueBranch('ariettaQuestGetClothes');
+            scarlettDressCow
+                .addSubQuest('GetHucow')
+                .setCondition(false)
+                .setProgress(true)
+                .setDialogueTree('ClothesShop')
+                .setDialogueBranch('scarlettDressCowGetHucow');
+            scarlettDressCow
+                .addSubQuest('GetDress')
+                .setCondition(false)
+                .setProgress(true)
+                .setDialogueTree('ClothesShop')
+                .setDialogueBranch('scarlettDressCowGetDress');
+            scarlettDressCow
+                .addSubQuest('End')
+                .setCondition(false)
+                .setProgress(true)
+                .setDialogueTree('ClothesShop')
+                .setDialogueBranch('scarlettDressCowEnd');
+        })();
+
         // Patreon
         (() => {
             let patreon = GAME.quest.addQuest('patreon', "", true)
@@ -1003,7 +1147,7 @@ class QuestManager {
             patreon
                 .addSubQuest('Start')
                 .setCondition(() => {
-                    return GAME.quest.isComplete('magic', 'End');
+                    return GAME.quest.isComplete('ariettaQuest', 'BustArietta');
                 })
                 .setProgress(true)
                 .setDialogueTree('patreon')

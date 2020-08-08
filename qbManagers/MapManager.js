@@ -369,13 +369,13 @@ class MapManager {
                         GAME.dialogue.playDialogue('TrasoniaGroundFloor');
                     }
                 },
-                "TrasoniaAlley": {
-                    key: "TrasoniaAlley",
-                    name: "Alley",
+                "TrasoniaHallway": {
+                    key: "TrasoniaHallway",
+                    name: "Hallway",
                     x: 254,
                     y: 575,
                     callback: () => {
-                        GAME.dialogue.playDialogue('TrasoniaAlley');
+                        GAME.dialogue.playDialogue('TrasoniaHallway');
                     }
                 },
                 "TrasoniaDorms": {
