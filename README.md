@@ -31,14 +31,20 @@ Once you're done programming your mod, edit the config.json file in:
 ```Javascript
 // config.json
 {
-    {
-      "id": "MyMod",
-      "name": "My Mod",
-      "description": "This is my mod.",
-      "version": "1.0",
-      "compatible": "0.9.0",
-      "script": "mod.js"
-    }
+  "id": "MyMod",
+  "name": "My Mod",
+  "author": {
+    "name": "MyName",
+    "url": "https://queensbrothel.com"
+  },
+  "type": "community",
+  "short_description": "This is my mod.",
+  "long_description": "This is my mod.",
+  "version": "1.0",
+  "api": "1",
+  "script": "mod.js",
+  "dependencies": [],
+  "thumbnails": []
 }
 
 // js/mod.js

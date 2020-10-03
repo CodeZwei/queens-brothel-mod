@@ -1,8 +1,16 @@
 {
   "id": "MyMod",
   "name": "My Mod",
-  "description": "This is my mod.",
+  "author": {
+    "name": "MyName",
+    "url": "https://queensbrothel.com"
+  },
+  "type": "community",
+  "short_description": "This is my mod.",
+  "long_description": "This is my mod.",
   "version": "1.0",
-  "compatible": "0.9.0",
-  "script": "mod.js"
+  "api": "1",
+  "script": "mod.js",
+  "dependencies": [],
+  "thumbnails": []
 }
