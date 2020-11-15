@@ -48,6 +48,10 @@ class DialogueManager {
         this.addName('Sabrina', 'Sabrina')
         this.addName('Daisy', 'Daisy')
         this.addName('Archmage', 'ArchMage')
+        this.addName('Phyllis', 'Phyllis')
+        this.addName('Lilith', 'Lilith')
+        this.addName('Minotaur', 'Minotaur')
+        this.addName('Monster', 'Monster')
         this.addName('E1', 'Man')
         this.addName('E2', 'Man')
         this.addName('E3', 'Man')
@@ -1307,6 +1311,28 @@ class DialogueReturnLastAnswer extends DialogueStep {
     }
 }
 
+class DialoguePatreonPopUp extends DialogueStep {
+    /**
+     * @constructor
+     */
+    constructor(endOfGame) {
+        super("PatreonPopUp");
+        this.endOfGame = endOfGame || false;
+    }
+
+    /**
+     * @method play
+     * @memberOf DialogueReturnLastAnswer
+     * @instance
+     * @returns {Promise<*>}
+     */
+    play() {
+        return new Promise((resolve) => {
+            GAME.patreonPopUp(this.endOfGame).then(resolve);
+        });
+    }
+}
+
 class Branch {
     /**
      * @constructor
@@ -1985,6 +2011,24 @@ class Branch {
             Phaser.Utils.Array.AddAt(this.leaves, new DialogueReturnLastAnswer(this)._setParent(this), index);
         } else {
             this.leaves.push(new DialogueReturnLastAnswer(this)._setParent(this));
+        }
+
+        return this;
+    }
+
+    /**
+     * @method patreonPopUp
+     * @memberOf Branch
+     * @instance
+     * @param {boolean] [endOfGame=false]
+     * @param {integer} [index]
+     * @returns {Branch}
+     */
+    patreonPopUp(endOfGame, index) {
+        if (index || index === 0) {
+            Phaser.Utils.Array.AddAt(this.leaves, new DialoguePatreonPopUp(endOfGame, this)._setParent(this), index);
+        } else {
+            this.leaves.push(new DialoguePatreonPopUp(endOfGame, this)._setParent(this));
         }
 
         return this;

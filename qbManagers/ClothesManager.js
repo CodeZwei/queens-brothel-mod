@@ -57,6 +57,7 @@ class Clothes {
             Pussy: 0,
             Anal: 0
         };
+        this.layerID = false;
 
         this.addStyle(new ClothesStyle(false, "Default", true));
 
@@ -83,6 +84,28 @@ class Clothes {
      */
     getID() {
         return this.id;
+    }
+
+    /**
+     * @method setLayerID
+     * @memberOf Clothes
+     * @instance
+     * @param {string} id
+     * @returns {Clothes}
+     */
+    setLayerID(id) {
+        this.layerID = id;
+        return this;
+    }
+
+    /**
+     * @method getLayerID
+     * @memberOf Clothes
+     * @instance
+     * @returns {boolean|string}
+     */
+    getLayerID() {
+        return this.layerID;
     }
 
     /**
@@ -456,25 +479,30 @@ class ClothesManager {
 
     _initClothes() {
         // Queen
+        this.add(new Clothes('DemonQueen', 'Queen', false))
+            .setName("DemonQueen")
+            .setDescription("")
+            .setLevel(22)
+            .setStat({Throat: 4, Tits: 4});
         this.add(new Clothes('OrcQueen', 'Queen', false))
             .setName("Orc")
             .setDescription("Clothes used during battle.")
-            .setLevel(25)
+            .setLevel(18)
             .setStat({Throat: 2, Pussy: 1, Anal: 4});
         this.add(new Clothes('PrincessQueen', 'Queen', false))
             .setName("Princess")
             .setDescription("A dress a princess would wear.")
-            .setLevel(20)
+            .setLevel(14)
             .setStat({Tits: 3, Pussy: 2});
         this.add(new Clothes('MudQueen', 'Queen', false))
             .setName('Mud')
             .setDescription('Not really clothes, just mud slathered onto her body.')
-            .setLevel(15)
+            .setLevel(10)
             .setStat({Throat: 2, Tits: 2, Pussy: 2});
         this.add(new Clothes('ForestQueen', 'Queen', false))
             .setName('Greenhaven')
             .setDescription("The women of Greenhaven don't seem to wear much clothing.")
-            .setLevel(8)
+            .setLevel(6)
             .setStat({Throat: 1, Pussy: 1});
         this.add(new Clothes('SchoolgirlQueen', 'Queen', false))
             .setName('School Uniform')
@@ -511,20 +539,40 @@ class ClothesManager {
             });
 
         // Suki
+        this.add(new Clothes('DemonSuki', 'Suki', false))
+            .setName("DemonSuki")
+            .setDescription("Clothes to make Suki look like an elf.")
+            .setLevel(22)
+            .setStat({Throat: 4, Tits: 1, Pussy: 4});
+        this.add(new Clothes('ElfSuki', 'Suki', false))
+            .setName("Elf")
+            .setBody('Elf')
+            .setDescription("Clothes to make Suki look like an elf.")
+            .setLevel(0);
         this.add(new Clothes('OrcSuki', 'Suki', false))
             .setName("Orc")
             .setDescription("Clothes used during battle.")
-            .setLevel(25)
+            .setLevel(18)
             .setStat({Throat: 2, Pussy: 1, Anal: 4});
         this.add(new Clothes('PrincessSuki', 'Suki', false))
             .setName("Princess")
             .setDescription("A dress a princess would wear.")
-            .setLevel(20)
+            .setLevel(14)
             .setStat({Tits: 3, Pussy: 2});
+        this.add(new Clothes('SweaterSuki', 'Suki', false))
+            .setName("Sweater")
+            .setDescription("A sweater that doesn't cover much.")
+            .setLevel(15)
+            .setStat({Tits: 5})
+            .setShop(true)
+            .setCost(900)
+            .setVisible(function () {
+                return GAME.quest.isComplete('mushroomQuest');
+            });
         this.add(new Clothes('MudSuki', 'Suki', false))
             .setName('Mud')
             .setDescription('Not really clothes, just mud slathered onto her body.')
-            .setLevel(15)
+            .setLevel(10)
             .setStat({Throat: 2, Tits: 2, Pussy: 2});
         this.add(new Clothes('LeotardSuki', 'Suki', false))
             .setName('Leotard')
@@ -539,11 +587,25 @@ class ClothesManager {
         this.add(new Clothes('ForestSuki', 'Suki', false))
             .setName('Greenhaven')
             .setDescription("The women of Greenhaven don't seem to wear much clothing.")
-            .setLevel(8)
+            .setLevel(6)
             .setStat({Throat: 1, Pussy: 1});
+        this.add(new Clothes('GenieSuki', 'Suki', false))
+            .setName('Genie')
+            .setDescription("A cute genie outfit!")
+            .setLevel(10)
+            .setStat({Throat: 2, Tits: 2})
+            .setShop(true)
+            .setCost(500)
+            .setVisible(true);
         this.add(new Clothes('DefaultSuki', 'Suki', true))
             .setLevel(0)
             .setStat({Pussy: 3});
+        this.add(new Clothes('SukibusSuki', 'Suki', false))
+            .setLevel(0)
+            .setFace('Sukibus')
+            .setBody('Sukibus')
+            .setLayerID('Sukibus')
+            .setStat({Throat: 2, Tits: 2, Pussy: 6, Anal: 2});
         this.add(new Clothes('Valentines2020Suki', 'Suki', false)
             .setName('Lingerie')
             .setDescription('Valentines 2020 Event')
@@ -568,26 +630,30 @@ class ClothesManager {
 
 
         // Esxea
+        this.add(new Clothes('DemonEsxea', 'Esxea', false))
+            .setName("DemonEsxea")
+            .setDescription("")
+            .setLevel(22)
+            .setStat({Throat: 2, Tits: 4, Pussy: 2});
         this.add(new Clothes('OrcEsxea', 'Esxea', false))
             .setName("Orc")
             .setDescription("Clothes used during battle.")
-            .setLevel(25)
+            .setLevel(18)
             .setStat({Throat: 2, Pussy: 1, Anal: 4});
         this.add(new Clothes('PrincessEsxea', 'Esxea', false))
             .setName("Princess")
             .setDescription("A dress a princess would wear.")
-            .setLevel(20)
+            .setLevel(14)
             .setStat({Tits: 3, Pussy: 2});
-
         this.add(new Clothes('MudEsxea', 'Esxea', false))
             .setName('Mud')
             .setDescription('Not really clothes, just mud slathered onto her body.')
-            .setLevel(15)
+            .setLevel(10)
             .setStat({Throat: 2, Tits: 2, Pussy: 2});
         this.add(new Clothes('ForestEsxea', 'Esxea', false))
             .setName('Greenhaven')
             .setDescription("The women of Greenhaven don't seem to wear much clothing.")
-            .setLevel(8)
+            .setLevel(6)
             .setStat({Throat: 1, Pussy: 1});
         this.add(new Clothes('DefaultEsxea', 'Esxea', true))
             .setLevel(0)
@@ -619,27 +685,42 @@ class ClothesManager {
             .setShop(false));
 
         // Scarlett
+        this.add(new Clothes('DemonScarlett', 'Scarlett', false))
+            .setName("DemonScarlett")
+            .setDescription("")
+            .setLevel(22)
+            .setStat({Throat: 4, Pussy: 1, Anal: 4});
         this.add(new Clothes('OrcScarlett', 'Scarlett', false))
             .setName("Orc")
             .setDescription("Clothes used during battle.")
-            .setLevel(25)
+            .setLevel(18)
             .setStat({Throat: 2, Pussy: 1, Anal: 4});
+        this.add(new Clothes('HucowScarlett', 'Scarlett', false))
+            .setName("Hucow")
+            .setDescription("An outfit made for a human cow.")
+            .setLevel(17)
+            .setStat({Tits: 7})
+            .addStyle(new ClothesStyle('Harness', "Tit Harness", false))
+            .addStyle(new ClothesStyle('NoTop', "No Top", false));
+        this.add(new Clothes('RabbitDressScarlett', 'Scarlett', false))
+            .setName("Seductive Dress")
+            .setDescription("A dress to torment men with.")
+            .setLevel(17)
+            .setStat({Throat: 3, Tits: 3, Pussy: 3, Anal: 3});
         this.add(new Clothes('PrincessScarlett', 'Scarlett', false))
             .setName("Princess")
             .setDescription("A dress a princess would wear.")
-            .setLevel(20)
+            .setLevel(14)
             .setStat({Tits: 3, Pussy: 2});
-
         this.add(new Clothes('MudScarlett', 'Scarlett', false))
             .setName('Mud')
             .setDescription('Not really clothes, just mud slathered onto her body.')
-            .setLevel(15)
+            .setLevel(10)
             .setStat({Throat: 2, Tits: 2, Pussy: 2});
-
         this.add(new Clothes('ForestScarlett', 'Scarlett', false))
             .setName('Greenhaven')
             .setDescription("The women of Greenhaven don't seem to wear much clothing.")
-            .setLevel(8)
+            .setLevel(6)
             .setStat({Throat: 1, Pussy: 1});
         this.add(new Clothes('DefaultScarlett', 'Scarlett', true))
             .setLevel(0)
@@ -666,25 +747,30 @@ class ClothesManager {
             });
 
         // Ardura
+        this.add(new Clothes('DemonArdura', 'Ardura', false))
+            .setName("DemonArdura")
+            .setDescription("")
+            .setLevel(22)
+            .setStat({Throat: 2, Tits: 3, Anal: 2});
         this.add(new Clothes('OrcArdura', 'Ardura', false))
             .setName("Orc")
             .setDescription("Clothes used during battle.")
-            .setLevel(25)
+            .setLevel(18)
             .setStat({Throat: 2, Pussy: 1, Anal: 4});
         this.add(new Clothes('PrincessArdura', 'Ardura', false))
             .setName("Princess")
             .setDescription("A dress a princess would wear.")
-            .setLevel(20)
+            .setLevel(14)
             .setStat({Anal: 2, Pussy: 3});
         this.add(new Clothes('MudArdura', 'Ardura', false))
             .setName('Mud')
             .setDescription('Not really clothes, just mud slathered onto her body.')
-            .setLevel(15)
+            .setLevel(10)
             .setStat({Throat: 2, Tits: 2, Pussy: 2});
         this.add(new Clothes('ForestArdura', 'Ardura', false))
             .setName('Greenhaven')
             .setDescription("The women of Greenhaven don't seem to wear much clothing.")
-            .setLevel(8)
+            .setLevel(6)
             .setStat({Throat: 1, Pussy: 1});
         this.add(new Clothes('DefaultArdura', 'Ardura', true))
             .setLevel(0)
@@ -701,6 +787,31 @@ class ClothesManager {
             });
 
         // Natasha
+        this.add(new Clothes('DemonNatasha', 'Natasha', false))
+            .setName("DemonNatasha")
+            .setDescription("")
+            .setLevel(22)
+            .setStat({Throat: 4, Tits: 4});
+        this.add(new Clothes('OrcNatasha', 'Natasha', false))
+            .setName("Orc")
+            .setDescription("Clothes used during battle.")
+            .setLevel(18)
+            .setStat({Throat: 2, Pussy: 1, Anal: 4});
+        this.add(new Clothes('PrincessNatasha', 'Natasha', false))
+            .setName("Princess")
+            .setDescription("A dress a princess would wear.")
+            .setLevel(14)
+            .setStat({Throat: 3, Pussy: 2});
+        this.add(new Clothes('MudNatasha', 'Natasha', false))
+            .setName('Mud')
+            .setDescription('Not really clothes, just mud slathered onto her body.')
+            .setLevel(10)
+            .setStat({Throat: 2, Tits: 2, Pussy: 2});
+        this.add(new Clothes('ForestNatasha', 'Natasha', false))
+            .setName('Greenhaven')
+            .setDescription("The women of Greenhaven don't seem to wear much clothing.")
+            .setLevel(6)
+            .setStat({Throat: 1, Pussy: 1});
         this.add(new Clothes('DefaultNatasha', 'Natasha', true))
             .setLevel(0);
         this.add(new Clothes('CrossDressNatasha', 'Natasha', false)
@@ -709,9 +820,12 @@ class ClothesManager {
             .setDescription('')
             .setLevel(0)
             .setShop(false))
-            .addStyle(new ClothesStyle('NoPants', "No Pants", true))
-            .addStyle(new ClothesStyle('NoPantsFuta', "No Pants Futa", true));
+            .addStyle(new ClothesStyle('NoPants', "No Pants", false))
+            .addStyle(new ClothesStyle('NoPantsFuta', "No Pants Futa", false));
 
+    }
+
+    _initClothesMapConditions() {
     }
 
     /**

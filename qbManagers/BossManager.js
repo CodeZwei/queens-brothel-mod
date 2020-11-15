@@ -204,7 +204,8 @@ class BossManager {
             .addClothesReward('Easy', 'ForestSuki')
             .addClothesReward('Easy', 'ForestEsxea')
             .addClothesReward('Easy', 'ForestScarlett')
-            .addClothesReward('Easy', 'ForestArdura');
+            .addClothesReward('Easy', 'ForestArdura')
+            .addClothesReward('Easy', 'ForestNatasha');
 
         // Morass Boss
         this.add(new Boss('Goblins', 'Wild Goblins', function () {
@@ -215,7 +216,8 @@ class BossManager {
             .addClothesReward('Easy', 'MudSuki')
             .addClothesReward('Easy', 'MudEsxea')
             .addClothesReward('Easy', 'MudScarlett')
-            .addClothesReward('Easy', 'MudArdura');
+            .addClothesReward('Easy', 'MudArdura')
+            .addClothesReward('Easy', 'MudNatasha');
 
         // King Boss
         this.add(new Boss('KingOfAvia', 'King of Avia', function () {
@@ -226,7 +228,8 @@ class BossManager {
             .addClothesReward('Easy', 'PrincessSuki')
             .addClothesReward('Easy', 'PrincessEsxea')
             .addClothesReward('Easy', 'PrincessScarlett')
-            .addClothesReward('Easy', 'PrincessArdura');
+            .addClothesReward('Easy', 'PrincessArdura')
+            .addClothesReward('Easy', 'PrincessNatasha');
 
         // Orc Boss
         this.add(new Boss('Orcs', 'Orcs', function () {
@@ -237,7 +240,20 @@ class BossManager {
             .addClothesReward('Easy', 'OrcSuki')
             .addClothesReward('Easy', 'OrcEsxea')
             .addClothesReward('Easy', 'OrcScarlett')
-            .addClothesReward('Easy', 'OrcArdura');
+            .addClothesReward('Easy', 'OrcArdura')
+            .addClothesReward('Easy', 'OrcNatasha');
+
+        // Demon Boss
+        this.add(new Boss('Minotaurs', 'Minotaurs', function () {
+            return GAME.quest.isComplete('lilithQuest')
+        }))
+            .setDialogue('Easy', "demonBossEasy")
+            .addClothesReward('Easy', 'DemonQueen')
+            .addClothesReward('Easy', 'DemonSuki')
+            .addClothesReward('Easy', 'DemonEsxea')
+            .addClothesReward('Easy', 'DemonScarlett')
+            .addClothesReward('Easy', 'DemonArdura')
+            .addClothesReward('Easy', 'DemonNatasha');
     }
 
     /**

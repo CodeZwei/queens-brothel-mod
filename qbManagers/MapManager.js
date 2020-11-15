@@ -122,31 +122,169 @@ class MapManager {
         this._mapConditions = {};
         this._buildings = {
             "Easthollow": {
-                "House": {
-                    key: "House",
+                "House1": {
+                    key: "House1",
                     name: "House",
-                    x: 375,
-                    y: 486,
+                    x: 0,
+                    y: 265,
                     callback: () => {
                         GAME.menu.openMenu('house')
+                    },
+                    visible: () => {
+                        return gameData.houseCapacity === 1;
                     }
                 },
-                "Brothel": {
-                    key: "Brothel",
+                "Brothel1": {
+                    key: "Brothel1",
                     name: "Brothel",
-                    x: 630,
-                    y: 496,
+                    x: 350,
+                    y: 265,
                     callback: () => {
                         GAME.menu.openMenu('brothel')
+                    },
+                    visible: () => {
+                        return gameData.houseCapacity === 1;
+                    }
+                },
+                "House2": {
+                    key: "House2",
+                    name: "House",
+                    x: 0,
+                    y: 265,
+                    callback: () => {
+                        GAME.menu.openMenu('house')
+                    },
+                    visible: () => {
+                        return gameData.houseCapacity === 2;
+                    }
+                },
+                "Brothel2": {
+                    key: "Brothel2",
+                    name: "Brothel",
+                    x: 350,
+                    y: 265,
+                    callback: () => {
+                        GAME.menu.openMenu('brothel')
+                    },
+                    visible: () => {
+                        return gameData.houseCapacity === 2;
+                    }
+                },
+                "House3": {
+                    key: "House3",
+                    name: "House",
+                    x: 0,
+                    y: 265,
+                    callback: () => {
+                        GAME.menu.openMenu('house')
+                    },
+                    visible: () => {
+                        return gameData.houseCapacity === 3;
+                    }
+                },
+                "Brothel3": {
+                    key: "Brothel3",
+                    name: "Brothel",
+                    x: 350,
+                    y: 265,
+                    callback: () => {
+                        GAME.menu.openMenu('brothel')
+                    },
+                    visible: () => {
+                        return gameData.houseCapacity === 3;
+                    }
+                },
+                "House4": {
+                    key: "House4",
+                    name: "House",
+                    x: 0,
+                    y: 265,
+                    callback: () => {
+                        GAME.menu.openMenu('house')
+                    },
+                    visible: () => {
+                        return gameData.houseCapacity === 4;
+                    }
+                },
+                "Brothel4": {
+                    key: "Brothel4",
+                    name: "Brothel",
+                    x: 350,
+                    y: 265,
+                    callback: () => {
+                        GAME.menu.openMenu('brothel')
+                    },
+                    visible: () => {
+                        return gameData.houseCapacity === 4;
+                    }
+                },
+                "House5": {
+                    key: "House5",
+                    name: "House",
+                    x: 0,
+                    y: 265,
+                    callback: () => {
+                        GAME.menu.openMenu('house')
+                    },
+                    visible: () => {
+                        return gameData.houseCapacity === 5;
+                    }
+                },
+                "Brothel5": {
+                    key: "Brothel5",
+                    name: "Brothel",
+                    x: 350,
+                    y: 265,
+                    callback: () => {
+                        GAME.menu.openMenu('brothel')
+                    },
+                    visible: () => {
+                        return gameData.houseCapacity === 5;
+                    }
+                },
+                "House6": {
+                    key: "House6",
+                    name: "House",
+                    x: 0,
+                    y: 265,
+                    callback: () => {
+                        GAME.menu.openMenu('house')
+                    },
+                    visible: () => {
+                        return gameData.houseCapacity >= 6;
+                    }
+                },
+                "Brothel6": {
+                    key: "Brothel6",
+                    name: "Brothel",
+                    x: 350,
+                    y: 265,
+                    callback: () => {
+                        GAME.menu.openMenu('brothel')
+                    },
+                    visible: () => {
+                        return gameData.houseCapacity >= 6;
                     }
                 },
                 "Town": {
                     key: "Town",
                     name: "Town",
-                    x: 1150,
-                    y: 134,
+                    x: 923,
+                    y: 188,
                     callback: () => {
                         GAME.map.switchMap('Town');
+                    }
+                },
+                "HellPortal": {
+                    key: "HellPortal",
+                    name: "Portal",
+                    x: 740,
+                    y: 484,
+                    callback: () => {
+                        GAME.map.switchMap('Hell');
+                    },
+                    visible: () => {
+                        return GAME.quest.isComplete('getBooks') && !GAME.quest.isComplete('lilithQuest');
                     }
                 }
             },
@@ -396,6 +534,26 @@ class MapManager {
                         GAME.dialogue.playDialogue('TrasoniaLibrary');
                     }
                 }
+            },
+            "Hell": {
+                "Throne": {
+                    key: "HellThrone",
+                    name: "Throne",
+                    x: 141,
+                    y: 95,
+                    callback: () => {
+                        GAME.dialogue.playDialogue('HellThrone');
+                    }
+                },
+                "Exit": {
+                    key: 'exit',
+                    name: "Exit",
+                    x: 20,
+                    y: 963,
+                    callback: () => {
+                        GAME.map.switchMap('Easthollow');
+                    }
+                }
             }
         };
 
@@ -538,6 +696,16 @@ class MapManager {
             if (GAME.quest.isComplete('findTrasonia', 'Start') === true && GAME.quest.isComplete('findTrasonia', 'End') === false) {
                 return new Promise((resolve) => {
                     GAME.dialogue.playDialogue('TrasoniaMap').then(() => {
+                        resolve();
+                    });
+                });
+            }
+        });
+
+        GAME.map.addMapCondition('Trasonia', function () {
+            if (GAME.quest.isComplete('ariettaQuest') === true && GAME.quest.isComplete('getBooks', 'Start') === false) {
+                return new Promise((resolve) => {
+                    GAME.dialogue.playDialogue('TrasoniaBanned').then(() => {
                         resolve();
                     });
                 });

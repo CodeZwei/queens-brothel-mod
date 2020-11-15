@@ -388,6 +388,83 @@ class BattleClientTypeBreaker extends BattleClientType {
     }
 }
 
+class BattleClientTypeSubmissive extends BattleClientType {
+    /**
+     * @constructor
+     * @returns {BattleClientTypeSubmissive}
+     */
+    constructor() {
+        super("Submissive", "Submissive", "rgb(186,238,234)");
+        this.setDescription("This client is submissive. Fucking him will raise your stamina.");
+        this.timesFucked = 0;
+        return this;
+    }
+
+    condition() {
+        return true;
+    }
+
+    onAttack(attack, client) {
+        attack.damageScale -= 0.5;
+        client.getGirl().gainStamina(0.2, false);
+        this.timesFucked += 1;
+
+        return attack;
+    }
+
+    update(attack) {
+        attack.cumTweenScale += this.timesFucked * 0.5;
+        return attack;
+    }
+}
+
+class BattleClientTypeSubordinate extends BattleClientType {
+    /**
+     * @constructor
+     * @param [levelDecrease=10] - How many levels to decrease once client becomes submissive
+     * @returns {BattleClientTypeSubordinate}
+     */
+    constructor(levelDecrease) {
+        super("Subordinate", "Subordinate", "rgb(255,204,150)");
+        this.setDescription("This client will become submissive and have their level reduced if you fuck them rapidly.");
+        this.timesFucked = 1;
+        this.timer = false;
+        this.levelDecrease = levelDecrease || 10;
+        return this;
+    }
+
+    condition() {
+        return true;
+    }
+
+    onAttack(attack, client) {
+        if (!this.timer) {
+            this.timer = game.scene.getScene('BattleScene').time.addEvent({
+                delay: 3000,
+                callback: () => {
+                    this.timesFucked = 1;
+                    this.timer = false;
+                }
+            })
+        }
+        this.timesFucked += 1;
+        return attack;
+    }
+
+    update(attack, client) {
+        if (this.timesFucked >= 5 && !client.getAllTypes().some((element) => element.id === "Submissive")) {
+            let newLevel = client.getLevel() - this.levelDecrease;
+            if (newLevel <= 0) {
+                newLevel = 1;
+            }
+            client.setLevel(newLevel);
+            client.addType(new BattleClientTypeSubmissive())
+            client.removeType('Subordinate')
+        }
+        return attack;
+    }
+}
+
 class BattleClient {
     /**
      * @constructor
@@ -741,16 +818,21 @@ class BattleClient {
         this.destroy();
         this.finished = true;
         if (this.getGirl()) {
-            GAME.QBsound.playUnique(this.getGirl().getID(), this.getBodyPart());
+            if (GAME.battle.currentBattle.numActiveClients() > 0 && chance.bool({likelihood: 20})) {
+                GAME.QBsound.playUnique(this.getGirl().getID(), this.getBodyPart());
+            }
+
             if (GAME.battle.currentBattle.isTrapped(this.getGirl().getID())) {
                 GAME.battle.currentBattle.removeTrap(this.getGirl().getID());
             }
+
             if (this.getExcitement() > 0) {
                 let clientExcitement = (Math.round(this.getExcitement() / 3) / 100)
                 this.getGirl().gainStamina(1 + clientExcitement, false);
             } else {
                 this.getGirl().gainStamina(1, false);
             }
+
             this.getGirl().cumOn(this.getBodyPart(), 1);
             this.getGirl().fuckGuys(1);
         }

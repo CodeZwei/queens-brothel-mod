@@ -35,7 +35,7 @@ class Mod {
          */
         this.menu = Gameplay.prototype.menu;
         /**
-         * @name Mod#QBquest
+         * @name Mod#quest
          * @type {QuestManager}
          */
         this.quest = Gameplay.prototype.quest;
@@ -89,15 +89,6 @@ class Mod {
          * @type {Battle}
          */
         this.Battle = Battle;
-
-        /**
-         * Displays a red or purple "Morals" image to notify players that the girl's morals affected the game some how
-         * @method moralIndicator
-         * @memberOf Mod
-         * @instance
-         * @param {boolean} praise - praise if true, degrade if false
-         */
-        this.moralIndicator = Gameplay.prototype.moralIndicator;
 
         /**
          * Fades the game to black and then returns back to game back to normal and resolves the Promise at the same time

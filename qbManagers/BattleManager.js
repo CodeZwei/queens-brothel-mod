@@ -13,6 +13,9 @@
  */
 class BattleManager {
     constructor() {
+        /**
+         * @type {Battle|boolean}
+         */
         this.currentBattle = false;
         this.battleConditions = {}
     }
@@ -160,14 +163,14 @@ class BattleManager {
         totalDamage = totalDamage * attack.damageScale;
 
         if (totalDamage <= 0) {
-            totalDamage = 0.01;
+            totalDamage = 0;
         }
 
         let totalExp = client.getExp(girl);
 
         GAME.girl.getGirl(girl).loseStamina(totalDamage);
         GAME.girl.getGirl(girl).gainExp(totalExp, true);
-        if(BATTLE.isUltimating(girl) === false){
+        if (BATTLE.isUltimating(girl) === false) {
             if (totalDamage <= 0.2) {
                 GAME.girl.getGirl(girl).addUltimate(5);
             } else if (totalDamage > 0.2 && totalDamage <= 0.5) {
@@ -610,6 +613,9 @@ class Battle {
             case 'Ardura':
                 battleEffect = new BattleEffectUltimateArdura();
                 break;
+            case 'Natasha':
+                battleEffect = new BattleEffectUltimateNatasha();
+                break;
         }
 
         return battleEffect;
@@ -932,6 +938,21 @@ class BattleEffectUltimateArdura extends BattleEffect {
 
         this.onComplete = () => {
             GAME.battle.currentBattle.getClientByGUID(this.client).setLevel(this.before);
+        }
+    }
+}
+
+class BattleEffectUltimateNatasha extends BattleEffect {
+    constructor() {
+        super("UltimateNatasha", "Ultimate for Natasha", "Ultimate for Natasha", 'nullPixel');
+        this.lengthMS = 1000;
+        this.attackMS = 1000;
+        this.needsClient = false;
+
+        this.onStart = () => {
+            for (let girl of GAME.battle.currentBattle.GIRLS.girlArray) {
+                GAME.girl.getGirl(girl).addUltimate(20);
+            }
         }
     }
 }

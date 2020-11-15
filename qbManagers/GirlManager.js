@@ -627,7 +627,7 @@ class Girl {
      * @param {boolean} force - Force the clothes on even if the girl is not a high enough level
      * @returns {Girl}
      */
-    equipClothes(clothesID,force) {
+    equipClothes(clothesID, force) {
         force = force || false;
         let clothes = GAME.clothes.getClothes(clothesID);
         let girl = clothes.Girl;
@@ -676,11 +676,17 @@ class Girl {
      * @returns {Girl}
      */
     addLayer(beforeClothes, layerID) {
-        this._layers.push({
-            girl: this.id,
-            beforeClothes: beforeClothes,
-            layerID: layerID
-        });
+        if (this.getClothes().getLayerID() !== false) {
+            layerID = layerID + "-" + this.getClothes().getLayerID();
+        }
+        if (game.textures.exists(this.getID() + "-Layer-" + layerID)) {
+            this._layers.push({
+                girl: this.id,
+                beforeClothes: beforeClothes,
+                layerID: layerID
+            });
+        }
+
         globalEvents.emit('refreshGirls');
         return this;
     }
@@ -693,6 +699,9 @@ class Girl {
      * @param {string} layerID
      */
     removeLayer(layerID) {
+        if (this.getClothes().getLayerID() !== false) {
+            layerID = layerID + "-" + this.getClothes().getLayerID();
+        }
         this._layers.splice(this._layers.findIndex(layer => layer.layerID === layerID), 1);
         globalEvents.emit('refreshGirls');
     }
@@ -756,7 +765,12 @@ class Girl {
         amount = amount || 1;
         for (let i = 1; i <= amount; i++) {
             let girlLayers = this.getLayers();
-            let availableLayers = this.getCumLayers(bodyPart).filter((cumLayer) => girlLayers.includes(cumLayer) === false);
+            let availableLayers = this.getCumLayers(bodyPart).filter((cumLayer) => {
+                if (this.getClothes().getLayerID() !== false) {
+                    cumLayer = cumLayer + "-" + this.getClothes().getLayerID();
+                }
+                return girlLayers.includes(cumLayer) === false;
+            });
 
             if (availableLayers.length > 0) {
                 this.addLayer(true, chance.pickone(availableLayers));
@@ -919,8 +933,7 @@ class GirlManager {
             .addStaminaGain(64, 1)
             .addStaminaGain(80, 1)
             .addStaminaGain(99, 1)
-            .setUltimateDescription("");
-        // .setUltimateDescription("Natasha increases the ultimate meter for all the girls.");
+            .setUltimateDescription("Natasha increases the ultimate meter for all the girls.");
 
         for (let girl of this._girls) {
             if (GAME.girl.getGirl(girl).getExp() < GAME.getExp(GAME.girl.getGirl(girl).getBaseLevel())) {

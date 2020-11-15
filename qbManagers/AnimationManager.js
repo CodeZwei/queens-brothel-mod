@@ -3,6 +3,7 @@
  * @property {string} ID
  * @property {number} frameRate
  * @property {function|array} frames - Pass the createFrames function or a completed Phaser frames array into this parameter
+ * @property {string} extension - The file extension for the images
  */
 
 /**
@@ -55,6 +56,7 @@ class AnimationManager {
         this._animations[config.ID] = {};
         this._animations[config.ID].ID = config.ID;
         this._animations[config.ID].frameRate = config.frameRate;
+        this._animations[config.ID].extension = config.extension || ".jpg";
 
         if (typeof config.frames === "function") {
             this._animations[config.ID].frames = config.frames();
@@ -75,14 +77,32 @@ class AnimationManager {
         if (this._animations.hasOwnProperty(animationID)) {
 
             return {
+                ID: this._animations[animationID].ID,
                 key: 'video',
                 repeat: -1,
                 frameRate: this._animations[animationID].frameRate,
-                frames: this._animations[animationID].frames
+                frames: this._animations[animationID].frames,
+                extension: this._animations[animationID].extension
             };
         } else {
             return false;
         }
+    }
+
+    /**
+     * @method getAllAnimations
+     * @memberOf AnimationManager
+     * @instance
+     * @returns {Array<AnimationManager.animationConfig>}
+     */
+    getAllAnimations() {
+        let array = [];
+
+        for (let animation in this._animations) {
+            array.push(this._animations[animation]);
+        }
+
+        return array;
     }
 
     /**
@@ -96,7 +116,9 @@ class AnimationManager {
     playAnimation(animationID) {
         return new Promise((resolve) => {
             game.scene.start('PlayVideo', {pauseAllScenes: true, video: animationID});
-            game.scene.getScene('PlayVideo').events.once('shutdown', resolve);
+            game.scene.getScene('PlayVideo').events.once('shutdown', () => {
+                resolve();
+            });
         });
     }
 
@@ -159,7 +181,154 @@ class AnimationManager {
      * @private
      */
     _initAnimations() {
-        // Will leave this method here as an example for mods
+        // Brothel animations
+        (() => {
+            // Throat
+            this.createAnimation({
+                ID: 'QueenThroatdefault',
+                frameRate: 24,
+                frames: this.createFrames('QueenThroatdefault', 0, 13, 5)
+            });
+            this.createAnimation({
+                ID: 'SukiThroatdefault',
+                frameRate: 24,
+                frames: this.createFrames('SukiThroatdefault', 0, 12, 5)
+            });
+            this.createAnimation({
+                ID: 'EsxeaThroatdefault',
+                frameRate: 24,
+                frames: this.createFrames('EsxeaThroatdefault', 0, 23, 5),
+                extension: ".webp"
+            });
+            this.createAnimation({
+                ID: 'ScarlettThroatdefault',
+                frameRate: 24,
+                frames: this.createFrames('ScarlettThroatdefault', 0, 23, 5),
+                extension: ".webp"
+            });
+            this.createAnimation({
+                ID: 'ArduraThroatdefault',
+                frameRate: 24,
+                frames: this.createFrames('ArduraThroatdefault', 0, 23, 5),
+                extension: ".webp"
+            });
+            this.createAnimation({
+                ID: 'NatashaThroatdefault',
+                frameRate: 24,
+                frames: this.createFrames('NatashaThroatdefault', 0, 23, 5),
+                extension: ".webp"
+            });
+
+            // Tits
+            this.createAnimation({
+                ID: 'QueenTitsdefault',
+                frameRate: 24,
+                frames: this.createFrames('QueenTitsdefault', 0, 15, 5),
+                extension: ".webp"
+            });
+            this.createAnimation({
+                ID: 'SukiTitsdefault',
+                frameRate: 24,
+                frames: this.createFrames('SukiTitsdefault', 0, 15, 5),
+                extension: ".webp"
+            });
+            this.createAnimation({
+                ID: 'EsxeaTitsdefault',
+                frameRate: 24,
+                frames: this.createFrames('EsxeaTitsdefault', 0, 15, 5),
+                extension: ".webp"
+            });
+            this.createAnimation({
+                ID: 'ScarlettTitsdefault',
+                frameRate: 24,
+                frames: this.createFrames('ScarlettTitsdefault', 0, 15, 5),
+                extension: ".webp"
+            });
+            this.createAnimation({
+                ID: 'ArduraTitsdefault',
+                frameRate: 24,
+                frames: this.createFrames('ArduraTitsdefault', 0, 15, 5),
+                extension: ".webp"
+            });
+            this.createAnimation({
+                ID: 'NatashaTitsdefault',
+                frameRate: 24,
+                frames: this.createFrames('NatashaTitsdefault', 0, 15, 5),
+                extension: ".webp"
+            });
+
+            // Pussy
+            this.createAnimation({
+                ID: 'QueenPussydefault',
+                frameRate: 24,
+                frames: this.createFrames('QueenPussydefault', 0, 12, 5)
+            });
+            this.createAnimation({
+                ID: 'SukiPussydefault',
+                frameRate: 24,
+                frames: this.createFrames('SukiPussydefault', 0, 15, 5)
+            });
+            this.createAnimation({
+                ID: 'EsxeaPussydefault',
+                frameRate: 24,
+                frames: this.createFrames('EsxeaPussydefault', 0, 14, 5)
+            });
+            this.createAnimation({
+                ID: 'ScarlettPussydefault',
+                frameRate: 24,
+                frames: this.createFrames('ScarlettPussydefault', 0, 18, 5),
+                extension: ".webp"
+            });
+            this.createAnimation({
+                ID: 'ArduraPussydefault',
+                frameRate: 24,
+                frames: this.createFrames('ArduraPussydefault', 0, 18, 5),
+                extension: ".webp"
+            });
+            this.createAnimation({
+                ID: 'NatashaPussydefault',
+                frameRate: 24,
+                frames: this.createFrames('NatashaPussydefault', 0, 18, 5),
+                extension: ".webp"
+            });
+
+            // Anal
+            this.createAnimation({
+                ID: 'QueenAnaldefault',
+                frameRate: 24,
+                frames: this.createFrames('QueenAnaldefault', 0, 18, 5)
+            });
+            this.createAnimation({
+                ID: 'SukiAnaldefault',
+                frameRate: 24,
+                frames: this.createFrames('SukiAnaldefault', 0, 14, 5)
+            });
+            this.createAnimation({
+                ID: 'EsxeaAnaldefault',
+                frameRate: 24,
+                frames: this.createFrames('EsxeaAnaldefault', 0, 17, 5),
+                extension: ".webp"
+            });
+            this.createAnimation({
+                ID: 'ScarlettAnaldefault',
+                frameRate: 24,
+                frames: this.createFrames('ScarlettAnaldefault', 0, 17, 5),
+                extension: ".webp"
+            });
+            this.createAnimation({
+                ID: 'ArduraAnaldefault',
+                frameRate: 24,
+                frames: this.createFrames('ArduraAnaldefault', 0, 17, 5),
+                extension: ".webp"
+            });
+            this.createAnimation({
+                ID: 'NatashaAnaldefault',
+                frameRate: 24,
+                frames: this.createFrames('NatashaAnaldefault', 0, 17, 5),
+                extension: ".webp"
+            });
+        })();
+
         this.createAnimation({
             ID: 'battleNullImage',
             frameRate: 1,
@@ -170,21 +339,7 @@ class AnimationManager {
             frameRate: 1,
             frames: [{key: 'QueenFreeBlowjobs'}]
         });
-        this.createAnimation({
-            ID: 'QueenThroatdefault',
-            frameRate: 24,
-            frames: this.createFrames('QueenThroatdefault', 0, 13, 5)
-        });
-        this.createAnimation({
-            ID: 'QueenPussydefault',
-            frameRate: 24,
-            frames: this.createFrames('QueenPussydefault', 0, 12, 5)
-        });
-        this.createAnimation({
-            ID: 'QueenAnaldefault',
-            frameRate: 24,
-            frames: this.createFrames('QueenAnaldefault', 0, 18, 5)
-        });
+
         this.createAnimation({
             ID: 'QueenAssGrab',
             frameRate: 1,
@@ -225,31 +380,14 @@ class AnimationManager {
             frameRate: 1,
             frames: [{key: 'SukiClassFuck'}]
         });
-        this.createAnimation({
-            ID: 'SukiPussydefault',
-            frameRate: 24,
-            frames: this.createFrames('SukiPussydefault', 0, 15, 5)
-        });
+
         this.createAnimation({
             ID: 'SukiHandsdefault',
             frameRate: 24,
             frames: this.createFrames('SukiHandsdefault', 0, 13, 5)
         });
-        this.createAnimation({
-            ID: 'SukiThroatdefault',
-            frameRate: 24,
-            frames: this.createFrames('SukiThroatdefault', 0, 12, 5)
-        });
-        this.createAnimation({
-            ID: 'SukiAnaldefault',
-            frameRate: 24,
-            frames: this.createFrames('SukiAnaldefault', 0, 14, 5)
-        });
-        this.createAnimation({
-            ID: 'EsxeaPussydefault',
-            frameRate: 24,
-            frames: this.createFrames('EsxeaPussydefault', 0, 10, 5)
-        });
+
+
         this.createAnimation({
             ID: 'QueenNirvokkDoggy',
             frameRate: 1,
@@ -275,11 +413,6 @@ class AnimationManager {
             frameRate: 1,
             frames: [{key: 'ScarlettPeasantsMilk'}]
         });
-        this.createAnimation({
-            ID: 'ScarlettTitsdefault',
-            frameRate: 24,
-            frames: this.createFrames('ScarlettTitsdefault', 0, 18, 5)
-        });
         // this.createAnimation({
         //     ID: 'kingsQuestBossFuckMilk',
         //     frameRate: 24,
@@ -290,11 +423,6 @@ class AnimationManager {
         //     frameRate: 24,
         //     frames: this.createFrames('kingsQuestBossSuck', 0, 16, 5)
         // });
-        this.createAnimation({
-            ID: 'ScarlettAnaldefault',
-            frameRate: 24,
-            frames: this.createFrames('ScarlettAnaldefault', 0, 18, 5)
-        });
         // this.createAnimation({
         //     ID: 'ScarlettAnaldefaultCum',
         //     frameRate: 24,
@@ -340,6 +468,42 @@ class AnimationManager {
             frameRate: 1,
             frames: [{key: 'SukiFutaNoCum'}]
         });
+        this.createAnimation({
+            ID: 'AriettaSeduce',
+            frameRate: 1,
+            frames: [{key: 'AriettaSeduce'}]
+        });
+        this.createAnimation({
+            ID: 'NatashaOrcBJ',
+            frameRate: 1,
+            frames: [{key: 'NatashaOrcBJ'}]
+        });
+        this.createAnimation({
+            ID: 'SabrinaDaisyIntimidate',
+            frameRate: 1,
+            frames: [{key: 'SabrinaDaisyIntimidate'}]
+        });
+        this.createAnimation({
+            ID: 'QueenBus',
+            frameRate: 1,
+            frames: [{key: 'QueenBus'}]
+        });
+        this.createAnimation({
+            ID: 'SukiGoblinFeet',
+            frameRate: 1,
+            frames: [{key: 'SukiGoblinFeet'}]
+        });
+        this.createAnimation({
+            ID: 'SukibusRiding',
+            frameRate: 1,
+            frames: [{key: 'SukibusRiding'}]
+        });
+        this.createAnimation({
+            ID: 'LilithQueen',
+            frameRate: 1,
+            frames: [{key: 'LilithQueen'}]
+        });
+
     }
 
     /**
@@ -351,24 +515,20 @@ class AnimationManager {
      */
     _initGallery() {
         this.addToGallery(function () {
+            // New Game
+            return [{
+                thumbnail: 'QueenBus',
+                type: 'Image',
+                animationID: 'QueenBus'
+            }];
+        });
+        this.addToGallery(function () {
             // Town Fuck Quest
             if (GAME.quest.isComplete('townFuckQuest', 'End') === true) {
                 return [{
                     thumbnail: 'QueenFreeBlowjobs',
                     type: 'Image',
                     animationID: 'QueenFreeBlowjobs'
-                }, {
-                    thumbnail: 'QueenThroatdefault00000',
-                    type: 'Animation',
-                    animationID: 'QueenThroatdefault'
-                }, {
-                    thumbnail: 'QueenPussydefault00000',
-                    type: 'Animation',
-                    animationID: 'QueenPussydefault'
-                }, {
-                    thumbnail: 'QueenAnaldefault00000',
-                    type: 'Animation',
-                    animationID: 'QueenAnaldefault'
                 }];
             }
         });
@@ -421,18 +581,6 @@ class AnimationManager {
                     thumbnail: 'SukiDanielCum',
                     type: 'Image',
                     animationID: 'SukiDanielCum'
-                }, {
-                    thumbnail: 'SukiPussydefault00000',
-                    type: 'Animation',
-                    animationID: 'SukiPussydefault'
-                }, {
-                    thumbnail: 'SukiThroatdefault00000',
-                    type: 'Animation',
-                    animationID: 'SukiThroatdefault'
-                }, {
-                    thumbnail: 'SukiAnaldefault00000',
-                    type: 'Animation',
-                    animationID: 'SukiAnaldefault'
                 }]
             }
         });
@@ -457,22 +605,16 @@ class AnimationManager {
             }
         });
         this.addToGallery(function () {
-            // Esxea Animations
-            if (GAME.girl.Esxea.isUnlocked()) {
-                return [{
-                    thumbnail: 'EsxeaPussydefault00000',
-                    type: 'Animation',
-                    animationID: 'EsxeaPussydefault'
-                }]
-            }
-        });
-        this.addToGallery(function () {
             // Mushroom Quest
             if (GAME.quest.isComplete('mushroomQuest') === true) {
                 return [{
                     thumbnail: 'SukiHandsdefault00000',
                     type: 'Animation',
                     animationID: 'SukiHandsdefault'
+                }, {
+                    thumbnail: 'SukiGoblinFeet',
+                    type: 'Image',
+                    animationID: 'SukiGoblinFeet'
                 }, {
                     thumbnail: 'MorassInnGangbang',
                     type: 'Image',
@@ -492,20 +634,6 @@ class AnimationManager {
                     type: 'Image',
                     animationID: 'ScarlettPeasantsMilk'
                 }];
-            }
-        });
-        this.addToGallery(function () {
-            // Scarlett Animations
-            if (GAME.girl.Scarlett.isUnlocked()) {
-                return [{
-                    thumbnail: 'ScarlettTitsdefault00000',
-                    type: 'Animation',
-                    animationID: 'ScarlettTitsdefault'
-                }, {
-                    thumbnail: 'ScarlettAnaldefault00000',
-                    type: 'Animation',
-                    animationID: 'ScarlettAnaldefault'
-                }]
             }
         });
         this.addToGallery(function () {
@@ -554,5 +682,192 @@ class AnimationManager {
                 }];
             }
         });
+        this.addToGallery(function () {
+            // Arietta
+            if (GAME.quest.isComplete('ariettaQuest') === true) {
+                return [{
+                    thumbnail: 'AriettaSeduce',
+                    type: 'Image',
+                    animationID: 'AriettaSeduce'
+                }];
+            }
+        });
+        this.addToGallery(function () {
+            // Get Books
+            if (GAME.quest.isComplete('getBooks') === true) {
+                return [{
+                    thumbnail: 'NatashaOrcBJ',
+                    type: 'Image',
+                    animationID: 'NatashaOrcBJ'
+                }, {
+                    thumbnail: 'SabrinaDaisyIntimidate',
+                    type: 'Image',
+                    animationID: 'SabrinaDaisyIntimidate'
+                }];
+            }
+        });
+        this.addToGallery(function () {
+            // Lilith Quest
+            if (GAME.quest.isComplete('lilithQuest') === true) {
+                return [{
+                    thumbnail: 'SukibusRiding',
+                    type: 'Image',
+                    animationID: 'SukibusRiding'
+                }, {
+                    thumbnail: 'LilithQueen',
+                    type: 'Image',
+                    animationID: 'LilithQueen'
+                }];
+            }
+        });
+
+        // Brothel animations
+        this.addToGallery(function () {
+            let array = [];
+
+            // Queen
+            array.push({
+                thumbnail: 'QueenTitsdefault00000',
+                type: 'Animation',
+                animationID: 'QueenTitsdefault'
+            });
+            array.push({
+                thumbnail: 'QueenThroatdefault00000',
+                type: 'Animation',
+                animationID: 'QueenThroatdefault'
+            });
+            array.push({
+                thumbnail: 'QueenPussydefault00000',
+                type: 'Animation',
+                animationID: 'QueenPussydefault'
+            });
+            array.push({
+                thumbnail: 'QueenAnaldefault00000',
+                type: 'Animation',
+                animationID: 'QueenAnaldefault'
+            });
+
+            // Suki
+            if (GAME.girl.getGirl('Suki').isUnlocked()) {
+                array.push({
+                    thumbnail: 'SukiTitsdefault00000',
+                    type: 'Animation',
+                    animationID: 'SukiTitsdefault'
+                });
+                array.push({
+                    thumbnail: 'SukiPussydefault00000',
+                    type: 'Animation',
+                    animationID: 'SukiPussydefault'
+                });
+                array.push({
+                    thumbnail: 'SukiThroatdefault00000',
+                    type: 'Animation',
+                    animationID: 'SukiThroatdefault'
+                });
+                array.push({
+                    thumbnail: 'SukiAnaldefault00000',
+                    type: 'Animation',
+                    animationID: 'SukiAnaldefault'
+                });
+            }
+
+            // Esxea
+            if (GAME.girl.getGirl('Esxea').isUnlocked()) {
+                array.push({
+                    thumbnail: 'EsxeaThroatdefault00000',
+                    type: 'Animation',
+                    animationID: 'EsxeaThroatdefault'
+                });
+                array.push({
+                    thumbnail: 'EsxeaTitsdefault00000',
+                    type: 'Animation',
+                    animationID: 'EsxeaTitsdefault'
+                });
+                array.push({
+                    thumbnail: 'EsxeaPussydefault00000',
+                    type: 'Animation',
+                    animationID: 'EsxeaPussydefault'
+                });
+                array.push({
+                    thumbnail: 'EsxeaAnaldefault00000',
+                    type: 'Animation',
+                    animationID: 'EsxeaAnaldefault'
+                });
+            }
+
+            // Scarlett
+            if (GAME.girl.getGirl('Scarlett').isUnlocked()) {
+                array.push({
+                    thumbnail: 'ScarlettThroatdefault00000',
+                    type: 'Animation',
+                    animationID: 'ScarlettThroatdefault'
+                });
+                array.push({
+                    thumbnail: 'ScarlettTitsdefault00000',
+                    type: 'Animation',
+                    animationID: 'ScarlettTitsdefault'
+                });
+                array.push({
+                    thumbnail: 'ScarlettPussydefault00000',
+                    type: 'Animation',
+                    animationID: 'ScarlettPussydefault'
+                });
+                array.push({
+                    thumbnail: 'ScarlettAnaldefault00000',
+                    type: 'Animation',
+                    animationID: 'ScarlettAnaldefault'
+                });
+            }
+
+            // Ardura
+            if (GAME.girl.getGirl('Ardura').isUnlocked()) {
+                array.push({
+                    thumbnail: 'ArduraThroatdefault00000',
+                    type: 'Animation',
+                    animationID: 'ArduraThroatdefault'
+                });
+                array.push({
+                    thumbnail: 'ArduraTitsdefault00000',
+                    type: 'Animation',
+                    animationID: 'ArduraTitsdefault'
+                });
+                array.push({
+                    thumbnail: 'ArduraPussydefault00000',
+                    type: 'Animation',
+                    animationID: 'ArduraPussydefault'
+                });
+                array.push({
+                    thumbnail: 'ArduraAnaldefault00000',
+                    type: 'Animation',
+                    animationID: 'ArduraAnaldefault'
+                });
+            }
+
+            // Natasha
+            if (GAME.girl.getGirl('Natasha').isUnlocked()) {
+                array.push({
+                    thumbnail: 'NatashaThroatdefault00000',
+                    type: 'Animation',
+                    animationID: 'NatashaThroatdefault'
+                });
+                array.push({
+                    thumbnail: 'NatashaTitsdefault00000',
+                    type: 'Animation',
+                    animationID: 'NatashaTitsdefault'
+                });
+                array.push({
+                    thumbnail: 'NatashaPussydefault00000',
+                    type: 'Animation',
+                    animationID: 'NatashaPussydefault'
+                });
+                array.push({
+                    thumbnail: 'NatashaAnaldefault00000',
+                    type: 'Animation',
+                    animationID: 'NatashaAnaldefault'
+                });
+            }
+
+            return array;
+        })
     }
 }

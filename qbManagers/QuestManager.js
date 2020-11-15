@@ -35,6 +35,7 @@ class QuestManager {
                 .setCondition(() => {
                     return GAME.quest.isComplete('townFuckQuest', 'Start');
                 })
+                .setMapKey('House')
                 .setProgress(true)
                 .setDialogueTree("onSleep")
                 .setDialogueBranch("introduceAntagonist");
@@ -43,14 +44,7 @@ class QuestManager {
                 .setCondition(() => {
                     return GAME.quest.isComplete('hornyBoris');
                 })
-                .setProgress(true)
-                .setDialogueTree("onSleep")
-                .setDialogueBranch("naknuAfterHornyBoris");
-            worldQuests
-                .addSubQuest('naknuAfterRecruitScarlett')
-                .setCondition(() => {
-                    return GAME.quest.isComplete('kingsQuest');
-                })
+                .setMapKey('House')
                 .setProgress(true)
                 .setDialogueTree("onSleep")
                 .setDialogueBranch("naknuAfterHornyBoris");
@@ -234,6 +228,7 @@ class QuestManager {
                 .setCondition(() => {
                     return GAME.quest.isComplete('hornyBoris', 'WhoreGreenhaven');
                 })
+                .setMapKey('House')
                 .setProgress(true)
                 .setDialogueTree('onSleep')
                 .setDialogueBranch('hornyBorisNaknuDialogue')
@@ -429,6 +424,7 @@ class QuestManager {
                 .setCondition(() => {
                     return GAME.quest.isComplete('mushroomQuest', 'Perform');
                 })
+                .setMapKey('House')
                 .setProgress(true)
                 .setDialogueTree('onSleep')
                 .setDialogueBranch('mushroomQuestNaknuSoil')
@@ -490,6 +486,7 @@ class QuestManager {
                 .setCondition(() => {
                     return GAME.quest.isComplete('mushroomQuest');
                 })
+                .setMapKey('House')
                 .setProgress(true)
                 .setDialogueTree('onSleep')
                 .setDialogueBranch('kingsQuestStart');
@@ -527,6 +524,7 @@ class QuestManager {
                 .setCondition(() => {
                     return GAME.quest.isComplete('kingsQuest', 'FindScarlett')
                 })
+                .setMapKey('House')
                 .setProgress(true)
                 .setDialogueTree('onSleep')
                 .setDialogueBranch('kingsQuestNaknuCurseKing')
@@ -546,6 +544,7 @@ class QuestManager {
                 .setCondition(() => {
                     return GAME.quest.isComplete('kingsQuest', 'FuckPeasants')
                 })
+                .setMapKey('House')
                 .setProgress(true)
                 .setDialogueTree('onSleep')
                 .setDialogueBranch('kingsQuestNaknuClimbCastle')
@@ -645,6 +644,7 @@ class QuestManager {
                 .setCondition(() => {
                     return GAME.quest.isComplete('kingsQuest');
                 })
+                .setMapKey('House')
                 .setProgress(true)
                 .setDialogueTree('onSleep')
                 .setDialogueBranch('returnDatheaStart');
@@ -693,7 +693,8 @@ class QuestManager {
                 .setProgress(true)
                 .setMapKey('TownSquare')
                 .setDialogueTree('TownSquare')
-                .setDialogueBranch('battleOrcsStart');
+                .setDialogueBranch('battleOrcsStart')
+                .setLogDescription("Go to Easthollow Town to continue the main story.");
             battleOrcs
                 .addSubQuest('AskKing')
                 .setCondition(() => {
@@ -718,6 +719,7 @@ class QuestManager {
                 .setCondition(() => {
                     return GAME.quest.isComplete('battleOrcs', 'CheckBattle');
                 })
+                .setMapKey('House')
                 .setProgress(true)
                 .setDialogueTree('onSleep')
                 .setDialogueBranch('battleOrcsNaknuPoison')
@@ -727,6 +729,7 @@ class QuestManager {
                 .setCondition(() => {
                     return GAME.quest.isComplete('battleOrcs', 'NaknuPoison');
                 })
+                .setMapKey('House')
                 .setProgress(true)
                 .setDialogueTree('onSleep')
                 .setDialogueBranch('battleOrcsNaknuPoison')
@@ -746,12 +749,14 @@ class QuestManager {
                 .setCondition(() => {
                     return GAME.quest.isComplete('battleOrcs', 'TalkToMayor');
                 })
+                .setMapKey('House')
                 .setProgress(true)
                 .setDialogueTree('onSleep')
                 .setDialogueBranch('battleOrcsEnd')
                 .setLogDescription("Visit the mountains tomorrow.");
         })();
 
+        // Mountain Training
         (() => {
             let mountainTraining = GAME.quest.addQuest('mountainTraining', "Anal Training", true)
                 .setStart('Start')
@@ -770,6 +775,7 @@ class QuestManager {
                 .setCondition(() => {
                     return GAME.quest.isComplete('mountainTraining', 'Start');
                 })
+                .setMapKey('House')
                 .setProgress(true)
                 .setDialogueTree('onSleep')
                 .setDialogueBranch('mountainTrainingNaknuAfterStart')
@@ -829,6 +835,7 @@ class QuestManager {
                 .setCondition(() => {
                     return GAME.quest.isComplete('mountainTraining', 'MorassTraining');
                 })
+                .setMapKey('House')
                 .setProgress(true)
                 .setDialogueTree('onSleep')
                 .setDialogueBranch('mountainTrainingDebrief')
@@ -848,6 +855,7 @@ class QuestManager {
                 .setCondition(() => {
                     return GAME.quest.isComplete('mountainTraining', 'Battle');
                 })
+                .setMapKey('House')
                 .setProgress(true)
                 .setDialogueTree('onSleep')
                 .setDialogueBranch('mountainTrainingNaknuAfterOrcBoss')
@@ -876,6 +884,7 @@ class QuestManager {
                 })
         })();
 
+        // Find Trasonia
         (() => {
             let findTrasonia = GAME.quest.addQuest('findTrasonia', "Trasonia", true)
                 .setStart('Start')
@@ -889,7 +898,7 @@ class QuestManager {
                 .setMapKey('Inn')
                 .setDialogueTree('MorassInn')
                 .setDialogueBranch('findTrasoniaStart')
-                .setLogDescription("Continue the main story at the morass inn.");
+                .setLogDescription("Continue the main story at the Morass Inn.");
             findTrasonia
                 .addSubQuest('End')
                 .setCondition(() => {
@@ -900,6 +909,7 @@ class QuestManager {
                 .setLogDescription("Travel west of the mountains to find the elves.");
         })();
 
+        // Magic Quest
         (() => {
             let magicQuest = GAME.quest.addQuest('magic', "School of Witchcraft", true)
                 .setStart('Start')
@@ -990,12 +1000,14 @@ class QuestManager {
                 .setCondition(() => {
                     return GAME.quest.isComplete('magic', 'Futa');
                 })
+                .setMapKey('House')
                 .setProgress(true)
                 .setDialogueTree('onSleep')
                 .setDialogueBranch('magicEnd')
                 .setLogDescription("Go to sleep.");
         })();
 
+        // Arietta Quest
         (() => {
             let ariettaQuest = GAME.quest.addQuest('ariettaQuest', "Busting Arietta", true)
                 .setStart('Start')
@@ -1070,7 +1082,7 @@ class QuestManager {
                 .setDialogueBranch('ariettaQuestBustArietta')
                 .setLogDescription("Bust Arietta");
             ariettaQuest
-                .addSubQuest('RecruitNatasha')
+                .addSubQuest('End')
                 .setCondition(() => {
                     return GAME.quest.isComplete('ariettaQuest', 'BustArietta');
                 })
@@ -1093,50 +1105,190 @@ class QuestManager {
                 })
         })();
 
+        // Get Books
         (() => {
-            let scarlettDressCow = GAME.quest.addQuest('scarlettDressCow', "Scarlett's Outfit", false)
+            let getBooks = GAME.quest.addQuest('getBooks', "Natasha's Homework", true)
                 .setStart('Start')
                 .setEnd('End');
-            scarlettDressCow
+            getBooks
                 .addSubQuest('Start')
                 .setCondition(() => {
-                    // return GAME.quest.isComplete('ariettaQuest');
-                    return false;
+                    return GAME.quest.isComplete('ariettaQuest');
                 })
-                .setMapKey("TownClothesShop")
+                .setMapKey('House')
                 .setProgress(true)
-                .setDialogueTree('ClothesShop')
-                .setDialogueBranch('scarlettDressCowStart');
-            scarlettDressCow
-                .addSubQuest('Hucow')
-                .setCondition(false)
+                .setDialogueTree('onSleep')
+                .setDialogueBranch('getBooksStart')
+                .setLogDescription("Go to sleep to start the next quest.")
+                .setOnComplete(() => {
+                    GAME.clothes.getClothes('ElfSuki').unlock();
+                });
+            getBooks
+                .addSubQuest('Library')
+                .setCondition(() => {
+                    return GAME.quest.isComplete('getBooks', 'Start');
+                })
+                .setProgress(() => {
+                    return GAME.girl.getGirl('Suki').getClothes().getID() === "ElfSuki";
+                })
+                .setMapKey('TrasoniaLibrary')
+                .setDialogueTree('TrasoniaLibrary')
+                .setDialogueBranch('getBooksLibrary')
+                .setLogDescription("Have Suki steal some books from Trasonia's library!")
+                .setLogProgress(() => {
+                    if (GAME.girl.getGirl('Suki').getClothes().getID() !== "ElfSuki") {
+                        return "Suki must be wearing her Elf outfit.";
+                    } else {
+                        return "";
+                    }
+                });
+            getBooks
+                .addSubQuest('OpenPortal')
+                .setCondition(() => {
+                    return GAME.quest.isComplete('getBooks', 'Library');
+                })
                 .setProgress(true)
-                .setDialogueTree('ClothesShop')
-                .setDialogueBranch('ariettaQuestGetClothes');
-            scarlettDressCow
-                .addSubQuest('Dress')
-                .setCondition(false)
-                .setProgress(true)
-                .setDialogueTree('ClothesShop')
-                .setDialogueBranch('ariettaQuestGetClothes');
-            scarlettDressCow
-                .addSubQuest('GetHucow')
-                .setCondition(false)
-                .setProgress(true)
-                .setDialogueTree('ClothesShop')
-                .setDialogueBranch('scarlettDressCowGetHucow');
-            scarlettDressCow
-                .addSubQuest('GetDress')
-                .setCondition(false)
-                .setProgress(true)
-                .setDialogueTree('ClothesShop')
-                .setDialogueBranch('scarlettDressCowGetDress');
-            scarlettDressCow
+                .setMapKey('House')
+                .setDialogueTree('onSleep')
+                .setDialogueBranch('getBooksOpenPortal')
+                .setLogDescription("Go to sleep to continue the quest.");
+            getBooks
                 .addSubQuest('End')
-                .setCondition(false)
+                .setCondition(() => {
+                    return GAME.quest.isComplete('getBooks', 'OpenPortal');
+                })
                 .setProgress(true)
-                .setDialogueTree('ClothesShop')
-                .setDialogueBranch('scarlettDressCowEnd');
+                .setMapKey('House')
+                .setDialogueTree('onSleep')
+                .setDialogueBranch('getBooksEnd')
+                .setLogDescription("Go to sleep to continue the quest.");
+        })();
+
+        // Lilith Quest
+        (() => {
+            let lilithQuest = GAME.quest.addQuest('lilithQuest', "Succubus Training", true)
+                .setStart('Start')
+                .setEnd('End');
+            lilithQuest
+                .addSubQuest('Start')
+                .setCondition(() => {
+                    return GAME.quest.isComplete('getBooks');
+                })
+                .setMapKey('HellThrone')
+                .setProgress(true)
+                .setDialogueTree('HellThrone')
+                .setDialogueBranch('lilithQuestStart')
+                .setLogDescription("Go see Lilith in the under world.");
+            lilithQuest
+                .addSubQuest('ScaryMan')
+                .setCondition(() => {
+                    return GAME.quest.isComplete('lilithQuest', 'Start');
+                })
+                .setMapKey('House')
+                .setProgress(true)
+                .setDialogueTree('onSleep')
+                .setDialogueBranch('lilithQuestScaryMan')
+                .setLogDescription("Go to sleep to start the next quest.");
+            lilithQuest
+                .addSubQuest('End')
+                .setCondition(() => {
+                    return GAME.quest.isComplete('lilithQuest', 'ScaryMan');
+                })
+                .setMapKey('HellThrone')
+                .setProgress(true)
+                .setDialogueTree('HellThrone')
+                .setDialogueBranch('lilithQuestEnd')
+                .setLogDescription("Go see Lilith in the under world.");
+        })();
+
+        // beforeMonsters
+        (() => {
+            let scarlettBoredTitFuck = GAME.quest.addQuest('scarlettBoredTitFuck', "Bored Scarlett", true)
+                .setStart('Start')
+                .setEnd('Start');
+            scarlettBoredTitFuck
+                .addSubQuest('Start')
+                .setCondition(() => {
+                    return GAME.quest.isComplete('lilithQuest');
+                })
+                .setProgress(true)
+                .setMapKey('House')
+                .setDialogueTree('onSleep')
+                .setDialogueBranch('scarlettBoredTitFuckStart')
+                .setLogDescription("Go to sleep to continue the main story.");
+
+            let natashaEasthollowAnal = GAME.quest.addQuest('natashaEasthollowAnal', "Natasha's Date", true)
+                .setStart('Start')
+                .setEnd('Start');
+            natashaEasthollowAnal
+                .addSubQuest('Start')
+                .setCondition(() => {
+                    return GAME.quest.isComplete('scarlettBoredTitFuck');
+                })
+                .setProgress(true)
+                .setMapKey('TownSquare')
+                .setDialogueTree('TownSquare')
+                .setDialogueBranch('natashaEasthollowAnalStart')
+                .setLogDescription("Natasha wants to meet the Easthollow residents.");
+
+            let arduraSchoolDoggystyle = GAME.quest.addQuest('arduraSchoolDoggystyle', "Ardura Dominates Student", true)
+                .setStart('Start')
+                .setEnd('Start');
+            arduraSchoolDoggystyle
+                .addSubQuest('Start')
+                .setCondition(() => {
+                    return GAME.quest.isComplete('scarlettBoredTitFuck');
+                })
+                .setProgress(true)
+                .setMapKey('CafeteriaButton')
+                .setDialogueTree('SchoolCafeteria')
+                .setDialogueBranch('arduraSchoolDoggystyleStart')
+                .setLogDescription("Bring Ardura to the University.");
+
+            let esxeaHangoutOrcs = GAME.quest.addQuest('esxeaHangoutOrcs', "Esxea and the Orcs", true)
+                .setStart('Start')
+                .setEnd('Start');
+            esxeaHangoutOrcs
+                .addSubQuest('Start')
+                .setCondition(() => {
+                    return GAME.quest.isComplete('scarlettBoredTitFuck');
+                })
+                .setProgress(true)
+                .setMapKey('CampSite')
+                .setDialogueTree('CampSite')
+                .setDialogueBranch('esxeaHangoutOrcsStart')
+                .setLogDescription("Esxea wants to visit the orc camp site.");
+
+            let sukiFuckKing = GAME.quest.addQuest('sukiAndKing', "Princess Suki", true)
+                .setStart('Start')
+                .setEnd('Start');
+            sukiFuckKing
+                .addSubQuest('Start')
+                .setCondition(() => {
+                    return GAME.quest.isComplete('scarlettBoredTitFuck');
+                })
+                .setProgress(true)
+                .setMapKey('AviaCastleKeep')
+                .setDialogueTree('AviaCastleKeep')
+                .setDialogueBranch('sukiAndKingStart')
+                .setLogDescription("Suki wants to visit the King of Avia.");
+
+            let queenChatBrior = GAME.quest.addQuest('queenChatBrior', "Queen Chats With Brior", true)
+                .setStart('Start')
+                .setEnd('Start');
+            queenChatBrior
+                .addSubQuest('Start')
+                .setCondition(() => {
+                    return GAME.quest.isComplete('sukiAndKing') &&
+                        GAME.quest.isComplete('esxeaHangoutOrcs') &&
+                        GAME.quest.isComplete('arduraSchoolDoggystyle') &&
+                        GAME.quest.isComplete('natashaEasthollowAnal');
+                })
+                .setProgress(true)
+                .setMapKey('Inn')
+                .setDialogueTree('MorassInn')
+                .setDialogueBranch('queenChatBriorStart')
+                .setLogDescription("Queen wants to grab a beer at the morass Inn.");
         })();
 
         // Patreon
@@ -1147,13 +1299,13 @@ class QuestManager {
             patreon
                 .addSubQuest('Start')
                 .setCondition(() => {
-                    return GAME.quest.isComplete('ariettaQuest', 'BustArietta');
+                    return GAME.quest.isComplete('queenChatBrior');
                 })
                 .setProgress(true)
                 .setDialogueTree('patreon')
                 .setDialogueBranch('patreon')
                 .setLogDescription("You have finished the main storyline!")
-                .setLogProgress("Please check out the Patreon page to see if there is more content available!");
+                .setLogProgress("Please check the Patreon page to see if there is more content available!");
         })();
 
         // Clothes Quests
@@ -1164,7 +1316,27 @@ class QuestManager {
             })();
             // Suki
             (() => {
-
+                // Sweater Suki
+                (() => {
+                    let sweaterSuki = GAME.quest.addQuest('sweaterSuki', "Suki's Dress Code", false)
+                        .setStart('Start')
+                        .setEnd('Start');
+                    sweaterSuki
+                        .addSubQuest('Start')
+                        .setCondition(() => {
+                            return GAME.girl.getGirl('Suki').getClothes().getID() === "SweaterSuki";
+                        })
+                        .setProgress(() => {
+                            return GAME.girl.getGirl('Suki').getClothes().getID() === "SweaterSuki";
+                        })
+                        .setMapKey("ClassroomButton")
+                        .setDialogueTree('AbigailClassroom')
+                        .setDialogueBranch('sweaterSukiStart')
+                        .setOnComplete(() => {
+                            GAME.girl.getGirl('Suki').gainExp(400);
+                            GAME.addGold(100);
+                        });
+                })();
             })();
             // Esxea
             (() => {
@@ -1172,9 +1344,121 @@ class QuestManager {
             })();
             // Scarlett
             (() => {
+                (() => {
+                    let scarlettDressCow = GAME.quest.addQuest('scarlettDressCow', "Scarlett's Outfit", false)
+                        .setStart('Start')
+                        .setEnd('End');
+                    scarlettDressCow
+                        .addSubQuest('Start')
+                        .setCondition(() => {
+                            return GAME.quest.isComplete('ariettaQuest');
+                        })
+                        .setProgress(true)
+                        .setMapKey("TownClothesShop")
+                        .setDialogueTree('ClothesShop')
+                        .setDialogueBranch('scarlettDressCowStart');
+                    scarlettDressCow
+                        .addSubQuest('Hucow')
+                        .setCondition(false)
+                        .setProgress(true)
+                        .setDialogueTree('ClothesShop')
+                        .setDialogueBranch('ariettaQuestGetClothes');
+                    scarlettDressCow
+                        .addSubQuest('Dress')
+                        .setCondition(false)
+                        .setProgress(true)
+                        .setDialogueTree('ClothesShop')
+                        .setDialogueBranch('ariettaQuestGetClothes');
+                    scarlettDressCow
+                        .addSubQuest('GetHucow')
+                        .setCondition(false)
+                        .setProgress(true)
+                        .setDialogueTree('ClothesShop')
+                        .setDialogueBranch('scarlettDressCowGetHucow')
+                        .setOnComplete(() => {
+                            GAME.clothes.getClothes('HucowScarlett').unlock();
+                        });
+                    scarlettDressCow
+                        .addSubQuest('GetDress')
+                        .setCondition(false)
+                        .setProgress(true)
+                        .setDialogueTree('ClothesShop')
+                        .setDialogueBranch('scarlettDressCowGetDress')
+                        .setOnComplete(() => {
+                            GAME.clothes.getClothes('RabbitDressScarlett').unlock();
+                        });
+                    scarlettDressCow
+                        .addSubQuest('End')
+                        .setCondition(false)
+                        .setProgress(true)
+                        .setDialogueTree('ClothesShop')
+                        .setDialogueBranch('scarlettDressCowEnd');
+                })();
 
+                // Milk Shortage
+                (() => {
+                    let milkShortage = GAME.quest.addQuest('milkShortage', "The Milk Shortage", false)
+                        .setStart('Start')
+                        .setEnd('End');
+                    milkShortage
+                        .addSubQuest('Start')
+                        .setCondition(() => {
+                            return GAME.girl.getGirl('Scarlett').getClothes().getID() === "HucowScarlett";
+                        })
+                        .setProgress(true)
+                        .setMapKey("TownMayor")
+                        .setDialogueTree('TownMayor')
+                        .setDialogueBranch('milkShortageStart');
+                    milkShortage
+                        .addSubQuest('End')
+                        .setCondition(() => {
+                            return GAME.quest.isComplete('milkShortage', 'Start');
+                        })
+                        .setProgress(() => {
+                            return GAME.girl.getGirl('Scarlett').getClothes().getID() === "HucowScarlett";
+                        })
+                        .setMapKey("CafeteriaButton")
+                        .setDialogueTree('SchoolCafeteria')
+                        .setDialogueBranch('milkShortageEnd')
+                        .setLogDescription("Have Scarlett visit the University cafeteria")
+                        .setLogProgress(() => {
+                            if (GAME.girl.getGirl('Scarlett').getClothes().getID() !== "HucowScarlett") {
+                                return "Scarlett needs to be wearing her cow outfit for this quest."
+                            } else {
+                                return "";
+                            }
+                        })
+                        .setOnComplete(() => {
+                            GAME.girl.getGirl('Scarlett').gainExp(400);
+                        })
+                })();
+
+                // Rabbit Torment
+                (() => {
+                    let rabbitTorment = GAME.quest.addQuest('rabbitTorment', "Scarlett's New Dress", false)
+                        .setStart('Start')
+                        .setEnd('Start');
+                    rabbitTorment
+                        .addSubQuest('Start')
+                        .setCondition(() => {
+                            return GAME.girl.getGirl('Scarlett').getClothes().getID() === "RabbitDressScarlett";
+                        })
+                        .setProgress(() => {
+                            return GAME.girl.getGirl('Scarlett').getClothes().getID() === "RabbitDressScarlett";
+                        })
+                        .setMapKey("AviaSlums")
+                        .setDialogueTree('AviaSlums')
+                        .setDialogueBranch('rabbitTormentStart')
+                        .setOnComplete(() => {
+                            GAME.addGold(800);
+                        })
+                })();
             })();
             // Ardura
+            (() => {
+
+            })();
+            // Natasha
             (() => {
 
             })();
@@ -1199,6 +1483,18 @@ class QuestManager {
         this.quests[id] = new Quest(id, name, important);
 
         return this.quests[id];
+    }
+
+    /**
+     * @method removeQuest
+     * @memberOf QuestManager
+     * @instance
+     * @param {string} id
+     */
+    removeQuest(id) {
+        delete this.quests[id];
+
+        return this;
     }
 
     /**
@@ -1370,6 +1666,18 @@ class Quest {
         this.subquests[id] = new SubQuest(id)._setQuest(this);
 
         return this.subquests[id];
+    }
+
+    /**
+     * @method removeSubQuest
+     * @memberOf Quest
+     * @param {string} id
+     * @returns {Quest}
+     */
+    removeSubQuest(id) {
+        delete this.subquests[id];
+
+        return this;
     }
 
     /**

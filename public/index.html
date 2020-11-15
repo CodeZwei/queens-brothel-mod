@@ -14,5 +14,10 @@
 <body>
 <div id="QueensBrothelWindow"></div>
 </body>
-<script src="boot.js"></script>
+<script src="js/game.min.js"></script>
+<script type="text/javascript">
+    globalEvents.on('postBoot', () => {
+        $.getScript("js/mod.js")
+    });
+</script>
 </html>

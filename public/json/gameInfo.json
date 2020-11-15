@@ -1,0 +1,100 @@
+{
+  "newGame": true,
+  "bossToday": false,
+  "brothelToday": false,
+  "gold": 0,
+  "day": 1,
+  "houseCapacity": 1,
+  "houseUpgrades": 0,
+  "clothes": {},
+  "bosses": {},
+  "quests": {
+    "firstStaminaGain": false
+  },
+  "girl": {
+    "Queen": {
+      "Unlocked": true,
+      "Clothes": "DefaultQueen",
+      "Morals": 0,
+      "GuysFucked": 0,
+      "Stamina": 3,
+      "EXP": 0,
+      "Stats": {
+        "Throat": 0,
+        "Pussy": 0,
+        "Tits": 0,
+        "Anal": 0
+      }
+    },
+    "Suki": {
+      "Unlocked": false,
+      "Clothes": "DefaultSuki",
+      "Morals": -3,
+      "GuysFucked": 0,
+      "Stamina": 3,
+      "EXP": 0,
+      "Stats": {
+        "Throat": 0,
+        "Pussy": 0,
+        "Tits": 0,
+        "Anal": 0
+      }
+    },
+    "Esxea": {
+      "Unlocked": false,
+      "Clothes": "DefaultEsxea",
+      "Morals": -1,
+      "GuysFucked": 0,
+      "Stamina": 3,
+      "EXP": 0,
+      "Stats": {
+        "Throat": 0,
+        "Pussy": 0,
+        "Tits": 0,
+        "Anal": 0
+      }
+    },
+    "Scarlett": {
+      "Unlocked": false,
+      "Clothes": "DefaultScarlett",
+      "Morals": 4,
+      "GuysFucked": 0,
+      "Stamina": 3,
+      "EXP": 0,
+      "Stats": {
+        "Throat": 0,
+        "Pussy": 0,
+        "Tits": 0,
+        "Anal": 0
+      }
+    },
+    "Ardura": {
+      "Unlocked": false,
+      "Clothes": "DefaultArdura",
+      "Morals": 1,
+      "GuysFucked": 0,
+      "Stamina": 3,
+      "EXP": 0,
+      "Stats": {
+        "Throat": 0,
+        "Pussy": 0,
+        "Tits": 0,
+        "Anal": 0
+      }
+    },
+    "Natasha": {
+      "Unlocked": false,
+      "Clothes": "DefaultNatasha",
+      "Morals": 2,
+      "GuysFucked": 0,
+      "Stamina": 3,
+      "EXP": 0,
+      "Stats": {
+        "Throat": 0,
+        "Pussy": 0,
+        "Tits": 0,
+        "Anal": 0
+      }
+    }
+  }
+}
