@@ -10,8 +10,8 @@
 
 // Please keep your code inside this function to prevent messing with global variables.
 (() => {
-    let mod = new Mod("MyMod");
-    mod.name = "My Mod";
+    let mod = new Mod("titFlapQueen");
+    mod.name = "Tit Flap Queen";
 
     /**
      * How to load your own images.
