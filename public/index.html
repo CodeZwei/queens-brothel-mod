@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Queen's Brothel</title>
@@ -11,13 +12,17 @@
     </style>
     <script src="js/jquery.js"></script>
 </head>
+
 <body>
-<div id="QueensBrothelWindow"></div>
+    <div id="QueensBrothelWindow"></div>
 </body>
 <script src="js/game.min.js"></script>
 <script type="text/javascript">
     globalEvents.on('postBoot', () => {
-        $.getScript("js/mod.js")
+        $.getScript("js/mod.js");
+        $.getScript("js/honey.js");
+        $.getScript("js/nid.js");
     });
 </script>
+
 </html>
