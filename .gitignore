@@ -1,2 +1,11 @@
-/node_modules/
+# Editor Configs
 /.idea/
+
+# Dependencies
+/node_modules/
+
+# OS Files
+.DS_Store
+
+# Built files
+/dist/
