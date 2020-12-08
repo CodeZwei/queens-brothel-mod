@@ -16,7 +16,7 @@ Run this command in the terminal to start the local server!
 
 Navigate to the [web server](http://localhost:3000) in your browser:
 
-`http://localhost:5000`
+`http://localhost:3000`
 
 Open the mod.js file and start writing your code!
 
