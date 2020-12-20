@@ -2,7 +2,7 @@ const gulp = require('gulp');
 const del = require('del');
 const zip = require('gulp-zip');
 
-const config = require('./build/config.json')
+const config = require('./build/config.json');
 
 gulp.task('delDist', () => {
     return del(['dist']);
@@ -24,7 +24,7 @@ gulp.task('moveConfigAndMod', () => {
 
 gulp.task('zipFiles', () => {
     return gulp.src('temp/**')
-        .pipe(zip(`${config.id}-${config.version}`))
+        .pipe(zip(`${config.id}-${config.version}.zip`))
         .pipe(gulp.dest('dist'));
 });
 
